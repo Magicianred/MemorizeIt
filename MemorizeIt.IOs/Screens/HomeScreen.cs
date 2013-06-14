@@ -82,9 +82,12 @@ namespace MemorizeIt.IOs.Screens {
 			dialod.Show ();
 
 			dialod.Clicked += (sender,e) => {
-				var result = trainer.Validate (dialod.GetTextField (0).Text);
-				if (result)
-					PopulateTable ();
+				if (e.ButtonIndex == 0) {
+					trainer.Clear ();
+					return;
+				}
+				trainer.Validate (dialod.GetTextField (0).Text);
+				PopulateTable ();
 			};
 
 		}

@@ -29,7 +29,9 @@ namespace MemorizeIt.MemoryTrainers
             currentQuestionAndAnswer = this.randomizer.GetRandomUnsuccessItem();
             return currentQuestionAndAnswer.Question;
         }
-
+		public void Clear(){
+			currentQuestionAndAnswer = null;
+		}
         public bool Validate(string answer)
         {
             if(currentQuestionAndAnswer==null)
