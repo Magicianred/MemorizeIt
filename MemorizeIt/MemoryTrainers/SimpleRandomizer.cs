@@ -23,7 +23,7 @@ namespace MemorizeIt.MemoryTrainers
             var ind = random.Next(0, items.Count - 1);
             var item = items[ind];
 
-            var questionIndex = random.Next(0, 1);
+            var questionIndex = random.Next(0, 2);
             return new QuestionAndAnswer(item.Id, item.Values[questionIndex], item.Values[1 - questionIndex]);
         }
     }
