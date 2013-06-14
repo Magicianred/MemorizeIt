@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FileMemoryStorage</RootNamespace>
     <AssemblyName>FileMemoryStorage</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MemorizeIt\MemorizeIt.csproj">
-      <Project>{7f3d6881-b625-4fb9-bd12-f122100ef6fa}</Project>
+      <Project>{7F3D6881-B625-4FB9-BD12-F122100EF6FA}</Project>
       <Name>MemorizeIt</Name>
     </ProjectReference>
   </ItemGroup>

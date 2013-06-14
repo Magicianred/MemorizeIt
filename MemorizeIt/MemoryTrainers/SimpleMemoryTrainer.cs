@@ -11,7 +11,10 @@ namespace MemorizeIt.MemoryTrainers
     {
         private readonly IMemoryStorage storage;
         private readonly IRandomizer randomizer;
-
+		public SimpleMemoryTrainer(IMemoryStorage storage){
+			this.storage = storage;
+			this.randomizer = new SimpleRandomizer (this.storage);
+		}
         public SimpleMemoryTrainer(IMemoryStorage storage, IRandomizer randomizer)
         {
             this.storage = storage;
@@ -36,6 +39,7 @@ namespace MemorizeIt.MemoryTrainers
                 this.storage.Success(currentQuestionAndAnswer.Id);
             else
                 this.storage.Fail(currentQuestionAndAnswer.Id);
+			currentQuestionAndAnswer = null;
             return result;
         }
 
