@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using MemorizeIt.MemoryStorage;
@@ -9,6 +10,10 @@ using GoogleMemorySupplier;
 using FileMemoryStorage;
 using MemorizeIt.MemoryTrainers;
 using MemorizeIt.IOs.ApplicationLayer;
+using System.Threading.Tasks;
+using MemorizeIt.Model;
+
+
 namespace MemorizeIt.IOs.Screens {
 
 	/// <summary>
@@ -21,6 +26,7 @@ namespace MemorizeIt.IOs.Screens {
 		// MonoTouch.Dialog individual TaskDetails view (uses /AL/TaskDialog.cs wrapper class)
 		BindingContext context;
 		DialogViewController detailsScreen;
+		LoadingOverlay loadingOverlay;
 		private readonly IMemoryStorage store;
 		private readonly SimpleMemoryTrainer trainer;
 		public HomeScreen () : base (UITableViewStyle.Plain, null)
@@ -56,12 +62,23 @@ namespace MemorizeIt.IOs.Screens {
 			dialod.Clicked += (sender,e) => {
 				if(e.ButtonIndex==0)
 					return;
-				var supplier = new GoogleMemorySourceSupplier ("MemorizeIt", 
-				                                               dialod.GetTextField(0).Text, 
-				                                               dialod.GetTextField(1).Text);
-				var data = supplier.Download ();
-				this.store.Store (data);
-				PopulateTable ();
+				loadingOverlay = new LoadingOverlay (UIScreen.MainScreen.Bounds);
+				View.Add (loadingOverlay);
+				var supplierParams=new string[]{"MemorizeIt", dialod.GetTextField (0).Text, dialod.GetTextField (1).Text};
+				Task.Factory.StartNew(()=>{
+					try{
+						var supplier = CreateSourceSupplier (supplierParams);
+						var data = supplier.Download ();
+						this.store.Store (data);
+				this.InvokeOnMainThread(()=>
+						                        PopulateTable ());
+					}catch(Exception downloadException){
+						this.InvokeOnMainThread(()=>
+						new UIAlertView("Error", downloadException.Message,null, "OK", null).Show());
+					}
+					this.InvokeOnMainThread(()=>
+					                        loadingOverlay.Hide ());
+				});
 			};
 
 
@@ -70,6 +87,16 @@ namespace MemorizeIt.IOs.Screens {
 		protected void Train(){
 			ShowQuestion (trainer.GetQuestion());
 
+		}
+
+		protected IMemorySourceSupplier CreateSourceSupplier (params string[] supplierParameters)
+		{
+			return new GoogleMemorySourceSupplier (supplierParameters[0],supplierParameters[1],supplierParameters[2]);
+			/*return new SimpleMemorySourceSupplier (new MemoryItem[]{
+				new MemoryItem("q1","a1"),
+				new MemoryItem("q2","a2"),
+				new MemoryItem("q3","a3")
+			});*/
 		}
 
 		protected void ShowQuestion(string s){
@@ -86,8 +113,21 @@ namespace MemorizeIt.IOs.Screens {
 					trainer.Clear ();
 					return;
 				}
-				trainer.Validate (dialod.GetTextField (0).Text);
+				var answer=dialod.GetTextField (0).Text;
+				var result =trainer.Validate (answer);
 				PopulateTable ();
+
+
+
+				if(result){
+					new UIAlertView("Well Done!", string.Format("'{0}' is correct answer",answer),null, "OK", null).Show();
+
+				}else{
+					new UIAlertView("Sorry", string.Format("'{0}' is correct answer on question '{2}'. Your answer was '{1}'",answer, trainer.GetAnswer(),s),null, "OK", null).Show();
+				}
+				trainer.Clear();
+				if(!trainer.IsQuestionsAvalible())
+					new UIAlertView("Well Done!", "You are done with all your questions",null, "OK", null).Show();
 			};
 
 		}

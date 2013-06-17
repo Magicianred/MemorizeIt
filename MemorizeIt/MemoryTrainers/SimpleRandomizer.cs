@@ -19,8 +19,10 @@ namespace MemorizeIt.MemoryTrainers
 
         public QuestionAndAnswer GetRandomUnsuccessItem()
         {
-            var items = store.Items;
-            var ind = random.Next(0, items.Count - 1);
+			var items = store.Items.Where (i=>!i.IsAccomplished).ToList();
+			if (items.Count == 0)
+				return null;
+            var ind = random.Next(0, items.Count);
             var item = items[ind];
 
             var questionIndex = random.Next(0, 2);

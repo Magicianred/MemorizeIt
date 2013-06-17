@@ -22,13 +22,17 @@ namespace MemorizeIt.MemoryTrainers
         }
 
         public string GetQuestion()
-        {
-            if (currentQuestionAndAnswer != null)
-                throw new InvalidOperationException("question is not empty, can't start new one");
+		{
+			if (currentQuestionAndAnswer != null)
+				throw new InvalidOperationException ("question is not empty, can't start new one");
             
-            currentQuestionAndAnswer = this.randomizer.GetRandomUnsuccessItem();
-            return currentQuestionAndAnswer.Question;
-        }
+			currentQuestionAndAnswer = this.randomizer.GetRandomUnsuccessItem ();
+
+			if (currentQuestionAndAnswer == null)
+				throw new InvalidOperationException ("no avalible questions for you");
+
+			return currentQuestionAndAnswer.Question;
+		}
 		public void Clear(){
 			currentQuestionAndAnswer = null;
 		}
@@ -41,10 +45,19 @@ namespace MemorizeIt.MemoryTrainers
                 this.storage.Success(currentQuestionAndAnswer.Id);
             else
                 this.storage.Fail(currentQuestionAndAnswer.Id);
-			currentQuestionAndAnswer = null;
+
             return result;
         }
+		public string GetAnswer(){
+			if(currentQuestionAndAnswer==null)
+				throw new InvalidOperationException("question is empty");
+			return currentQuestionAndAnswer.Answer;
+		}
 
+		public bool IsQuestionsAvalible(){
+			var testQuestion = randomizer.GetRandomUnsuccessItem ();
+			return testQuestion != null;
+		}
         private bool Validate(string answer, string correctAnswer)
         {
             return

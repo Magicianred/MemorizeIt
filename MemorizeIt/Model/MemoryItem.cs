@@ -8,7 +8,7 @@ namespace MemorizeIt.Model
 {
     public class MemoryItem
     {
-        public MemoryItem(string[] values)
+        public MemoryItem(params string[] values)
         {
             Id = Guid.NewGuid();
             Values = values;
@@ -29,7 +29,7 @@ namespace MemorizeIt.Model
         
 
         public bool IsAccomplished {
-            get { return SuccessCount < SuccessCountForAccomplish; }
+            get { return SuccessCount == SuccessCountForAccomplish; }
         }
         public int SuccessCount { get; private set; }
 
