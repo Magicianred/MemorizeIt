@@ -21,7 +21,7 @@ namespace MemorizeIt.MemoryTrainers
             this.randomizer = randomizer;
         }
 
-        public string GetQuestion()
+        public void PickQuestion()
 		{
 			if (currentQuestionAndAnswer != null)
 				throw new InvalidOperationException ("question is not empty, can't start new one");
@@ -30,12 +30,12 @@ namespace MemorizeIt.MemoryTrainers
 
 			if (currentQuestionAndAnswer == null)
 				throw new InvalidOperationException ("no avalible questions for you");
-
-			return currentQuestionAndAnswer.Question;
 		}
+
 		public void Clear(){
 			currentQuestionAndAnswer = null;
 		}
+
         public bool Validate(string answer)
         {
             if(currentQuestionAndAnswer==null)
@@ -48,16 +48,20 @@ namespace MemorizeIt.MemoryTrainers
 
             return result;
         }
-		public string GetAnswer(){
-			if(currentQuestionAndAnswer==null)
-				throw new InvalidOperationException("question is empty");
-			return currentQuestionAndAnswer.Answer;
-		}
+
+        public QuestionAndAnswer CurrentQuestion
+        {
+            get
+            {
+                return currentQuestionAndAnswer;
+            }
+        }
 
 		public bool IsQuestionsAvalible(){
 			var testQuestion = randomizer.GetRandomUnsuccessItem ();
 			return testQuestion != null;
 		}
+
         private bool Validate(string answer, string correctAnswer)
         {
             return

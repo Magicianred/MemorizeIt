@@ -21,10 +21,20 @@ namespace MemorizeIt.Tests
             SimpleMemoryTrainer target = CreateSimpleMemoryTrainer("q", "a");
 
             // act
-            var question = target.GetQuestion();
+            target.PickQuestion();
 
             // assert
-            Assert.That(question, Is.EqualTo("q"));
+            Assert.That(target.CurrentQuestion.Question, Is.EqualTo("q"));
+        }
+
+        [Test]
+        public void GetQuestion_When_Current_question_is_empty_storage_is_empty_Then_InvalidOperationException()
+        {
+            // arrange
+            SimpleMemoryTrainer target = CreateSimpleMemoryTrainer();
+
+            // act
+            Assert.Throws<InvalidOperationException>(() => target.PickQuestion());
         }
 
         [Test]
@@ -32,9 +42,9 @@ namespace MemorizeIt.Tests
         {
             // arrange
             SimpleMemoryTrainer target = CreateSimpleMemoryTrainer("q", "a");
-            target.GetQuestion();
+            target.PickQuestion();
             // act
-            Assert.Throws<InvalidOperationException>(() => target.GetQuestion());
+            Assert.Throws<InvalidOperationException>(() => target.PickQuestion());
         }
 
         [Test]
@@ -43,7 +53,7 @@ namespace MemorizeIt.Tests
             // arrange
             var storageMock = new Mock<IMemoryStorage>();
             SimpleMemoryTrainer target = CreateSimpleMemoryTrainer(storageMock.Object,"q", "a");
-            target.GetQuestion();
+            target.PickQuestion();
             // act
             var result = target.Validate("a");
 
@@ -57,7 +67,7 @@ namespace MemorizeIt.Tests
             // arrange
             var storageMock = new Mock<IMemoryStorage>();
             SimpleMemoryTrainer target = CreateSimpleMemoryTrainer(storageMock.Object, "q", "a");
-            target.GetQuestion();
+            target.PickQuestion();
             // act
             var result = target.Validate("c");
 
@@ -73,6 +83,51 @@ namespace MemorizeIt.Tests
             // act
             Assert.Throws<InvalidOperationException>(() => target.Validate("a"));
         }
+
+        [Test]
+        public void Clear_When_current_question_is_present_Then_current_question_is_reset()
+        {
+            // arrange
+            SimpleMemoryTrainer target = CreateSimpleMemoryTrainer("q","a");
+            target.PickQuestion();
+            // act
+            target.Clear();
+
+            // assert
+            Assert.That(target.CurrentQuestion, Is.EqualTo(null));
+        }
+
+        [Test]
+        public void IsQuestionsAvalible_When_StorageIsEmpty_Then_False_is_returned()
+        {
+            // arrange
+            SimpleMemoryTrainer target = CreateSimpleMemoryTrainer();
+
+            // act
+            var result = target.IsQuestionsAvalible();
+
+            // assert
+            Assert.That(result, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void IsQuestionsAvalible_When_storage_is_not_empty_Then_True_is_returned()
+        {
+            // arrange
+            SimpleMemoryTrainer target = CreateSimpleMemoryTrainer("q","q");
+
+            // act
+            var result =target.IsQuestionsAvalible();
+
+            // assert
+            Assert.That(result, Is.EqualTo(true));
+        }
+
+        private SimpleMemoryTrainer CreateSimpleMemoryTrainer()
+        {
+            return new SimpleMemoryTrainer(new Mock<IMemoryStorage>().Object, new Mock<IRandomizer>().Object);
+        }
+
         private SimpleMemoryTrainer CreateSimpleMemoryTrainer(string q, string a)
         {
             return CreateSimpleMemoryTrainer(new Mock<IMemoryStorage>().Object, q, a);
