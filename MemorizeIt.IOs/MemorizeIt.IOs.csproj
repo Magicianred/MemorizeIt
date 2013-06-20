@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -82,11 +82,9 @@
     <Compile Include="ApplicationLayer\TaskDialog.cs" />
     <Compile Include="LoadingOverlay.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Screens\" />
-    <Folder Include="ApplicationLayer\" />
-    <Folder Include="Resources\" />
+    <BundleResource Include="Resources\brain-144.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -112,5 +110,26 @@
       <Project>{7F3D6881-B625-4FB9-BD12-F122100EF6FA}</Project>
       <Name>MemorizeIt</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\brain-57.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\brain-114.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\brain-72.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\brain-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\brain-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\brain-29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\brain-58.png" />
   </ItemGroup>
 </Project>

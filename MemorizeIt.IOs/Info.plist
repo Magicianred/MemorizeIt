@@ -4,14 +4,14 @@
 <dict>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Resources/icon-57.png</string>
-		<string>Resources/icon-114.png</string>
+		<string>Resources/brain-57.png</string>
 		<string>Resources/icon-72.png</string>
 		<string>Resources/icon-29.png</string>
 		<string>Resources/icon-58.png</string>
 		<string>Resources/icon-50.png</string>
 		<string>Resources/icon-144.png</string>
 		<string>Resources/icon-100.png</string>
+		<string>Resources/brain-114.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.xamarin.samples.memorizeitios</string>
@@ -35,5 +35,13 @@
 	</array>
 	<key>CFBundleDisplayName</key>
 	<string>MemorizeIt.IOs</string>
+	<key>MinimumOSVersion</key>
+	<string></string>
+	<key>NSMainNibFile</key>
+	<string></string>
+	<key>NSMainNibFile~ipad</key>
+	<string></string>
+	<key>MKDirectionsApplicationSupportedModes</key>
+	<array/>
 </dict>
 </plist>
