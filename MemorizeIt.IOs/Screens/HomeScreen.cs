@@ -28,6 +28,7 @@ namespace MemorizeIt.IOs.Screens {
         private BindingContext context;
         private DialogViewController detailsScreen;
         private LoadingOverlay loadingOverlay;
+		private UIBarButtonItem btnTrain;
         private readonly IMemoryStorage store;
         private readonly SimpleMemoryTrainer trainer;
 
@@ -40,18 +41,19 @@ namespace MemorizeIt.IOs.Screens {
         }
 
         protected void Initialize()
-        {
-            NavigationItem.SetRightBarButtonItem(
-                new UIBarButtonItem("Upadate",
+		{
+			NavigationItem.SetRightBarButtonItem (
+				new UIBarButtonItem ("Upadate",
 
-                                    UIBarButtonItemStyle.Plain,
-                                    (sender, e) => Upload()), false);
-            NavigationItem.SetLeftBarButtonItem(
-                new UIBarButtonItem("Train",
+			                                 UIBarButtonItemStyle.Plain,
+			                                 (sender, e) => Upload ()), false);
+			this.btnTrain =
+				new UIBarButtonItem ("Train",
 
-                                    UIBarButtonItemStyle.Plain,
-                                    (sender, e) => Train()), false);
-        }
+			                      UIBarButtonItemStyle.Plain,
+			                      (sender, e) => Train ());
+			NavigationItem.SetLeftBarButtonItem (btnTrain, false);
+		}
 
         protected void Upload()
         {
@@ -147,8 +149,7 @@ namespace MemorizeIt.IOs.Screens {
                                             trainer.CurrentQuestion.Answer, s), null, "OK", null).Show();
                     }
                     trainer.Clear();
-                    if (!trainer.IsQuestionsAvalible())
-                        new UIAlertView("Well Done!", "You are done with all your questions", null, "OK", null).Show();
+                   
                 };
 
         }
@@ -177,7 +178,15 @@ namespace MemorizeIt.IOs.Screens {
                         items
                     };
             }
-        }
+
+			if (!trainer.IsQuestionsAvalible ()) {
+				new UIAlertView ("Well Done!", "You are done with all your questions", null, "OK", null).Show ();
+
+				btnTrain.Enabled = false;
+			} else {
+				btnTrain.Enabled = true;
+			}
+		}
 
         public override Source CreateSizingSource(bool unevenRows)
         {

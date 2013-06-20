@@ -5,12 +5,12 @@
 	<key>CFBundleIconFiles</key>
 	<array>
 		<string>Resources/brain-57.png</string>
-		<string>Resources/icon-72.png</string>
-		<string>Resources/icon-29.png</string>
-		<string>Resources/icon-58.png</string>
-		<string>Resources/icon-50.png</string>
-		<string>Resources/icon-144.png</string>
-		<string>Resources/icon-100.png</string>
+		<string>brain-72</string>
+		<string>brain-29</string>
+		<string>brain-58</string>
+		<string>brain-50</string>
+		<string>brain-144</string>
+		<string>brain-100</string>
 		<string>Resources/brain-114.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
@@ -34,9 +34,9 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>MemorizeIt.IOs</string>
+	<string>MemorizeIt</string>
 	<key>MinimumOSVersion</key>
-	<string></string>
+	<string>3.0</string>
 	<key>NSMainNibFile</key>
 	<string></string>
 	<key>NSMainNibFile~ipad</key>

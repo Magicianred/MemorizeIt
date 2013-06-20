@@ -5,10 +5,9 @@
       <File FileName="Screens/HomeScreen.cs" Line="88" Column="6" />
       <File FileName="ApplicationLayer/EditingSource.cs" Line="1" Column="1" />
       <File FileName="ApplicationLayer/TaskDialog.cs" Line="1" Column="1" />
-      <File FileName="../MemorizeIt/MemoryTrainers/SimpleMemoryTrainer.cs" Line="44" Column="4" />
+      <File FileName="../MemorizeIt/MemoryTrainers/SimpleMemoryTrainer.cs" Line="1" Column="1" />
       <File FileName="../../Downloads/Tasky/iOS/TaskyiOS/ApplicationLayer/EditingSource.cs" Line="1" Column="1" />
       <File FileName="AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="Info.plist" />
       <File FileName="Main.cs" Line="1" Column="1" />
       <File FileName="../MemorizeIt/MemoryTrainers/SimpleRandomizer.cs" Line="1" Column="1" />
     </Files>
