@@ -35,7 +35,7 @@ namespace MemorizeIt.IOs.ApplicationLayer {
 			var element = section [indexPath.Row] as StringElement;
 			section.Remove (element);
 
-			var dvc = Container as Screens.HomeScreen;
+		//	var dvc = Container as Screens.HomeScreen;
 			//dvc.DeleteTaskRow (indexPath.Row);
 		}
 	}

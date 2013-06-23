@@ -12,6 +12,8 @@ using MemorizeIt.MemoryTrainers;
 using MemorizeIt.IOs.ApplicationLayer;
 using System.Threading.Tasks;
 using MemorizeIt.Model;
+using System.Drawing;
+using MemorizeIt.IOs.Controls;
 
 
 namespace MemorizeIt.IOs.Screens {
@@ -19,99 +21,58 @@ namespace MemorizeIt.IOs.Screens {
     /// <summary>
     /// A UITableViewController that uses MonoTouch.Dialog - displays the list of Tasks
     /// </summary>
-    public class HomeScreen : DialogViewController
+	public class HomeScreen : UIViewController
     {
-        // 
-
-
-        // MonoTouch.Dialog individual TaskDetails view (uses /AL/TaskDialog.cs wrapper class)
-        private BindingContext context;
-        private DialogViewController detailsScreen;
-        private LoadingOverlay loadingOverlay;
-		private UIBarButtonItem btnTrain;
+     
+		private UIButton btnTrain;
+		private UITableView table;
         private readonly IMemoryStorage store;
         private readonly SimpleMemoryTrainer trainer;
 
         public HomeScreen()
-            : base(UITableViewStyle.Plain, null)
+            : base()
         {
-            Initialize();
-            this.store = new FileSystemMemoryStorage();
-            this.trainer = new SimpleMemoryTrainer(this.store);
+			this.store = new FileSystemMemoryStorage();
+			this.trainer = new SimpleMemoryTrainer(this.store);
+			Initialize();
         }
+
 
         protected void Initialize()
 		{
-			NavigationItem.SetRightBarButtonItem (
-				new UIBarButtonItem ("Upadate",
+			
+			this.TabBarItem.Title="Memories";
+		
 
-			                                 UIBarButtonItemStyle.Plain,
-			                                 (sender, e) => Upload ()), false);
-			this.btnTrain =
-				new UIBarButtonItem ("Train",
 
-			                      UIBarButtonItemStyle.Plain,
-			                      (sender, e) => Train ());
-			NavigationItem.SetLeftBarButtonItem (btnTrain, false);
+		/*	Root = new RootElement("Memories")
+			{
+				section
+			};*/
 		}
 
-        protected void Upload()
-        {
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			table = new UITableView ();
+			View.AddSubview (table);
 
-            var dialod = new UIAlertView("Enter credentials", "Document path", null, "Cancel", null);
+			
+			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
+			btnTrain.SetTitle ("Train", UIControlState.Normal);
+			btnTrain.TouchUpInside += (sender,e) => Train ();
 
-            dialod.AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput;
-            dialod.AddButton("Upload");
-
-            dialod.Show();
-
-            dialod.Clicked += (sender, e) =>
-                {
-                    if (e.ButtonIndex == 0)
-                        return;
-                    loadingOverlay = new LoadingOverlay(UIScreen.MainScreen.Bounds);
-                    View.Add(loadingOverlay);
-                    var supplierParams = new string[]
-                        {"MemorizeIt", dialod.GetTextField(0).Text, dialod.GetTextField(1).Text};
-
-                    Task.Factory.StartNew(() =>
-                        {
-                            try
-                            {
-                                var supplier = CreateSourceSupplier(supplierParams);
-                                var data = supplier.Download();
-                                this.store.Store(data);
-                                this.InvokeOnMainThread(PopulateTable);
-                            }
-                            catch (Exception downloadException)
-                            {
-                                this.InvokeOnMainThread(() =>
-                                                        new UIAlertView("Error", downloadException.Message, null, "OK",
-                                                                        null).Show());
-                            }
-                            this.InvokeOnMainThread(() =>
-                                                    loadingOverlay.Hide());
-                        });
-                };
+			View.AddSubview (btnTrain);
 
 
-        }
+			btnTrain.SizeToFit ();
+		}
 
         protected void Train()
         {
             trainer.PickQuestion();
             ShowQuestion(trainer.CurrentQuestion.Question);
 
-        }
-
-        protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
-        {
-            return new GoogleMemorySourceSupplier(supplierParameters[0], supplierParameters[1], supplierParameters[2]);
-            /*return new SimpleMemorySourceSupplier (new MemoryItem[]{
-                new MemoryItem("q1","a1"),
-                new MemoryItem("q2","a2"),
-                new MemoryItem("q3","a3")
-            });*/
         }
 
         protected void ShowQuestion(string s)
@@ -153,31 +114,16 @@ namespace MemorizeIt.IOs.Screens {
                 };
 
         }
-
-        public override void ViewWillAppear(bool animated)
-        {
-            base.ViewWillAppear(animated);
-
-            // reload/refresh
-            PopulateTable();
-        }
-
         protected void PopulateTable()
         {
             var memories = store.Items;
             if (memories != null)
             {
-                var items = new Section();
-                items.Add(from t in memories
-                          select
-                              (Element)
-                              new StringElement(string.Format("{1}({0})", t.SuccessCount, t.Values[0]), t.Values[1]));
+				var tableSource = new TableSource (memories);
 
-                Root = new RootElement("Memories")
-                    {
-                        items
-                    };
-            }
+				table.Source = tableSource;
+
+			}
 
 			if (!trainer.IsQuestionsAvalible ()) {
 				new UIAlertView ("Well Done!", "You are done with all your questions", null, "OK", null).Show ();
@@ -188,10 +134,5 @@ namespace MemorizeIt.IOs.Screens {
 			}
 		}
 
-        public override Source CreateSizingSource(bool unevenRows)
-        {
-            return new EditingSource(this);
-        }
-
-    }
+	}
 }

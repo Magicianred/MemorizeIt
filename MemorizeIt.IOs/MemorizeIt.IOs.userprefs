@@ -1,15 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Screens/HomeScreen.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Countrols/TableSource.cs">
     <Files>
-      <File FileName="Screens/HomeScreen.cs" Line="88" Column="6" />
-      <File FileName="ApplicationLayer/EditingSource.cs" Line="1" Column="1" />
-      <File FileName="ApplicationLayer/TaskDialog.cs" Line="1" Column="1" />
-      <File FileName="../MemorizeIt/MemoryTrainers/SimpleMemoryTrainer.cs" Line="1" Column="1" />
-      <File FileName="../../Downloads/Tasky/iOS/TaskyiOS/ApplicationLayer/EditingSource.cs" Line="1" Column="1" />
-      <File FileName="AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="Main.cs" Line="1" Column="1" />
-      <File FileName="../MemorizeIt/MemoryTrainers/SimpleRandomizer.cs" Line="1" Column="1" />
+      <File FileName="Screens/HomeScreen.cs" Line="127" Column="31" />
+      <File FileName="../MemorizeIt/Model/MemoryItem.cs" Line="1" Column="1" />
+      <File FileName="AppDelegate.cs" Line="28" Column="38" />
+      <File FileName="Screens/UpdateController.cs" Line="10" Column="26" />
+      <File FileName="Countrols/TableSource.cs" Line="4" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MemorizeIt.IOs.Screens;
 
 namespace MemorizeIt.IOs {
 	[Register ("AppDelegate")]
@@ -10,7 +11,7 @@ namespace MemorizeIt.IOs {
 		// class-level declarations
 		UIWindow window;
 		UINavigationController navController;
-		UITableViewController homeViewController;
+		TabBarController tabController;
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
@@ -19,21 +20,29 @@ namespace MemorizeIt.IOs {
 			
 			// make the window visible
 			window.MakeKeyAndVisible ();
-			
+
 			// create our nav controller
 			navController = new UINavigationController ();
 
-			// create our home controller based on the device
-			if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone) {
-				homeViewController = new Screens.HomeScreen();
-			} else {
-// sample does not contain an iPad UI, so re-use the iPhone one for now
-				homeViewController = new Screens.HomeScreen ();
-			}
+			var tab1 = new HomeScreen();
+			var tab2 = new UpdateController();
+
+			var tabBarController = new UITabBarController ();
+			tabBarController.ViewControllers = new UIViewController [] {
+				tab1,
+				tab2,
+			};
+
+			window.RootViewController = tabBarController;
+
+
+			/*ViewControllers = tabs;
+			tabController = new TabBarController ();*/
+
 			
 			// push the view controller onto the nav controller and show the window
-			navController.PushViewController(homeViewController, false);
-			window.RootViewController = navController;
+		//	navController.PushViewController(tabController, false);
+			//window.RootViewController = navController;
 			window.MakeKeyAndVisible ();
 			
 			return true;
