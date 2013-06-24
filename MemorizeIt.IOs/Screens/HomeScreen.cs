@@ -39,47 +39,39 @@ namespace MemorizeIt.IOs.Screens {
 
 
         protected void Initialize()
-		{
-			
-			this.TabBarItem.Title="Memories";
-		
-
-
-		/*	Root = new RootElement("Memories")
-			{
-				section
-			};*/
+		{			
+			this.TabBarItem.Title = "Memories";
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			table = new UITableView ();
-			View.AddSubview (table);
 
+
+			table = new UITableView (new RectangleF (0, 0, View.Frame.Width
+			                                                     , View.Frame.Height - TabBarController.TabBar.Frame.Height));
+			View.AddSubview (table);
 			
 			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
 			btnTrain.SetTitle ("Train", UIControlState.Normal);
 			btnTrain.TouchUpInside += (sender,e) => Train ();
 
 			View.AddSubview (btnTrain);
-
-
 			btnTrain.SizeToFit ();
+
+			PopulateTable ();
 		}
 
         protected void Train()
         {
             trainer.PickQuestion();
             ShowQuestion(trainer.CurrentQuestion.Question);
-
         }
 
         protected void ShowQuestion(string s)
         {
 
             var dialod = new UIAlertView("I have a question for you", s, null, "Skip", null);
-
             dialod.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
             dialod.AddButton("Answer");
 
@@ -106,7 +98,7 @@ namespace MemorizeIt.IOs.Screens {
                     {
                         new UIAlertView("Sorry",
                                         string.Format(
-                                            "'{0}' is correct answer on question '{2}'. Your answer was '{1}'", answer,
+                                            "'{0}' is incorrect answer on question '{2}'. Your answer was '{1}'", answer,
                                             trainer.CurrentQuestion.Answer, s), null, "OK", null).Show();
                     }
                     trainer.Clear();
@@ -122,7 +114,6 @@ namespace MemorizeIt.IOs.Screens {
 				var tableSource = new TableSource (memories);
 
 				table.Source = tableSource;
-
 			}
 
 			if (!trainer.IsQuestionsAvalible ()) {
