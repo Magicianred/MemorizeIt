@@ -57,7 +57,8 @@ namespace MemorizeIt.IOs.Screens {
 			btnTrain.TouchUpInside += (sender,e) => Train ();
 
 			View.AddSubview (btnTrain);
-			btnTrain.SizeToFit ();
+
+			PutButtonAtTheBottomCenter ();
 
 			PopulateTable ();
 		}
@@ -106,6 +107,14 @@ namespace MemorizeIt.IOs.Screens {
                 };
 
         }
+
+		void PutButtonAtTheBottomCenter ()
+		{
+			btnTrain.SizeToFit ();
+			//btnTrain.Frame.Y = View.Frame.Height - TabBarController.TabBar.Frame.Height - btnTrain.Frame.Height;
+			btnTrain.Frame = new RectangleF ((View.Frame.Width - btnTrain.Frame.Width) / 2, View.Frame.Height - TabBarController.TabBar.Frame.Height - btnTrain.Frame.Height, btnTrain.Frame.Width, btnTrain.Frame.Height);
+		}
+
         protected void PopulateTable()
         {
             var memories = store.Items;
