@@ -21,15 +21,18 @@ namespace MemorizeIt.MemoryStorage
 
         public void Store(MemoryTable data)
         {
+			itemHolder.Clear();
             foreach (var memoryItem in data.Items)
             {
                 itemHolder.Add(memoryItem.Id, memoryItem);
             }
+			OnSotrageChanged ();
         }
 
         public void Clear()
         {
             itemHolder.Clear();
+			OnSotrageChanged ();
         }
 
         public MemoryItem Get(Guid id)
@@ -46,11 +49,20 @@ namespace MemorizeIt.MemoryStorage
         public void Success(Guid id)
         {
             itemHolder[id].Upvote();
+			OnSotrageChanged ();
         }
 
         public void Fail(Guid id)
         {
             itemHolder[id].Downvote();
+			OnSotrageChanged ();
         }
+		public event EventHandler SotrageChanged;
+
+		protected void OnSotrageChanged(){
+			var handler = SotrageChanged;
+			if (handler != null)
+				handler (this, EventArgs.Empty);
+		}
     }
 }

@@ -64,7 +64,6 @@ namespace FileMemoryStorage
         public void Store(MemoryTable data)
         {
             StoreInternal(data);
-            memcacheStorage.Clear();
             memcacheStorage.Store(data);
         }
 
@@ -99,5 +98,9 @@ namespace FileMemoryStorage
             memcacheStorage.Fail(id);
             StoreInternal(new MemoryTable(memcacheStorage.Items.ToArray()));
         }
+
+		public event EventHandler SotrageChanged {add{ memcacheStorage.SotrageChanged+= value;}
+			remove{ memcacheStorage.SotrageChanged -= value;}
+		}
     }
 }

@@ -64,11 +64,11 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
-    <Reference Include="FileMemoryStorage">
-      <HintPath>..\FileMemoryStorage\bin\Debug\FileMemoryStorage.dll</HintPath>
-    </Reference>
     <Reference Include="GoogleMemorySupplier">
       <HintPath>..\GoogleMemorySupplier\bin\Debug\GoogleMemorySupplier.dll</HintPath>
+    </Reference>
+    <Reference Include="FileMemoryStorage">
+      <HintPath>..\FileMemoryStorage\bin\Debug\FileMemoryStorage.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -81,7 +81,6 @@
     <Compile Include="ApplicationLayer\EditingSource.cs" />
     <Compile Include="ApplicationLayer\TaskDialog.cs" />
     <Compile Include="LoadingOverlay.cs" />
-    <Compile Include="Screens\TabBarController.cs" />
     <Compile Include="Screens\UpdateController.cs" />
     <Compile Include="Countrols\TableSource.cs" />
   </ItemGroup>
@@ -109,12 +108,6 @@
     <ITunesArtwork Include="Resources\iTunesArtwork.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MemorizeIt\MemorizeIt.csproj">
-      <Project>{7F3D6881-B625-4FB9-BD12-F122100EF6FA}</Project>
-      <Name>MemorizeIt</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\brain-57.png" />
   </ItemGroup>
   <ItemGroup>
@@ -137,5 +130,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Countrols\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MemorizeIt\MemorizeIt.csproj">
+      <Project>{7F3D6881-B625-4FB9-BD12-F122100EF6FA}</Project>
+      <Name>MemorizeIt</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

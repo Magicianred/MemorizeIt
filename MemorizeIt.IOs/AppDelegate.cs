@@ -4,6 +4,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MemorizeIt.IOs.Screens;
+using FileMemoryStorage;
 
 namespace MemorizeIt.IOs {
 	[Register ("AppDelegate")]
@@ -11,7 +12,6 @@ namespace MemorizeIt.IOs {
 		// class-level declarations
 		UIWindow window;
 		UINavigationController navController;
-		TabBarController tabController;
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
@@ -23,9 +23,9 @@ namespace MemorizeIt.IOs {
 
 			// create our nav controller
 			navController = new UINavigationController ();
-
-			var tab1 = new HomeScreen();
-			var tab2 = new UpdateController();
+			var storage = new FileSystemMemoryStorage ();
+			var tab1 = new HomeScreen(storage);
+			var tab2 = new UpdateController(storage);
 
 			var tabBarController = new UITabBarController ();
 			tabBarController.ViewControllers = new UIViewController [] {

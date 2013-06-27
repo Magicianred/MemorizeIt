@@ -29,10 +29,12 @@ namespace MemorizeIt.IOs.Screens {
         private readonly IMemoryStorage store;
         private readonly SimpleMemoryTrainer trainer;
 
-        public HomeScreen()
+		public HomeScreen(IMemoryStorage store)
             : base()
         {
-			this.store = new FileSystemMemoryStorage();
+			this.store = store;
+			this.store.SotrageChanged += (e,s) => {
+				this.InvokeOnMainThread (PopulateTable);};
 			this.trainer = new SimpleMemoryTrainer(this.store);
 			Initialize();
         }
@@ -53,7 +55,7 @@ namespace MemorizeIt.IOs.Screens {
 			View.AddSubview (table);
 			
 			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
-			btnTrain.SetTitle ("Train", UIControlState.Normal);
+			btnTrain.SetTitle ("Try my!", UIControlState.Normal);
 			btnTrain.TouchUpInside += (sender,e) => Train ();
 
 			View.AddSubview (btnTrain);
@@ -62,6 +64,7 @@ namespace MemorizeIt.IOs.Screens {
 
 			PopulateTable ();
 		}
+
 
         protected void Train()
         {
@@ -87,8 +90,6 @@ namespace MemorizeIt.IOs.Screens {
                     }
                     var answer = dialod.GetTextField(0).Text;
                     var result = trainer.Validate(answer);
-                    PopulateTable();
-
                     if (result)
                     {
                         new UIAlertView("Well Done!", string.Format("'{0}' is correct answer", answer), null, "OK", null)
@@ -123,6 +124,7 @@ namespace MemorizeIt.IOs.Screens {
 				var tableSource = new TableSource (memories);
 
 				table.Source = tableSource;
+				table.ReloadData ();
 			}
 
 			if (!trainer.IsQuestionsAvalible ()) {

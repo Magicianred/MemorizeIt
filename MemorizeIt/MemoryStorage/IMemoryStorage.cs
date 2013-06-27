@@ -16,6 +16,8 @@ namespace MemorizeIt.MemoryStorage
 
         void Success(Guid id);
         void Fail(Guid id);
+
+		event EventHandler SotrageChanged;
         //MemoryItem MarkAsAccomplished();
 
 

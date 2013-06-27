@@ -14,10 +14,10 @@ namespace MemorizeIt.IOs.Screens
 		private readonly IMemoryStorage store;
 		private UIButton btnUpdate;
 		private LoadingOverlay loadingOverlay;
-		public UpdateController():base()
+		public UpdateController(IMemoryStorage store):base()
 		{
 			Initialize();
-			this.store = new FileSystemMemoryStorage();
+			this.store = store;
 		}
 		protected void Initialize()
 		{
