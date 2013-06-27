@@ -22,10 +22,10 @@ namespace MemorizeIt.IOs.Controls
 			UITableViewCell cell = tableView.DequeueReusableCell (cellIdentifier);
 			// if there are no cells to reuse, create a new one
 			if (cell == null)
-				cell = new UITableViewCell (UITableViewCellStyle.Default, cellIdentifier);
+				cell = new UITableViewCell (UITableViewCellStyle.Value1, cellIdentifier);
 			var t = tableItems [indexPath.Row];
 			cell.TextLabel.Text = string.Format ("{1}({0})", t.SuccessCount, t.Values [0]);/*, t.Values[1]);*/
-
+			cell.DetailTextLabel.Text = t.Values [1];
 			return cell;
 		}
 	}
