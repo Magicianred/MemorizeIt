@@ -6,6 +6,7 @@ using FileMemoryStorage;
 using System.Threading.Tasks;
 using MemorizeIt.MemorySourceSupplier;
 using GoogleMemorySupplier;
+using System.Drawing;
 
 namespace MemorizeIt.IOs.Screens
 {
@@ -31,18 +32,23 @@ namespace MemorizeIt.IOs.Screens
 			base.ViewDidLoad ();	
 			View.BackgroundColor = UIColor.White;
 			btnUpdate = UIButton.FromType(UIButtonType.RoundedRect);
-			btnUpdate.SetTitle ("Update", UIControlState.Normal);
+			btnUpdate.SetTitle ("Update from my Google Drive", UIControlState.Normal);
 			btnUpdate.TouchUpInside += (sender,e) => Upload ();
 			View.AddSubview (btnUpdate);
-			btnUpdate.SizeToFit ();
+
+
+			AlignMyGoogleButton();
+
 		}
 
 		protected void Upload()
 		{
 
-			var dialod = new UIAlertView("Enter credentials", "Document path", null, "Cancel", null);
+			var dialod = new UIAlertView("Enter credentials", "", null, "Cancel", null);
 
 			dialod.AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput;
+			dialod.GetTextField (0).KeyboardType = UIKeyboardType.EmailAddress;
+
 			dialod.AddButton("Upload");
 
 			dialod.Show();
@@ -78,6 +84,11 @@ namespace MemorizeIt.IOs.Screens
 
 		}
 
+		void AlignMyGoogleButton ()
+		{
+			btnUpdate.SizeToFit ();
+			btnUpdate.Frame = new RectangleF ((View.Frame.Width - btnUpdate.Frame.Width) / 2, 10, btnUpdate.Frame.Width, btnUpdate.Frame.Height);
+		}
 		
 		protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
 		{
