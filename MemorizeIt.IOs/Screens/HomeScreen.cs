@@ -49,13 +49,13 @@ namespace MemorizeIt.IOs.Screens {
 		{
 			base.ViewDidLoad ();
 
-
-			table = new UITableView (new RectangleF (0, 0, View.Frame.Width
-			                                                     , View.Frame.Height - TabBarController.TabBar.Frame.Height));
+			table = new UITableView (new RectangleF (0, 0, 
+			                                         View.Frame.Width, 
+			                                         GetScreenSize ()));
 			View.AddSubview (table);
 			
 			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
-			btnTrain.SetTitle ("Try my!", UIControlState.Normal);
+			btnTrain.SetTitle ("Try me!", UIControlState.Normal);
 			btnTrain.TouchUpInside += (sender,e) => Train ();
 
 			View.AddSubview (btnTrain);
@@ -65,6 +65,11 @@ namespace MemorizeIt.IOs.Screens {
 			PopulateTable ();
 		}
 
+		protected float GetScreenSize ()
+		{
+		//	return View.Frame.Height;
+			return View.Frame.Height - this.NavigationController.NavigationBar.Frame.Height;
+		}
 
         protected void Train()
         {
@@ -113,7 +118,9 @@ namespace MemorizeIt.IOs.Screens {
 		{
 			btnTrain.SizeToFit ();
 			//btnTrain.Frame.Y = View.Frame.Height - TabBarController.TabBar.Frame.Height - btnTrain.Frame.Height;
-			btnTrain.Frame = new RectangleF ((View.Frame.Width - btnTrain.Frame.Width) / 2, View.Frame.Height - TabBarController.TabBar.Frame.Height - btnTrain.Frame.Height, btnTrain.Frame.Width, btnTrain.Frame.Height);
+			btnTrain.Frame = new RectangleF ((View.Frame.Width - btnTrain.Frame.Width) / 2, 
+			                                 GetScreenSize() - btnTrain.Frame.Height, 
+			                                 btnTrain.Frame.Width, btnTrain.Frame.Height);
 		}
 
         protected void PopulateTable()

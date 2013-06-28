@@ -70,6 +70,9 @@
     <Reference Include="FileMemoryStorage">
       <HintPath>..\FileMemoryStorage\bin\Debug\FileMemoryStorage.dll</HintPath>
     </Reference>
+    <Reference Include="MonoTouch.Slideout">
+      <HintPath>..\external\MonoTouch.Slideout.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -83,6 +86,7 @@
     <Compile Include="LoadingOverlay.cs" />
     <Compile Include="Screens\UpdateController.cs" />
     <Compile Include="Countrols\TableSource.cs" />
+    <Compile Include="Screens\MenuController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
