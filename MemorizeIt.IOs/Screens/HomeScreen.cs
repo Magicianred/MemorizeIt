@@ -49,9 +49,7 @@ namespace MemorizeIt.IOs.Screens {
 		{
 			base.ViewDidLoad ();
 
-			table = new UITableView (new RectangleF (0, 0, 
-			                                         View.Frame.Width, 
-			                                         GetScreenSize ()));
+			table = new UITableView ();
 			View.AddSubview (table);
 			
 			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
@@ -60,15 +58,17 @@ namespace MemorizeIt.IOs.Screens {
 
 			View.AddSubview (btnTrain);
 
+			StretchTable ();
 			PutButtonAtTheBottomCenter ();
 
 			PopulateTable ();
 		}
 
-		protected float GetScreenSize ()
+		public override void WillAnimateRotation (UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
-		//	return View.Frame.Height;
-			return View.Frame.Height - this.NavigationController.NavigationBar.Frame.Height;
+			base.WillAnimateRotation (toInterfaceOrientation, duration);
+			StretchTable ();
+			PutButtonAtTheBottomCenter ();
 		}
 
         protected void Train()
@@ -121,6 +121,19 @@ namespace MemorizeIt.IOs.Screens {
 			btnTrain.Frame = new RectangleF ((View.Frame.Width - btnTrain.Frame.Width) / 2, 
 			                                 GetScreenSize() - btnTrain.Frame.Height, 
 			                                 btnTrain.Frame.Width, btnTrain.Frame.Height);
+		}
+
+		void StretchTable ()
+		{
+			table.Frame = new RectangleF (0, 0, 
+			                            View.Frame.Width, 
+			                            GetScreenSize ());
+		}
+
+		protected float GetScreenSize ()
+		{
+			//	return View.Frame.Height;
+			return View.Frame.Height - this.NavigationController.NavigationBar.Frame.Height;
 		}
 
         protected void PopulateTable()
