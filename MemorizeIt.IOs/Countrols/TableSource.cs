@@ -2,15 +2,16 @@ using System;
 using MonoTouch.UIKit;
 using System.Collections.Generic;
 using MemorizeIt.Model;
+using System.Linq;
 
 namespace MemorizeIt.IOs.Controls
 {
 	public class TableSource : UITableViewSource {
 		protected IList<MemoryItem> tableItems;
 		protected string cellIdentifier = "TableCell";
-		public TableSource (IList<MemoryItem> items)
+		public TableSource (IEnumerable<MemoryItem> items)
 		{
-			tableItems = items;
+			tableItems = items.ToList();
 		}
 		public override int RowsInSection (UITableView tableview, int section)
 		{

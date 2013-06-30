@@ -42,9 +42,9 @@ namespace MemorizeIt.MemoryTrainers
                 throw new InvalidOperationException("question is empty");
             var result = Validate(answer, currentQuestionAndAnswer.Answer);
             if (result)
-                this.storage.Success(currentQuestionAndAnswer.Id);
+                this.storage.ItemSuccess(currentQuestionAndAnswer.Id);
             else
-                this.storage.Fail(currentQuestionAndAnswer.Id);
+                this.storage.ItemFail(currentQuestionAndAnswer.Id);
 
             return result;
         }

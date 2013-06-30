@@ -8,14 +8,14 @@ namespace MemorizeIt.MemorySourceSupplier
 {
 	public class SimpleMemorySourceSupplier:IMemorySourceSupplier
 	{
-		private readonly IEnumerable<MemoryItem> source;
-		public SimpleMemorySourceSupplier (IEnumerable<MemoryItem> source)
+		private readonly MemoryTable source;
+		public SimpleMemorySourceSupplier (string name, IEnumerable<MemoryItem> items)
 		{
-			this.source = source;
+			this.source = new MemoryTable(name,items.ToArray());
 		}
 		public MemoryTable Download(){
 		//	throw new InvalidOperationException ("operation is not allowed");
-			return new MemoryTable (source.ToArray());
+			return source;
 		}
 	}
 }

@@ -11,19 +11,13 @@ namespace MemorizeIt.MemoryStorage
         void Store(MemoryTable data);
         void Clear();
         
-        MemoryItem Get(Guid id);
-        IList<MemoryItem> Items { get; }
+        MemoryItem GetItemById(Guid id);
+        IEnumerable<MemoryItem> Items { get; }
+		string GetTableName ();
 
-        void Success(Guid id);
-        void Fail(Guid id);
+        void ItemSuccess(Guid id);
+        void ItemFail(Guid id);
 
 		event EventHandler SotrageChanged;
-        //MemoryItem MarkAsAccomplished();
-
-
-        //get random
-        //ask question
-        //validate result
-        //save result
     }
 }

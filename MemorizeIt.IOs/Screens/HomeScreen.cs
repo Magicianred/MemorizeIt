@@ -145,6 +145,7 @@ namespace MemorizeIt.IOs.Screens {
 
 				table.Source = tableSource;
 				table.ReloadData ();
+				this.NavigationItem.Title = store.GetTableName ();
 			}
 
 			if (!trainer.IsQuestionsAvalible ()) {

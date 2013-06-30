@@ -8,11 +8,11 @@ namespace MemorizeIt.MemoryStorage
     public class DictionaryMemoryStorage : IMemoryStorage
     {
         private readonly Dictionary<Guid, MemoryItem> itemHolder;
-        private readonly Random random;
-        public DictionaryMemoryStorage(Dictionary<Guid, MemoryItem> itemHolder)
+		private string tableName;
+
+		public DictionaryMemoryStorage(Dictionary<Guid, MemoryItem> itemHolder)
         {
             this.itemHolder = itemHolder;
-            this.random = new Random();
         }
 
         public DictionaryMemoryStorage():this(new Dictionary<Guid, MemoryItem>())
@@ -26,33 +26,38 @@ namespace MemorizeIt.MemoryStorage
             {
                 itemHolder.Add(memoryItem.Id, memoryItem);
             }
+			tableName = data.Name;
 			OnSotrageChanged ();
         }
 
         public void Clear()
         {
             itemHolder.Clear();
+			tableName = string.Empty;
 			OnSotrageChanged ();
         }
 
-        public MemoryItem Get(Guid id)
+        public MemoryItem GetItemById(Guid id)
         {
             return itemHolder[id];
         }
 
-      
+		public string GetTableName ()
+		{
+			return tableName;
+		}      
 
-        public IList<MemoryItem> Items {
-            get { return itemHolder.Select(i => i.Value).ToList(); }
+        public IEnumerable<MemoryItem> Items {
+			get { return itemHolder.Select (i => i.Value); }
         }
 
-        public void Success(Guid id)
+        public void ItemSuccess(Guid id)
         {
             itemHolder[id].Upvote();
 			OnSotrageChanged ();
         }
 
-        public void Fail(Guid id)
+        public void ItemFail(Guid id)
         {
             itemHolder[id].Downvote();
 			OnSotrageChanged ();

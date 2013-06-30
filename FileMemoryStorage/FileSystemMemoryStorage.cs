@@ -78,25 +78,31 @@ namespace FileMemoryStorage
             memcacheStorage.Clear();
         }
 
-        public MemoryItem Get(Guid id)
+		public MemoryItem GetItemById(Guid id)
         {
-            return memcacheStorage.Get(id);
+			return memcacheStorage.GetItemById(id);
         }
 
-        public IList<MemoryItem> Items {
+        public IEnumerable<MemoryItem> Items {
             get { return memcacheStorage.Items; }
         }
 
-        public void Success(Guid id)
+
+		public string GetTableName ()
+		{
+			return memcacheStorage.GetTableName ();
+		}
+
+        public void ItemSuccess(Guid id)
         {
-            memcacheStorage.Success(id);
-            StoreInternal(new MemoryTable(memcacheStorage.Items.ToArray()));
+            memcacheStorage.ItemSuccess(id);
+			StoreInternal(new MemoryTable(memcacheStorage.GetTableName(),memcacheStorage.Items.ToArray()));
         }
 
-        public void Fail(Guid id)
+        public void ItemFail(Guid id)
         {
-            memcacheStorage.Fail(id);
-            StoreInternal(new MemoryTable(memcacheStorage.Items.ToArray()));
+            memcacheStorage.ItemFail(id);
+			StoreInternal(new MemoryTable(memcacheStorage.GetTableName(),memcacheStorage.Items.ToArray()));
         }
 
 		public event EventHandler SotrageChanged {add{ memcacheStorage.SotrageChanged+= value;}
