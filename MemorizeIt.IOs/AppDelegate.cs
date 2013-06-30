@@ -25,8 +25,7 @@ namespace MemorizeIt.IOs {
 			storage = new FileSystemMemoryStorage ();
 			Menu = new SlideoutNavigationController ();
 
-			Menu.TopView = new HomeScreen(storage);
-			Menu.MenuView = new MenuController (storage,new InMemoryCredentialStorage());
+			Menu.MenuView = new MenuController(Menu,storage,new InMemoryCredentialStorage());
 		
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();

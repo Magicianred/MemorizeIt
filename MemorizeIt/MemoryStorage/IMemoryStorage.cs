@@ -10,6 +10,7 @@ namespace MemorizeIt.MemoryStorage
     {
         void Store(MemoryTable data);
         void Clear();
+		bool Empty();
         
         MemoryItem GetItemById(Guid id);
         IEnumerable<MemoryItem> Items { get; }

@@ -137,24 +137,30 @@ namespace MemorizeIt.IOs.Screens {
 		}
 
         protected void PopulateTable()
-        {
-            var memories = store.Items;
-            if (memories != null)
-            {
-				var tableSource = new TableSource (memories);
+		{
+			if (!store.Empty ()) {
+				btnTrain.Hidden = false;
 
+				var tableSource = new TableSource (store.Items);
 				table.Source = tableSource;
 				table.ReloadData ();
+
 				this.NavigationItem.Title = store.GetTableName ();
+
+				if (!trainer.IsQuestionsAvalible ()) {
+					new UIAlertView ("Well Done!", "You are done with all your questions", null, "OK", null).Show ();
+
+					btnTrain.Enabled = false;
+				} else {
+					btnTrain.Enabled = true;
+				}
+				return;
 			}
 
-			if (!trainer.IsQuestionsAvalible ()) {
-				new UIAlertView ("Well Done!", "You are done with all your questions", null, "OK", null).Show ();
-
-				btnTrain.Enabled = false;
-			} else {
-				btnTrain.Enabled = true;
-			}
+			new UIAlertView ("Memory list is empty", "Please update memories", null, "OK", null).Show ();
+			btnTrain.Hidden = true;
+			return;
+			
 		}
 
 	}

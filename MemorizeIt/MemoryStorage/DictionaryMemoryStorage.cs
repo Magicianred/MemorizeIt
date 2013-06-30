@@ -9,6 +9,7 @@ namespace MemorizeIt.MemoryStorage
     {
         private readonly Dictionary<Guid, MemoryItem> itemHolder;
 		private string tableName;
+		private bool empty=true;
 
 		public DictionaryMemoryStorage(Dictionary<Guid, MemoryItem> itemHolder)
         {
@@ -27,6 +28,7 @@ namespace MemorizeIt.MemoryStorage
                 itemHolder.Add(memoryItem.Id, memoryItem);
             }
 			tableName = data.Name;
+			empty = false;
 			OnSotrageChanged ();
         }
 
@@ -34,8 +36,16 @@ namespace MemorizeIt.MemoryStorage
         {
             itemHolder.Clear();
 			tableName = string.Empty;
+			empty = true;
 			OnSotrageChanged ();
         }
+
+
+		public bool Empty ()
+		{
+			return empty;
+		}
+
 
         public MemoryItem GetItemById(Guid id)
         {

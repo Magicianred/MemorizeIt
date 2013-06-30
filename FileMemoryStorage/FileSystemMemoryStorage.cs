@@ -78,6 +78,11 @@ namespace FileMemoryStorage
             memcacheStorage.Clear();
         }
 
+		public bool Empty ()
+		{
+			return memcacheStorage.Empty ();
+		}
+
 		public MemoryItem GetItemById(Guid id)
         {
 			return memcacheStorage.GetItemById(id);
