@@ -105,19 +105,30 @@ namespace MemorizeIt.IOs.Screens
 
 		void PopulateSources ()
 		{
-			Section items = new Section ("Memory Sources");
-			if (!credentials.IsLoggedIn)
-
-				items.Add (new MultilineElement("Sources are  not avalible, please log in"));
-			else {
-				var listOfSources = CreateSourceSupplier ().GetSourcesList();
-				items.AddAll(listOfSources.Select(s=>(Element)new StringElement(s,()=> Upload(s))));
-			}
-
+			Section items = credentials.IsLoggedIn ? CreateSectionForLoggedIn () : CreateSectionForAnonim ();
 			Root = new RootElement ("") {
 				items
 			};
 		}
+
+		protected Section CreateSectionForAnonim ()
+		{
+			var items = new Section ("Memory Sources ");
+			items.Add (new MultilineElement ("Sources are  not avalible, please log in"));
+			return items;
+		}
+
+		protected Section CreateSectionForLoggedIn ()
+		{
+			var items = new Section (string.Format ("Memory Sources for {0}", credentials.GetCurrentUser ().Login));
+			var listOfSources = CreateSourceSupplier ().GetSourcesList ();
+			if (!listOfSources.Any ())
+				items.Add (new MultilineElement ("Memory sources are absent"));
+			else
+				items.AddAll (listOfSources.Select (s => (Element)new StringElement (s, () => Upload (s))));
+			return items;
+		}
+
 		protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
 		{
 			return new GoogleMemorySourceSupplier(supplierParameters[0], supplierParameters[1], supplierParameters[2]);
