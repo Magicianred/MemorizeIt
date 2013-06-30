@@ -84,9 +84,9 @@
     <Compile Include="ApplicationLayer\EditingSource.cs" />
     <Compile Include="ApplicationLayer\TaskDialog.cs" />
     <Compile Include="LoadingOverlay.cs" />
-    <Compile Include="Screens\UpdateController.cs" />
     <Compile Include="Countrols\TableSource.cs" />
     <Compile Include="Screens\MenuController.cs" />
+    <Compile Include="Screens\GoogleUpdateController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>

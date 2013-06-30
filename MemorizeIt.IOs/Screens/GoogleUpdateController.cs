@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 using MemorizeIt.MemorySourceSupplier;
 using GoogleMemorySupplier;
 using System.Drawing;
+using System.Linq;
 
 namespace MemorizeIt.IOs.Screens
 {
-	public class UpdateController:DialogViewController
+	public class GoogleUpdateController:DialogViewController
 	{
 		private readonly IMemoryStorage store;
 		private readonly ICredentialsStorage credentials;
 		private UIBarButtonItem btnLogin;
 		private LoadingOverlay loadingOverlay;
 
-		public UpdateController(IMemoryStorage store,ICredentialsStorage credentials):
+		public GoogleUpdateController(IMemoryStorage store,ICredentialsStorage credentials):
 			base(UITableViewStyle.Grouped, null)
 		{
 			
@@ -72,7 +73,7 @@ namespace MemorizeIt.IOs.Screens
 			};
 
 		}
-		protected void Upload()
+		protected void Upload(string sourceName)
 		{
 			if (!credentials.IsLoggedIn)
 				return;
@@ -80,7 +81,7 @@ namespace MemorizeIt.IOs.Screens
 			View.Add (loadingOverlay);
 		var user = credentials.GetCurrentUser ();
 			var supplierParams = new string[]
-			{ "MemorizeIt", user.Password, user.Password };
+			{ sourceName, user.Password, user.Password };
 
 			Task.Factory.StartNew (() =>
 				                      {
@@ -109,7 +110,8 @@ namespace MemorizeIt.IOs.Screens
 
 				items.Add (new MultilineElement("Sources are  not avalible, please log in"));
 			else {
-				items.Add (new StringElement("MemorizeIt",()=> Upload()));
+				var listOfSources = CreateSourceSupplier ().GetSourcesList();
+				items.AddAll(listOfSources.Select(s=>(Element)new StringElement(s,()=> Upload(s))));
 			}
 
 			Root = new RootElement ("") {
@@ -123,8 +125,11 @@ namespace MemorizeIt.IOs.Screens
                 new MemoryItem("q1","a1"),
                 new MemoryItem("q2","a2"),
                 new MemoryItem("q3","a3")
-            });*/}
-
+            });*/
+		}
+		protected IListOfSourcesSupplier CreateSourceSupplier(){
+			return new SimpleListOfSourcesSupplier (new String[]{"MemorizeIt"});
+		}
 	}
 }
 

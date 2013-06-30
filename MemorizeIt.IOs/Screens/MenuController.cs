@@ -30,7 +30,7 @@ namespace MemorizeIt.IOs
 
 			Root.Add(new Section() {
 				new StyledStringElement("Memories", () => { NavigationController.PushViewController(new HomeScreen(storage), true); }),
-				new StyledStringElement("Update", () => { NavigationController.PushViewController(new UpdateController(storage, credentials), true); })
+				new StyledStringElement("Update", () => { NavigationController.PushViewController(new GoogleUpdateController(storage, credentials), true); })
 
 			});
 		}

@@ -49,11 +49,14 @@
     <Compile Include="CredentialsStorage\ICredentialsStorage.cs" />
     <Compile Include="CredentialsStorage\Credentials.cs" />
     <Compile Include="CredentialsStorage\InMemoryCredentialStorage.cs" />
+    <Compile Include="MemorySourceSupplier\IListOfSourcesSupplier.cs" />
+    <Compile Include="MemorySourceSupplier\SimpleListOfSourcesSupplier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\external\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="mscorlib" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
