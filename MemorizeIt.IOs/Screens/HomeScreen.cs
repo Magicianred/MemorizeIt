@@ -65,7 +65,7 @@ namespace MemorizeIt.IOs.Screens {
 			View.AddSubview (btnTrain);
 
 			StretchTable ();
-			PutButtonAtTheBottomCenter ();
+			PutButtonAtTheScreenCenter ();
 
 			PopulateTable ();
 		}
@@ -74,7 +74,7 @@ namespace MemorizeIt.IOs.Screens {
 		{
 			base.WillAnimateRotation (toInterfaceOrientation, duration);
 			StretchTable ();
-			PutButtonAtTheBottomCenter ();
+			PutButtonAtTheScreenCenter ();
 		}
 
         protected void Train()
@@ -120,12 +120,12 @@ namespace MemorizeIt.IOs.Screens {
 
         }
 
-		void PutButtonAtTheBottomCenter ()
+		void PutButtonAtTheScreenCenter ()
 		{
 			btnTrain.SizeToFit ();
 			//btnTrain.Frame.Y = View.Frame.Height - TabBarController.TabBar.Frame.Height - btnTrain.Frame.Height;
 			btnTrain.Frame = new RectangleF ((View.Frame.Width - btnTrain.Frame.Width) / 2, 
-			                                 GetScreenSize() - btnTrain.Frame.Height, 
+			                                 (GetScreenSize() - btnTrain.Frame.Height)/2, 
 			                                 btnTrain.Frame.Width, btnTrain.Frame.Height);
 		}
 
@@ -139,7 +139,7 @@ namespace MemorizeIt.IOs.Screens {
 		protected float GetScreenSize ()
 		{
 			//	return View.Frame.Height;
-			return View.Frame.Height - this.NavigationController.NavigationBar.Frame.Height;
+			return View.Frame.Height;// - this.NavigationController.NavigationBar.Frame.Height;
 		}
 
         protected void PopulateTable()
