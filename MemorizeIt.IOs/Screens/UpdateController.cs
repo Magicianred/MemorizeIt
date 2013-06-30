@@ -14,7 +14,6 @@ namespace MemorizeIt.IOs.Screens
 	{
 		private readonly IMemoryStorage store;
 		private readonly ICredentialsStorage credentials;
-	//	private UIButton btnUpdate;
 		private UIBarButtonItem btnLogin;
 		private LoadingOverlay loadingOverlay;
 
@@ -31,7 +30,6 @@ namespace MemorizeIt.IOs.Screens
 		private void ReactOnCredentialsChange(){
 			btnLogin.Title = credentials.IsLoggedIn?"Log out":"Log in";
 			PopulateSources ();
-			//btnUpdate.Enabled = credentials.IsLoggedIn;
 		}
 		protected void Initialize()
 		{
@@ -43,15 +41,7 @@ namespace MemorizeIt.IOs.Screens
 		}
 		public override void ViewDidLoad ()
 		{
-			base.ViewDidLoad ();	
-			/*
-			btnUpdate = UIButton.FromType(UIButtonType.RoundedRect);
-			btnUpdate.SetTitle ("Update from my Google Drive", UIControlState.Normal);
-			btnUpdate.TouchUpInside += (sender,e) => Upload ();
-
-			View.AddSubview (btnUpdate);
-AlignMyGoogleButton();
-			 */
+			base.ViewDidLoad ();
 			ReactOnCredentialsChange ();
 
 
@@ -125,37 +115,15 @@ AlignMyGoogleButton();
 			Root = new RootElement ("") {
 				items
 			};
-
-			/*var root = new RootElement ("") {
-				new Section ("Google drive"){
-					new RootElement ("Spreadsheets", new RadioGroup ("dessert", 2)) {
-						new Section () {
-							new RadioElement ("Ice Cream", "dessert"),
-							new RadioElement ("Milkshake", "dessert"),
-							new RadioElement ("Chocolate Cake", "dessert")
-						}
-					}
-				}
-			};
-
-			Root = root;*/
 		}
-
-	/*	void AlignMyGoogleButton ()
-		{
-			btnUpdate.SizeToFit ();
-			btnUpdate.Frame = new RectangleF ((View.Frame.Width - btnUpdate.Frame.Width) / 2, 10, btnUpdate.Frame.Width, btnUpdate.Frame.Height);
-		}
-		
-	*/	protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
+		protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
 		{
 			return new GoogleMemorySourceSupplier(supplierParameters[0], supplierParameters[1], supplierParameters[2]);
 			/*return new SimpleMemorySourceSupplier (new MemoryItem[]{
                 new MemoryItem("q1","a1"),
                 new MemoryItem("q2","a2"),
                 new MemoryItem("q3","a3")
-            });*/
-		}
+            });*/}
 
 	}
 }
