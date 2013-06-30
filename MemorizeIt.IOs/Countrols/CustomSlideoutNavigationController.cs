@@ -1,5 +1,6 @@
 using System;
 using MonoTouch.SlideoutNavigation;
+using MonoTouch.UIKit;
 
 namespace MemorizeIt.IOs
 {
@@ -11,7 +12,8 @@ namespace MemorizeIt.IOs
 		protected override MonoTouch.UIKit.UIBarButtonItem CreateMenuButton ()
 		{
 			var button= base.CreateMenuButton ();
-			button.Title="...";
+			button.Image = UIImage.FromFile ("menu-list.png");
+			button.Title="";
 			return button;
 		}
 	}
