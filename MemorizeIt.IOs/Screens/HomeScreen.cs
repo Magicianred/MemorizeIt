@@ -53,7 +53,11 @@ namespace MemorizeIt.IOs.Screens {
 			View.AddSubview (table);
 			
 			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
-			btnTrain.SetTitle ("Try me!", UIControlState.Normal);
+
+			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Normal);
+			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Highlighted);
+			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Disabled);
+
 			btnTrain.TouchUpInside += (sender,e) => Train ();
 
 			View.AddSubview (btnTrain);
