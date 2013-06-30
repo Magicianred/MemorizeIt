@@ -13,11 +13,14 @@ namespace MemorizeIt.IOs
 	public partial class MenuController : DialogViewController
 	{
 		private readonly IMemoryStorage storage;
+		
+		private readonly ICredentialsStorage credentials;
 
-		public MenuController(IMemoryStorage storage) 
+		public MenuController(IMemoryStorage storage, ICredentialsStorage credentials) 
 			: base(UITableViewStyle.Plain,new RootElement(""))
 		{
 			this.storage = storage;
+			this.credentials = credentials;
 
 		}
 
@@ -27,7 +30,7 @@ namespace MemorizeIt.IOs
 
 			Root.Add(new Section() {
 				new StyledStringElement("Memories", () => { NavigationController.PushViewController(new HomeScreen(storage), true); }),
-				new StyledStringElement("Update", () => { NavigationController.PushViewController(new UpdateController(storage), true); })
+				new StyledStringElement("Update", () => { NavigationController.PushViewController(new UpdateController(storage, credentials), true); })
 
 			});
 		}

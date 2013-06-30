@@ -23,11 +23,11 @@ namespace MemorizeIt.IOs {
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
 			storage = new FileSystemMemoryStorage ();
-			Menu = new SlideoutNavigationController();
+			Menu = new SlideoutNavigationController ();
 
 			Menu.TopView = new HomeScreen(storage);
-			Menu.MenuView = new MenuController (storage);
-
+			Menu.MenuView = new MenuController (storage,new InMemoryCredentialStorage());
+		
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
 

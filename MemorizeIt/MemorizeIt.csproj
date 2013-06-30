@@ -46,6 +46,9 @@
     <Compile Include="Model\MemoryTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MemorySourceSupplier\SimpleMemorySourceSupplier.cs" />
+    <Compile Include="CredentialsStorage\ICredentialsStorage.cs" />
+    <Compile Include="CredentialsStorage\Credentials.cs" />
+    <Compile Include="CredentialsStorage\InMemoryCredentialStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -60,4 +63,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="CredentialsStorage\" />
+  </ItemGroup>
 </Project>

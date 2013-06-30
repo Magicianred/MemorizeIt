@@ -10,59 +10,89 @@ using System.Drawing;
 
 namespace MemorizeIt.IOs.Screens
 {
-	public class UpdateController:UIViewController
+	public class UpdateController:DialogViewController
 	{
 		private readonly IMemoryStorage store;
-		private UIButton btnUpdate;
+		private readonly ICredentialsStorage credentials;
+	//	private UIButton btnUpdate;
+		private UIBarButtonItem btnLogin;
 		private LoadingOverlay loadingOverlay;
-		public UpdateController(IMemoryStorage store):base()
+
+		public UpdateController(IMemoryStorage store,ICredentialsStorage credentials):
+			base(UITableViewStyle.Grouped, null)
 		{
-			Initialize();
+			
 			this.store = store;
+			this.credentials = credentials;
+			Initialize();
+		}
+
+	
+		private void ReactOnCredentialsChange(){
+			btnLogin.Title = credentials.IsLoggedIn?"Log out":"Log in";
+			PopulateSources ();
+			//btnUpdate.Enabled = credentials.IsLoggedIn;
 		}
 		protected void Initialize()
 		{
-
-			this.TabBarItem =new UITabBarItem (UITabBarSystemItem.Downloads, 1);
-
+			btnLogin =
+				new UIBarButtonItem ("",UIBarButtonItemStyle.Plain, (s,e) => Login ());
+			this.NavigationItem.SetRightBarButtonItem(btnLogin,false);
+			this.NavigationItem.Title="Google Drive Memories";
 
 		}
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();	
-			View.BackgroundColor = UIColor.White;
+			/*
 			btnUpdate = UIButton.FromType(UIButtonType.RoundedRect);
 			btnUpdate.SetTitle ("Update from my Google Drive", UIControlState.Normal);
 			btnUpdate.TouchUpInside += (sender,e) => Upload ();
+
 			View.AddSubview (btnUpdate);
+AlignMyGoogleButton();
+			 */
+			ReactOnCredentialsChange ();
 
-
-			AlignMyGoogleButton();
 
 		}
+		protected void Login(){
+			if (credentials.IsLoggedIn) {
+				credentials.LogOut ();
+				ReactOnCredentialsChange ();
+				return;
+			}
 
-		protected void Upload()
-		{
-
-			var dialod = new UIAlertView("Enter credentials", "", null, "Cancel", null);
+			
+			var dialod = new UIAlertView ("Enter credentials", "", null, "Cancel", null);
 
 			dialod.AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput;
 			dialod.GetTextField (0).KeyboardType = UIKeyboardType.EmailAddress;
 
-			dialod.AddButton("Upload");
+			dialod.AddButton ("Log in");
 
-			dialod.Show();
+			dialod.Show ();
 
 			dialod.Clicked += (sender, e) =>
 			{
 				if (e.ButtonIndex == 0)
 					return;
-				loadingOverlay = new LoadingOverlay(UIScreen.MainScreen.Bounds);
-				View.Add(loadingOverlay);
-				var supplierParams = new string[]
-				{"MemorizeIt", dialod.GetTextField(0).Text, dialod.GetTextField(1).Text};
+				credentials.LogIn (dialod.GetTextField(0).Text, dialod.GetTextField (1).Text);
+				ReactOnCredentialsChange ();
+			};
 
-				Task.Factory.StartNew(() =>
+		}
+		protected void Upload()
+		{
+			if (!credentials.IsLoggedIn)
+				return;
+			loadingOverlay = new LoadingOverlay (UIScreen.MainScreen.Bounds);
+			View.Add (loadingOverlay);
+		var user = credentials.GetCurrentUser ();
+			var supplierParams = new string[]
+			{ "MemorizeIt", user.Password, user.Password };
+
+			Task.Factory.StartNew (() =>
 				                      {
 					try
 					{
@@ -79,18 +109,45 @@ namespace MemorizeIt.IOs.Screens
 					this.InvokeOnMainThread(() =>
 					                        loadingOverlay.Hide());
 				});
-			};
-
 
 		}
 
-		void AlignMyGoogleButton ()
+		void PopulateSources ()
+		{
+			Section items = new Section ("Memory Sources");
+			if (!credentials.IsLoggedIn)
+
+				items.Add (new MultilineElement("Sources are  not avalible, please log in"));
+			else {
+				items.Add (new StringElement("MemorizeIt",()=> Upload()));
+			}
+
+			Root = new RootElement ("") {
+				items
+			};
+
+			/*var root = new RootElement ("") {
+				new Section ("Google drive"){
+					new RootElement ("Spreadsheets", new RadioGroup ("dessert", 2)) {
+						new Section () {
+							new RadioElement ("Ice Cream", "dessert"),
+							new RadioElement ("Milkshake", "dessert"),
+							new RadioElement ("Chocolate Cake", "dessert")
+						}
+					}
+				}
+			};
+
+			Root = root;*/
+		}
+
+	/*	void AlignMyGoogleButton ()
 		{
 			btnUpdate.SizeToFit ();
 			btnUpdate.Frame = new RectangleF ((View.Frame.Width - btnUpdate.Frame.Width) / 2, 10, btnUpdate.Frame.Width, btnUpdate.Frame.Height);
 		}
 		
-		protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
+	*/	protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
 		{
 			return new GoogleMemorySourceSupplier(supplierParameters[0], supplierParameters[1], supplierParameters[2]);
 			/*return new SimpleMemorySourceSupplier (new MemoryItem[]{
