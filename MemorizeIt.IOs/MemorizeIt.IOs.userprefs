@@ -1,8 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Screens/GoogleUpdateController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Info.plist">
     <Files>
-      <File FileName="Screens/GoogleUpdateController.cs" Line="1" Column="1" />
+      <File FileName="Screens/GoogleUpdateController.cs" Line="136" Column="30" />
+      <File FileName="AppDelegate.cs" Line="7" Column="25" />
+      <File FileName="Screens/HomeScreen.cs" Line="1" Column="1" />
+      <File FileName="LoadingOverlay.cs" Line="1" Column="1" />
       <File FileName="Info.plist" />
     </Files>
     <Pads>
@@ -11,9 +14,11 @@
           <Node name="FileMemoryStorage" expanded="True">
             <Node name="References" expanded="True" />
           </Node>
-          <Node name="GoogleMemorySupplier" expanded="True" />
+          <Node name="GoogleMemorySupplier" expanded="True">
+            <Node name="References" expanded="True" />
+          </Node>
           <Node name="MemorizeIt" expanded="True" />
-          <Node name="MemorizeIt.IOs" expanded="True" />
+          <Node name="MemorizeIt.IOs" expanded="True" selected="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
