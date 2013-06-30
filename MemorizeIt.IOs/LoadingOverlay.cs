@@ -5,7 +5,7 @@ using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using MemorizeIt.MemoryStorage;
 using MemorizeIt.MemorySourceSupplier;
-using GoogleMemorySupplier;
+
 using System.Drawing;
 
 

@@ -6,7 +6,7 @@ using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using MemorizeIt.MemoryStorage;
 using MemorizeIt.MemorySourceSupplier;
-using GoogleMemorySupplier;
+
 using FileMemoryStorage;
 using MemorizeIt.MemoryTrainers;
 using MemorizeIt.IOs.ApplicationLayer;

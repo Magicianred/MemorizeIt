@@ -5,9 +5,11 @@ using MemorizeIt.MemoryStorage;
 using FileMemoryStorage;
 using System.Threading.Tasks;
 using MemorizeIt.MemorySourceSupplier;
-using GoogleMemorySupplier;
+//using GoogleMemorySupplier;
 using System.Drawing;
 using System.Linq;
+using MemorizeIt.Model;
+using GoogleMemorySupplier;
 
 namespace MemorizeIt.IOs.Screens
 {
@@ -132,7 +134,7 @@ namespace MemorizeIt.IOs.Screens
 		protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
 		{
 			return new GoogleMemorySourceSupplier(supplierParameters[0], supplierParameters[1], supplierParameters[2]);
-			/*return new SimpleMemorySourceSupplier (new MemoryItem[]{
+		/*	return new SimpleMemorySourceSupplier ("test",new MemoryItem[]{
                 new MemoryItem("q1","a1"),
                 new MemoryItem("q2","a2"),
                 new MemoryItem("q3","a3")

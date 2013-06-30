@@ -67,14 +67,14 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
-    <Reference Include="GoogleMemorySupplier">
-      <HintPath>..\GoogleMemorySupplier\bin\Debug\GoogleMemorySupplier.dll</HintPath>
-    </Reference>
     <Reference Include="FileMemoryStorage">
       <HintPath>..\FileMemoryStorage\bin\Debug\FileMemoryStorage.dll</HintPath>
     </Reference>
     <Reference Include="MonoTouch.Slideout">
       <HintPath>..\external\MonoTouch.Slideout.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleMemorySupplier">
+      <HintPath>..\GoogleMemorySupplier\bin\Debug\GoogleMemorySupplier.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
