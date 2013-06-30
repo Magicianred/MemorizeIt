@@ -22,8 +22,10 @@ namespace MemorizeIt.IOs.Controls
 			// request a recycled cell to save memory
 			UITableViewCell cell = tableView.DequeueReusableCell (cellIdentifier);
 			// if there are no cells to reuse, create a new one
-			if (cell == null)
+			if (cell == null) {
 				cell = new UITableViewCell (UITableViewCellStyle.Value1, cellIdentifier);
+				cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+			}
 			var t = tableItems [indexPath.Row];
 			cell.TextLabel.Text = string.Format ("{1}({0})", t.SuccessCount, t.Values [0]);/*, t.Values[1]);*/
 			cell.DetailTextLabel.Text = t.Values [1];
