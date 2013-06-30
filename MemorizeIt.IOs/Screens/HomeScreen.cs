@@ -43,6 +43,7 @@ namespace MemorizeIt.IOs.Screens {
         protected void Initialize()
 		{			
 			this.TabBarItem.Title = "Memories";
+
 		}
 
 		public override void ViewDidLoad ()
@@ -50,6 +51,7 @@ namespace MemorizeIt.IOs.Screens {
 			base.ViewDidLoad ();
 
 			table = new UITableView ();
+
 			View.AddSubview (table);
 			
 			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
@@ -142,29 +144,26 @@ namespace MemorizeIt.IOs.Screens {
 
         protected void PopulateTable()
 		{
-			if (!store.Empty ()) {
-				btnTrain.Hidden = false;
-
-				var tableSource = new TableSource (store.Items);
-				table.Source = tableSource;
-				table.ReloadData ();
-
-				this.NavigationItem.Title = store.GetTableName ();
-
-				if (!trainer.IsQuestionsAvalible ()) {
-					new UIAlertView ("Well Done!", "You are done with all your questions", null, "OK", null).Show ();
-
-					btnTrain.Enabled = false;
-				} else {
-					btnTrain.Enabled = true;
-				}
+			if (!this.IsViewLoaded)
 				return;
+			if (store.Empty ()) {
+				throw new InvalidOperationException ("can't show empty table");
 			}
 
-			new UIAlertView ("Memory list is empty", "Please update memories", null, "OK", null).Show ();
-			btnTrain.Hidden = true;
-			return;
-			
+			var tableSource = new TableSource (store.Items);
+			table.Source = tableSource;
+			table.ReloadData ();
+
+			this.NavigationItem.Title = store.GetTableName ();
+
+			if (!trainer.IsQuestionsAvalible ()) {
+				new UIAlertView ("Well Done!", "You are done with all your questions", null, "OK", null).Show ();
+
+				btnTrain.Enabled = false;
+			} else {
+				btnTrain.Enabled = true;
+			}
+				
 		}
 
 	}

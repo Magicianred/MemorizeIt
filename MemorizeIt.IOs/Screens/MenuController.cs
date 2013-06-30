@@ -14,31 +14,51 @@ namespace MemorizeIt.IOs
 	public partial class MenuController : DialogViewController
 	{
 		private readonly IMemoryStorage storage;
-		
 		private readonly ICredentialsStorage credentials;
 		private readonly SlideoutNavigationController menu;
-		private readonly  Dictionary<string, UIViewController> controllers;
+
+		private readonly UIViewController homeControlled;
+		private readonly UIViewController googleUpdateController;
+
 		public MenuController(SlideoutNavigationController menu,IMemoryStorage storage, ICredentialsStorage credentials) 
 			: base(UITableViewStyle.Plain,new RootElement(""))
 		{
 			this.menu = menu;
 			this.storage = storage;
 			this.credentials = credentials;
-			controllers = new Dictionary<string, UIViewController> ();
-			controllers.Add ("Memories", new HomeScreen (storage));
-			controllers.Add ("Update", new GoogleUpdateController (storage, credentials));
-			menu.TopView = storage.Empty() ? controllers["Update"] : controllers["Memories"];
+			homeControlled = new HomeScreen (storage);
+			googleUpdateController = new GoogleUpdateController (storage, credentials);
+			menu.TopView = storage.Empty () ? googleUpdateController : homeControlled;
+				
+		}
+
+		protected Element CreateMemoriesScreen(){
+			var element = new StyledStringElement ("Memories", HandleMemoriesClick);
+			return element;
+		}
+
+		protected void HandleMemoriesClick(){
+			if (storage.Empty()) {
+				new UIAlertView ("Memories are empty", "Please upload memories", null, "OK", null).Show ();
+
+				return;
+			}
+			NavigationController.PushViewController (homeControlled, true);
+		}
+
+		protected Element CreateUpdateScreen(){
+			return new StyledStringElement ("Update",
+			                                () => {
+				NavigationController.PushViewController (googleUpdateController, true);});
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			Root.Add(new Section() {
-				controllers.Select(c=> (Element)new StyledStringElement(c.Key,()=>{NavigationController.PushViewController(c.Value,true);}))
-				/*new StyledStringElement("Memories", () => { NavigationController.PushViewController(new HomeScreen(storage), true); }),
-				new StyledStringElement("Update", () => { NavigationController.PushViewController(new GoogleUpdateController(storage, credentials), true); })
-*/
-			});
+			var section = new Section ();
+			section.Add (CreateMemoriesScreen());
+			section.Add (CreateUpdateScreen());
+		Root.Add (section);
 
 		}
 	}
