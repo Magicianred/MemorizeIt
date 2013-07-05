@@ -35,8 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CredentialsStorage\CredentialsException.cs" />
+    <Compile Include="MemorySourceSupplier\CredentialsStorage\Credentials.cs" />
+    <Compile Include="MemorySourceSupplier\CredentialsStorage\CredentialsException.cs" />
+    <Compile Include="MemorySourceSupplier\CredentialsStorage\ICredentialsStorage.cs" />
+    <Compile Include="MemorySourceSupplier\CredentialsStorage\InMemoryCredentialStorage.cs" />
     <Compile Include="MemorySourceSupplier\IMemorySourceSupplier.cs" />
+    <Compile Include="MemorySourceSupplier\IMemoryFactory.cs" />
     <Compile Include="MemoryStorage\DictionaryMemoryStorage.cs" />
     <Compile Include="MemoryStorage\IMemoryStorage.cs" />
     <Compile Include="MemoryTrainers\IRandomizer.cs" />
@@ -47,9 +51,6 @@
     <Compile Include="Model\MemoryTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MemorySourceSupplier\SimpleMemorySourceSupplier.cs" />
-    <Compile Include="CredentialsStorage\ICredentialsStorage.cs" />
-    <Compile Include="CredentialsStorage\Credentials.cs" />
-    <Compile Include="CredentialsStorage\InMemoryCredentialStorage.cs" />
     <Compile Include="MemorySourceSupplier\IListOfSourcesSupplier.cs" />
     <Compile Include="MemorySourceSupplier\SimpleListOfSourcesSupplier.cs" />
   </ItemGroup>

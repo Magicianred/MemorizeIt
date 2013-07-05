@@ -13,12 +13,16 @@ namespace GoogleMemorySupplier
     public class GoogleMemorySourceSupplier:IMemorySourceSupplier
     {
         private readonly string applicationName = "MemorizeIt";
+        private readonly string spreadsheetName = "MemorizeIt";
+        private readonly string sheetName;
         private readonly string userName;
         private readonly string password;
 
-        public GoogleMemorySourceSupplier(string applicationName, string userName, string password)
+        public GoogleMemorySourceSupplier(string sheetName, string userName, string password, string spreadsheetName=null)
         {
-            this.applicationName = applicationName;
+            if (!string.IsNullOrEmpty(spreadsheetName))
+                this.spreadsheetName = spreadsheetName;
+            this.sheetName = sheetName;
             this.userName = userName;
             this.password = password;
         }
@@ -30,7 +34,7 @@ namespace GoogleMemorySupplier
 
             // Instantiate a SpreadsheetQuery object to retrieve spreadsheets.
             SpreadsheetQuery query = new SpreadsheetQuery();
-            query.Title = applicationName;
+            query.Title = spreadsheetName;
             // Make a request to the API and get all spreadsheets.
             SpreadsheetFeed feed = service.Query(query);
 
@@ -48,8 +52,9 @@ namespace GoogleMemorySupplier
             // TODO: Choose a worksheet more intelligently based on your
             // app's needs.
             WorksheetFeed wsFeed = spreadsheet.Worksheets;
-            WorksheetEntry worksheet = (WorksheetEntry) wsFeed.Entries[0];
-
+            WorksheetEntry worksheet = wsFeed.Entries.FirstOrDefault(e => e.Title.Text == sheetName) as WorksheetEntry;
+            if (worksheet == null)
+                return null;
 
 
             List<MemoryItem> retval = new List<MemoryItem>();

@@ -7,21 +7,37 @@ namespace GoogleMemorySupplierTests
     public class GoogleMemorySourceSupplierTests
     {
         [Test]
-        public void Download_When_test_Then_test()
+        public void Download_When_sheet_is_absent_Then_result_is_null()
         {
             // arrange
-            GoogleMemorySourceSupplier target = CreateGoogleMemorySourceSupplier();
+            GoogleMemorySourceSupplier target = CreateGoogleMemorySourceSupplier("dddd");
 
             // act
-            target.Download();
+            var result = target.Download();
 
             // assert
-            
+            Assert.That(result, Is.EqualTo(null));
         }
 
-        private GoogleMemorySourceSupplier CreateGoogleMemorySourceSupplier()
+        [Test]
+        public void Download_sheet_is_present_result_is_not_empty()
         {
-            return new GoogleMemorySourceSupplier("MemorizeIt", "memorize.it.test@gmail.com", "MemorizeIt");
+
+            //arrange
+
+            GoogleMemorySourceSupplier target = CreateGoogleMemorySourceSupplier();
+
+            //act
+
+            var result = target.Download();
+
+            //assert
+            Assert.IsNotNull(result);
+        }
+
+        private GoogleMemorySourceSupplier CreateGoogleMemorySourceSupplier(string sheetName="S1")
+        {
+            return new GoogleMemorySourceSupplier(sheetName, "memorize.it.test@gmail.com", "MemorizeIt");
         }
     }
 }

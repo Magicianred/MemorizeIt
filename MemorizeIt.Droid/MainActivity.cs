@@ -17,7 +17,7 @@ namespace MemorizeIt.Droid
     [Activity(Label = "MemorizeIt.Droid", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        int count = 1;
+        private int count = 1;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -38,13 +38,13 @@ namespace MemorizeIt.Droid
                 TableRow tr = new TableRow(this);
                 var rowColor = Color.White;
                 tr.SetBackgroundColor(rowColor);
-                
+
                 var cellColor = Color.Black;
                 var txtVal1 = new TextView(this) {Text = memoryItem.Values[0]};
-                txtVal1.SetPadding(1,1,1,1);
+                txtVal1.SetPadding(1, 1, 1, 1);
                 tr.AddView(txtVal1);
                 txtVal1.SetBackgroundColor(cellColor);
-                var txtVal2 = new TextView(this) { Text = memoryItem.Values[1] };
+                var txtVal2 = new TextView(this) {Text = memoryItem.Values[1]};
                 txtVal2.SetPadding(1, 1, 1, 1);
                 txtVal2.SetBackgroundColor(cellColor);
                 tr.AddView(txtVal2);
@@ -52,9 +52,8 @@ namespace MemorizeIt.Droid
             }
         }
 
-        void btnUpdate_Click(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
-            store.Store(sourceSupplier.Download());
             UpdateMemoryTableUI();
         }
 
@@ -69,10 +68,6 @@ namespace MemorizeIt.Droid
         }
 
         private IMemoryStorage store;
-
-        private readonly IMemorySourceSupplier sourceSupplier = new GoogleMemorySourceSupplier("MemorizeIt",
-                                                                                               "t",
-                                                                                               "t");
     }
 }
 

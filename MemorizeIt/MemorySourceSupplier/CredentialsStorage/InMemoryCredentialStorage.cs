@@ -1,6 +1,6 @@
 using System;
 
-namespace MemorizeIt
+namespace MemorizeIt.MemorySourceSupplier.CredentialsStorage
 {
 	public class InMemoryCredentialStorage:ICredentialsStorage
 	{

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="GoogleCredentialsStorage.cs" />
     <Compile Include="GoogleListOfSourcesSupplier.cs" />
+    <Compile Include="GoogleMemoryFactory.cs" />
     <Compile Include="GoogleMemorySourceSupplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

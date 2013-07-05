@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System;
 
-namespace MemorizeIt.CredentialsStorage
+namespace MemorizeIt.MemorySourceSupplier.CredentialsStorage
 {
     public class CredentialsException:Exception
     {

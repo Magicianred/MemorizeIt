@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleMemorySupplier;
-using MemorizeIt.CredentialsStorage;
+using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
 using NUnit.Framework;
 
 namespace GoogleMemorySupplierTests

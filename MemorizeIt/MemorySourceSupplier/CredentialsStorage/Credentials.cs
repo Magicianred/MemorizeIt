@@ -1,6 +1,4 @@
-using System;
-
-namespace MemorizeIt
+namespace MemorizeIt.MemorySourceSupplier.CredentialsStorage
 {
 	public class Credentials
 	{

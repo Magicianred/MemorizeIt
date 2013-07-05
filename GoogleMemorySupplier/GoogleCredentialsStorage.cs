@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Google.GData.Spreadsheets;
 using MemorizeIt;
-using MemorizeIt.CredentialsStorage;
+using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
 
 namespace GoogleMemorySupplier
 {

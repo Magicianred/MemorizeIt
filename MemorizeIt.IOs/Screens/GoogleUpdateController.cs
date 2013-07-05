@@ -1,4 +1,5 @@
 using System;
+using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
 using MonoTouch.Dialog;
 using MonoTouch.UIKit;
 using MemorizeIt.MemoryStorage;
@@ -10,14 +11,13 @@ using System.Drawing;
 using System.Linq;
 using MemorizeIt.Model;
 using GoogleMemorySupplier;
-using MemorizeIt.CredentialsStorage;
 
 namespace MemorizeIt.IOs.Screens
 {
 	public class GoogleUpdateController:DialogViewController
 	{
 		private readonly IMemoryStorage store;
-		private readonly ICredentialsStorage credentials;
+	    private readonly IMemoryFactory supplier;
 		private UIBarButtonItem btnLogin;
 		private LoadingOverlay loadingOverlay;
 
@@ -26,13 +26,13 @@ namespace MemorizeIt.IOs.Screens
 		{
 			
 			this.store = store;
-			this.credentials = credentials;
+			this.supplier=new GoogleMemoryFactory();
 			Initialize();
 		}
 
 	
 		private void ReactOnCredentialsChange(){
-			btnLogin.Title = credentials.IsLoggedIn?"Log out":"Log in";
+			btnLogin.Title = supplier.CredentialsStorage.IsLoggedIn?"Log out":"Log in";
 			PopulateSources ();
 		}
 		protected void Initialize()
@@ -51,8 +51,9 @@ namespace MemorizeIt.IOs.Screens
 
 		}
 		protected void Login(){
-			if (credentials.IsLoggedIn) {
-				credentials.LogOut ();
+            if (supplier.CredentialsStorage.IsLoggedIn)
+            {
+                supplier.CredentialsStorage.LogOut();
 				ReactOnCredentialsChange ();
 				return;
 			}
@@ -72,7 +73,7 @@ namespace MemorizeIt.IOs.Screens
 				if (e.ButtonIndex == 0)
 					return;
 				try {
-					credentials.LogIn (dialod.GetTextField (0).Text, dialod.GetTextField (1).Text);
+                    supplier.CredentialsStorage.LogIn(dialod.GetTextField(0).Text, dialod.GetTextField(1).Text);
 					ReactOnCredentialsChange ();
 				} catch (CredentialsException ex) {
 					this.InvokeOnMainThread(() =>
@@ -84,20 +85,13 @@ namespace MemorizeIt.IOs.Screens
 		}
 		protected void Upload(string sourceName)
 		{
-			if (!credentials.IsLoggedIn)
-				return;
 			loadingOverlay = new LoadingOverlay (UIScreen.MainScreen.Bounds);
 			View.Add (loadingOverlay);
-		var user = credentials.GetCurrentUser ();
-			var supplierParams = new string[]
-			{ sourceName, user.Password, user.Password };
-
 			Task.Factory.StartNew (() =>
 				                      {
 					try
 					{
-						var supplier = CreateSourceSupplier(supplierParams);
-						var data = supplier.Download();
+					    var data = supplier.DownloadMemories(sourceName);
 						this.store.Store(data);
 					}
 					catch (Exception downloadException)
@@ -114,7 +108,7 @@ namespace MemorizeIt.IOs.Screens
 
 		void PopulateSources ()
 		{
-			Section items = credentials.IsLoggedIn ? CreateSectionForLoggedIn () : CreateSectionForAnonim ();
+            Section items = supplier.CredentialsStorage.IsLoggedIn ? CreateSectionForLoggedIn() : CreateSectionForAnonim();
 			Root = new RootElement ("") {
 				items
 			};
@@ -129,8 +123,8 @@ namespace MemorizeIt.IOs.Screens
 
 		protected Section CreateSectionForLoggedIn ()
 		{
-			var items = new Section (string.Format ("Memory Sources for {0}", credentials.GetCurrentUser ().Login));
-			var listOfSources = CreateSourceSupplier ().GetSourcesList ();
+			var items = new Section (string.Format ("Memory Sources for {0}", supplier.CredentialsStorage.GetCurrentUser ().Login));
+		    var listOfSources = supplier.ListOfSources;
 			if (!listOfSources.Any ())
 				items.Add (new MultilineElement ("Memory sources are absent"));
 			else
@@ -138,20 +132,6 @@ namespace MemorizeIt.IOs.Screens
 			return items;
 		}
 
-		protected IMemorySourceSupplier CreateSourceSupplier(params string[] supplierParameters)
-		{
-			return new GoogleMemorySourceSupplier(supplierParameters[0], supplierParameters[1], supplierParameters[2]);
-		/*	return new SimpleMemorySourceSupplier ("test",new MemoryItem[]{
-                new MemoryItem("q1","a1"),
-                new MemoryItem("q2","a2"),
-                new MemoryItem("q3","a3")
-            });*/
-		}
-		protected IListOfSourcesSupplier CreateSourceSupplier()
-		{
-		    var user = credentials.GetCurrentUser();
-		    return new GoogleListOfSourcesSupplier(user.Login, user.Password);
-		}
 	}
 }
 
