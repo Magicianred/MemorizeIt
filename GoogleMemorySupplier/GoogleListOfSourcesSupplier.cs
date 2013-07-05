@@ -10,12 +10,13 @@ namespace GoogleMemorySupplier
     public class GoogleListOfSourcesSupplier : IListOfSourcesSupplier
     {
         private readonly string applicationName = "MemorizeIt";
+        private readonly string spreadsheetName = "MemorizeIt";
         private readonly string userName;
         private readonly string password;
 
-        public GoogleListOfSourcesSupplier(string applicationName, string userName, string password)
+        public GoogleListOfSourcesSupplier(string spreadsheetName, string userName, string password)
         {
-            this.applicationName = applicationName;
+            this.spreadsheetName = spreadsheetName;
             this.userName = userName;
             this.password = password;
         }
@@ -34,11 +35,17 @@ namespace GoogleMemorySupplier
 
             // Instantiate a SpreadsheetQuery object to retrieve spreadsheets.
             SpreadsheetQuery query = new SpreadsheetQuery();
-            query.Title = applicationName;
+            query.Title = spreadsheetName;
 
             SpreadsheetFeed feed = service.Query(query);
+            var spreadsheet = (SpreadsheetEntry)feed.Entries[0];
 
-            foreach (SpreadsheetEntry entry in feed.Entries)
+            // Make a request to the API to fetch information about all
+            // worksheets in the spreadsheet.
+            WorksheetFeed wsFeed = spreadsheet.Worksheets;
+
+            // Iterate through each worksheet in the spreadsheet.
+            foreach (WorksheetEntry entry in wsFeed.Entries)
             {
                 retval.Add(entry.Title.Text);
             }

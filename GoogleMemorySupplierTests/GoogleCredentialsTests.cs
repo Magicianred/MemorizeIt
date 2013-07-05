@@ -41,7 +41,7 @@ namespace GoogleMemorySupplierTests
         }
 
         [Test]
-        public void LogIn_Login_and_password_valid_doc_presented_User_is_logged_id_password_is_not_stored()
+        public void LogIn_Login_and_password_valid_doc_presented_User_is_logged_in()
         {
 
             //arrange
@@ -57,7 +57,6 @@ namespace GoogleMemorySupplierTests
             Assert.That(target.IsLoggedIn, Is.EqualTo(true));
             var user = target.GetCurrentUser();
             Assert.That(user.Login,Is.EqualTo(userName));
-            Assert.That(user.Password, Is.EqualTo(null));
         }
 
         private GoogleCredentials CreateGoogleCredentials(string docName=null)

@@ -11,7 +11,7 @@ namespace MemorizeIt
 		{
 			if (IsLoggedIn)
 				throw new InvalidOperationException ();
-			currentUser = new Credentials (login, null);
+		    currentUser = new Credentials(login, password);
 		}
 
 		public void LogOut ()
