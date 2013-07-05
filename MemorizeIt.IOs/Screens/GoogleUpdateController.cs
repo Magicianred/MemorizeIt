@@ -140,8 +140,10 @@ namespace MemorizeIt.IOs.Screens
                 new MemoryItem("q3","a3")
             });*/
 		}
-		protected IListOfSourcesSupplier CreateSourceSupplier(){
-			return new SimpleListOfSourcesSupplier (new String[]{"MemorizeIt"});
+		protected IListOfSourcesSupplier CreateSourceSupplier()
+		{
+		    var user = credentials.GetCurrentUser();
+		    return new GoogleListOfSourcesSupplier(user.Login, user.Password);
 		}
 	}
 }
