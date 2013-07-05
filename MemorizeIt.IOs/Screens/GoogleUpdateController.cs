@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using MemorizeIt.Model;
 using GoogleMemorySupplier;
+using MemorizeIt.CredentialsStorage;
 
 namespace MemorizeIt.IOs.Screens
 {
@@ -70,8 +71,14 @@ namespace MemorizeIt.IOs.Screens
 			{
 				if (e.ButtonIndex == 0)
 					return;
-				credentials.LogIn (dialod.GetTextField(0).Text, dialod.GetTextField (1).Text);
-				ReactOnCredentialsChange ();
+				try {
+					credentials.LogIn (dialod.GetTextField (0).Text, dialod.GetTextField (1).Text);
+					ReactOnCredentialsChange ();
+				} catch (CredentialsException ex) {
+					this.InvokeOnMainThread(() =>
+					                        new UIAlertView("Error", ex.Message, null, "OK",
+					                null).Show());
+				}
 			};
 
 		}
