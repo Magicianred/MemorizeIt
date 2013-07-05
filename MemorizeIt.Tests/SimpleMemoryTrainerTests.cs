@@ -59,7 +59,7 @@ namespace MemorizeIt.Tests
 
             // assert
             Assert.That(result, Is.EqualTo(true));
-            storageMock.Verify(x => x.Success(It.IsAny<Guid>()), Times.Once());
+            storageMock.Verify(x => x.ItemSuccess(It.IsAny<Guid>()), Times.Once());
         }
         [Test]
         public void Validate_When_Answer_is_incorrect_Then_True_is_returned_record_is_marked_as_Success()
@@ -73,7 +73,7 @@ namespace MemorizeIt.Tests
 
             // assert
             Assert.That(result, Is.EqualTo(false));
-            storageMock.Verify(x => x.Fail(It.IsAny<Guid>()), Times.Once());
+            storageMock.Verify(x => x.ItemFail(It.IsAny<Guid>()), Times.Once());
         }
         [Test]
         public void Validate_When_Current_question_is_empty_Then_InvalidOperationException()

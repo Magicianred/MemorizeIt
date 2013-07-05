@@ -7,14 +7,14 @@ namespace MemorizeIt
 		private Credentials currentUser;
 		#region ICredentialsStorage implementation
 
-		public Void LogIn (String login, String password)
+		public void LogIn (String login, String password)
 		{
 			if (IsLoggedIn)
 				throw new InvalidOperationException ();
-			currentUser = new Credentials (login, password);
+			currentUser = new Credentials (login, null);
 		}
 
-		public Void LogOut ()
+		public void LogOut ()
 		{			
 			if (!IsLoggedIn)
 				throw new InvalidOperationException ();

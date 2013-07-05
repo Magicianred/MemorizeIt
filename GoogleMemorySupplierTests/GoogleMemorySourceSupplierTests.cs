@@ -6,7 +6,7 @@ namespace GoogleMemorySupplierTests
     [TestFixture]
     public class GoogleMemorySourceSupplierTests
     {
-       /* [Test]
+        [Test]
         public void Download_When_test_Then_test()
         {
             // arrange
@@ -21,7 +21,7 @@ namespace GoogleMemorySupplierTests
 
         private GoogleMemorySourceSupplier CreateGoogleMemorySourceSupplier()
         {
-            return new GoogleMemorySourceSupplier();
-        }*/
+            return new GoogleMemorySourceSupplier("MemorizeIt", "memorize.it.test@gmail.com", "MemorizeIt");
+        }
     }
 }
