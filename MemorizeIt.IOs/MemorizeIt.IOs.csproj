@@ -48,8 +48,16 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <IpaPackageName />
     <MtouchI18n />
-    <MtouchArch>ARMv7</MtouchArch>
-    <AssemblyName>Tasky</AssemblyName>
+    <MtouchArch>Default, ARMv7</MtouchArch>
+    <AssemblyName>MemorizeIt</AssemblyName>
+    <MtouchSdkVersion>6.1</MtouchSdkVersion>
+    <MtouchLink>None</MtouchLink>
+    <MtouchProfiling>False</MtouchProfiling>
+    <MtouchExtraArgs />
+    <MtouchUseLlvm>False</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -62,7 +70,7 @@
     <IpaPackageName />
     <MtouchI18n />
     <MtouchArch>ARMv7</MtouchArch>
-    <AssemblyName>Tasky</AssemblyName>
+    <AssemblyName>MemorizeIt</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -141,9 +149,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\brain-58.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Countrols\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\MemorizeIt\MemorizeIt.csproj">
       <Project>{7F3D6881-B625-4FB9-BD12-F122100EF6FA}</Project>

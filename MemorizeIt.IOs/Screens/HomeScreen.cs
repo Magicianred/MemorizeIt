@@ -7,7 +7,6 @@ using MonoTouch.Dialog;
 using MemorizeIt.MemoryStorage;
 using MemorizeIt.MemorySourceSupplier;
 
-using FileMemoryStorage;
 using MemorizeIt.MemoryTrainers;
 using MemorizeIt.IOs.ApplicationLayer;
 using System.Threading.Tasks;

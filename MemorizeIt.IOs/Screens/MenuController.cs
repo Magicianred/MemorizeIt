@@ -6,7 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using MemorizeIt.MemoryStorage;
-using FileMemoryStorage;
+
 using MemorizeIt.IOs.Screens;
 using MonoTouch.SlideoutNavigation;
 
@@ -15,20 +15,18 @@ namespace MemorizeIt.IOs
 	public partial class MenuController : DialogViewController
 	{
 		private readonly IMemoryStorage storage;
-		private readonly ICredentialsStorage credentials;
 		private readonly SlideoutNavigationController menu;
 
 		private readonly UIViewController homeControlled;
 		private readonly UIViewController googleUpdateController;
 
-		public MenuController(SlideoutNavigationController menu,IMemoryStorage storage, ICredentialsStorage credentials) 
+		public MenuController(SlideoutNavigationController menu,IMemoryStorage storage) 
 			: base(UITableViewStyle.Plain,new RootElement(""))
 		{
 			this.menu = menu;
 			this.storage = storage;
-			this.credentials = credentials;
 			homeControlled = new HomeScreen (storage);
-			googleUpdateController = new GoogleUpdateController (storage, credentials);
+			googleUpdateController = new GoogleUpdateController (storage);
 			menu.TopView = storage.Empty () ? googleUpdateController : homeControlled;
 				
 		}

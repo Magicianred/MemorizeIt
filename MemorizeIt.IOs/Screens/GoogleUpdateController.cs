@@ -21,7 +21,7 @@ namespace MemorizeIt.IOs.Screens
 		private UIBarButtonItem btnLogin;
 		private LoadingOverlay loadingOverlay;
 
-		public GoogleUpdateController(IMemoryStorage store,ICredentialsStorage credentials):
+		public GoogleUpdateController(IMemoryStorage store):
 			base(UITableViewStyle.Grouped, null)
 		{
 			

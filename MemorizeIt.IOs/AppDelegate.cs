@@ -26,7 +26,7 @@ namespace MemorizeIt.IOs {
 			storage = new FileSystemMemoryStorage ();
 			Menu = new CustomSlideoutNavigationController ();
 
-		    Menu.MenuView = new MenuController(Menu, storage, new GoogleCredentials());
+		    Menu.MenuView = new MenuController(Menu, storage);
 		
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
