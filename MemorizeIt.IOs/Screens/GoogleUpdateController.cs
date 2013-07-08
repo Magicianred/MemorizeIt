@@ -26,6 +26,7 @@ namespace MemorizeIt.IOs.Screens
 		{
 			
 			this.store = store;
+			this.Pushing = true;
 			this.supplier=new GoogleMemoryFactory();
 			Initialize();
 		}
@@ -41,19 +42,17 @@ namespace MemorizeIt.IOs.Screens
 				new UIBarButtonItem ("",UIBarButtonItemStyle.Plain, (s,e) => Login ());
 			this.NavigationItem.SetRightBarButtonItem(btnLogin,false);
 			this.NavigationItem.Title="Google Drive Memories";
-
-			this.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem ("Back", UIBarButtonItemStyle.Done, (s,e) => {
+			/*this.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem ("Back", UIBarButtonItemStyle.Bordered, (s,e) => {
 
 				NavigationController.PopViewControllerAnimated(true);
-			}), false);
+			}), false);*/
 
 		}
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			ReactOnCredentialsChange ();
-
-
+		
 		}
 		protected void Login(){
             if (supplier.CredentialsStorage.IsLoggedIn)

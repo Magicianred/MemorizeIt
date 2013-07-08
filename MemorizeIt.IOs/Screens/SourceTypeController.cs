@@ -19,14 +19,15 @@ namespace MemorizeIt.IOs.Screens
 		public SourceTypeController (IMemoryStorage store) : base (UITableViewStyle.Grouped, null)
 		{
 			this.store = store;
+			this.Title="Resources";
 			privateController = new GoogleUpdateController (store);
 
-			Root = new RootElement ("SourceTypeController") {
-				new Section (""){
+			Root = new RootElement ("Sources") {
+				/*new Section (""){
 					new StringElement ("Public", () => {
 						NavigationController.PushViewController (publicController, true);
 					})
-				},
+				},*/
 				new Section ("Private"){ new RootElement("Private",(r)=>privateController)}
 
 			};
