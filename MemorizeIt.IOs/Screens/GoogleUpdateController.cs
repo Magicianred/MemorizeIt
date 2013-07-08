@@ -113,28 +113,33 @@ namespace MemorizeIt.IOs.Screens
 
 		void PopulateSources ()
 		{
-            Section items = supplier.CredentialsStorage.IsLoggedIn ? CreateSectionForLoggedIn() : CreateSectionForAnonim();
-			Root = new RootElement ("") {
-				items
-			};
+			Root = supplier.CredentialsStorage.IsLoggedIn ? CreateSectionForLoggedIn() : CreateSectionForAnonim();
+
 		}
 
-		protected Section CreateSectionForAnonim ()
+		protected RootElement CreateSectionForAnonim ()
 		{
 			var items = new Section ("Memory Sources ");
 			items.Add (new MultilineElement ("Sources are  not avalible, please log in"));
-			return items;
+			return new RootElement ("") { items };
 		}
 
-		protected Section CreateSectionForLoggedIn ()
+		protected RootElement CreateSectionForLoggedIn ()
 		{
 			var items = new Section (string.Format ("Memory Sources for {0}", supplier.CredentialsStorage.GetCurrentUser ().Login));
-		    var listOfSources = supplier.ListOfSources;
-			if (!listOfSources.Any ())
+		    var listOfSources = supplier.ListOfSources.ToList();
+			if (!listOfSources.Any ()) {
 				items.Add (new MultilineElement ("Memory sources are absent"));
-			else
-				items.AddAll (listOfSources.Select (s => (Element)new StringElement (s, () => Upload (s))));
-			return items;
+				return new RootElement ("") { items };
+			}
+			var rGroup = new RadioGroup (-1);
+			foreach (var item in listOfSources) {
+				var radioButton = new RadioElement (item);
+				radioButton.Tapped += () => Upload (listOfSources[rGroup.Selected]);
+				items.Add (radioButton);
+			}
+			return new RootElement ("", rGroup) { items };
+
 		}
 
 	}
