@@ -42,6 +42,11 @@ namespace MemorizeIt.IOs.Screens
 			this.NavigationItem.SetRightBarButtonItem(btnLogin,false);
 			this.NavigationItem.Title="Google Drive Memories";
 
+			this.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem ("Back", UIBarButtonItemStyle.Done, (s,e) => {
+
+				NavigationController.PopViewControllerAnimated(true);
+			}), false);
+
 		}
 		public override void ViewDidLoad ()
 		{

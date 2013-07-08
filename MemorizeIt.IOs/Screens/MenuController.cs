@@ -18,7 +18,7 @@ namespace MemorizeIt.IOs
 		private readonly SlideoutNavigationController menu;
 
 		private readonly UIViewController homeControlled;
-		private readonly UIViewController googleUpdateController;
+		private readonly UIViewController updateController;
 
 		public MenuController(SlideoutNavigationController menu,IMemoryStorage storage) 
 			: base(UITableViewStyle.Plain,new RootElement(""))
@@ -26,8 +26,8 @@ namespace MemorizeIt.IOs
 			this.menu = menu;
 			this.storage = storage;
 			homeControlled = new HomeScreen (storage);
-			googleUpdateController = new GoogleUpdateController (storage);
-			menu.TopView = storage.Empty () ? googleUpdateController : homeControlled;
+			updateController = new SourceTypeController (storage);
+			menu.TopView = storage.Empty () ? updateController : homeControlled;
 				
 		}
 
@@ -48,7 +48,7 @@ namespace MemorizeIt.IOs
 		protected Element CreateUpdateScreen(){
 			return new StyledStringElement ("Update",
 			                                () => {
-				NavigationController.PushViewController (googleUpdateController, true);});
+				NavigationController.PushViewController (updateController, true);});
 		}
 
 		public override void ViewDidLoad ()
