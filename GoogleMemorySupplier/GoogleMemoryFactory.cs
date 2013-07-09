@@ -30,8 +30,8 @@ namespace GoogleMemorySupplier
             get
             {
 
-                if (!_credentials.IsLoggedIn)
-                    throw new InvalidOperationException("user need to be logged in");
+				if (!_credentials.IsLoggedIn)
+					return Enumerable.Empty<string> ();
          
                 var user = _credentials.GetCurrentUser();
                 return new GoogleListOfSourcesSupplier(user.Login, user.Password).GetSourcesList();

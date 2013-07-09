@@ -71,7 +71,7 @@ namespace GoogleMemorySupplier
                     new MemoryItem(new string[]
                         {((CellEntry) cellFeed.Entries[i]).Value, ((CellEntry) cellFeed.Entries[i + 1]).Value}));
             }
-			return new MemoryTable(spreadsheetName, retval.ToArray());
+			return new MemoryTable(sheetName, retval.ToArray());
         }
     }
 }

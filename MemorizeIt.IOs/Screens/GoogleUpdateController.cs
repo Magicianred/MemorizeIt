@@ -14,11 +14,10 @@ using GoogleMemorySupplier;
 
 namespace MemorizeIt.IOs.Screens
 {
-	public class GoogleUpdateController:DialogViewController
+	public abstract class GoogleUpdateController:DialogViewController
 	{
-		private readonly IMemoryStorage store;
-	    private readonly IMemoryFactory supplier;
-		private UIBarButtonItem btnLogin;
+		protected readonly IMemoryStorage store;
+	    protected readonly IMemoryFactory supplier;
 		private LoadingOverlay loadingOverlay;
 
 		public GoogleUpdateController(IMemoryStorage store):
@@ -27,66 +26,21 @@ namespace MemorizeIt.IOs.Screens
 			
 			this.store = store;
 			this.Pushing = true;
-			this.supplier=new GoogleMemoryFactory();
-			Initialize();
+			this.supplier = new GoogleMemoryFactory ();
+			Initialize ();
 		}
 
-	
-		private void ReactOnCredentialsChange(){
-			btnLogin.Title = supplier.CredentialsStorage.IsLoggedIn?"Log out":"Log in";
-			PopulateSources ();
-		}
-		protected void Initialize()
+		protected virtual void Initialize()
 		{
-			btnLogin =
-				new UIBarButtonItem ("",UIBarButtonItemStyle.Plain, (s,e) => Login ());
-			this.NavigationItem.SetRightBarButtonItem(btnLogin,false);
-			this.NavigationItem.Title="Google Drive Memories";
-			/*this.NavigationItem.SetLeftBarButtonItem (new UIBarButtonItem ("Back", UIBarButtonItemStyle.Bordered, (s,e) => {
-
-				NavigationController.PopViewControllerAnimated(true);
-			}), false);*/
 
 		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			ReactOnCredentialsChange ();
-		
+			PopulateSources ();
 		}
-		protected void Login(){
-            if (supplier.CredentialsStorage.IsLoggedIn)
-            {
-                supplier.CredentialsStorage.LogOut();
-				ReactOnCredentialsChange ();
-				return;
-			}
 
-			
-			var dialod = new UIAlertView ("Enter credentials", "", null, "Cancel", null);
-
-			dialod.AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput;
-			dialod.GetTextField (0).KeyboardType = UIKeyboardType.EmailAddress;
-
-			dialod.AddButton ("Log in");
-
-			dialod.Show ();
-
-			dialod.Clicked += (sender, e) =>
-			{
-				if (e.ButtonIndex == 0)
-					return;
-				try {
-                    supplier.CredentialsStorage.LogIn(dialod.GetTextField(0).Text, dialod.GetTextField(1).Text);
-					ReactOnCredentialsChange ();
-				} catch (CredentialsException ex) {
-					this.InvokeOnMainThread(() =>
-					                        new UIAlertView("Error", ex.Message, null, "OK",
-					                null).Show());
-				}
-			};
-
-		}
 		protected void Upload(string sourceName)
 		{
 			loadingOverlay = new LoadingOverlay (UIScreen.MainScreen.Bounds);
@@ -110,25 +64,20 @@ namespace MemorizeIt.IOs.Screens
 
 		}
 
-		void PopulateSources ()
+		protected virtual void PopulateSources ()
 		{
-			Root = supplier.CredentialsStorage.IsLoggedIn ? CreateSectionForLoggedIn() : CreateSectionForAnonim();
-
+			Root = CreateSection ();
 		}
 
-		protected RootElement CreateSectionForAnonim ()
-		{
-			var items = new Section ("Memory Sources ");
-			items.Add (new MultilineElement ("Sources are  not avalible, please log in"));
-			return new RootElement ("") { items };
-		}
+		protected abstract string GetSectionTitle ();
+		protected abstract string GetEmptyListReasonTitle ();
 
-		protected RootElement CreateSectionForLoggedIn ()
+		protected RootElement CreateSection ()
 		{
-			var items = new Section (string.Format ("Memory Sources for {0}", supplier.CredentialsStorage.GetCurrentUser ().Login));
+			var items = new Section (GetSectionTitle ());
 		    var listOfSources = supplier.ListOfSources.ToList();
 			if (!listOfSources.Any ()) {
-				items.Add (new MultilineElement ("Memory sources are absent"));
+				items.Add (new MultilineElement (GetEmptyListReasonTitle()));
 				return new RootElement ("") { items };
 			}
 			var rGroup = new RadioGroup (-1);

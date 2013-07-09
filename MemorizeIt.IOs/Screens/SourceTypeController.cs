@@ -20,7 +20,7 @@ namespace MemorizeIt.IOs.Screens
 		{
 			this.store = store;
 			this.Title="Resources";
-			privateController = new GoogleUpdateController (store);
+			privateController = new PrivateGoogleUpdateController (store);
 
 			Root = new RootElement ("Sources") {
 				/*new Section (""){

@@ -40,9 +40,7 @@ namespace MemorizeIt.IOs.Screens {
 
 
         protected void Initialize()
-		{			
-			this.TabBarItem.Title = "Memories";
-
+		{	
 		}
 
 		public override void ViewDidLoad ()
