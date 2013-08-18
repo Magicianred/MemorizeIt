@@ -2,6 +2,8 @@ using System;
 using MemorizeIt.MemoryStorage;
 using MonoTouch.UIKit;
 using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
+using GoogleMemorySupplier;
+using MemorizeIt.MemorySourceSupplier;
 
 namespace MemorizeIt.IOs.Screens
 {
@@ -11,7 +13,9 @@ namespace MemorizeIt.IOs.Screens
 
 		public PrivateGoogleUpdateController (IMemoryStorage store):base(store)
 		{
-
+		}
+		protected override IMemoryFactory CreateSupplier (){
+			return new GoogleMemoryFactory ();
 		}
 		protected override void Initialize ()
 		{

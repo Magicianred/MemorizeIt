@@ -26,10 +26,10 @@ namespace MemorizeIt.IOs.Screens
 			
 			this.store = store;
 			this.Pushing = true;
-			this.supplier = new GoogleMemoryFactory ();
+			this.supplier = CreateSupplier ();
 			Initialize ();
 		}
-
+		protected abstract IMemoryFactory CreateSupplier ();
 		protected virtual void Initialize()
 		{
 

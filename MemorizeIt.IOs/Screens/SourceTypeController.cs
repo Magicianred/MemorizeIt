@@ -12,6 +12,7 @@ namespace MemorizeIt.IOs.Screens
 	public partial class SourceTypeController : DialogViewController
 	{
 		private  readonly DialogViewController privateController;
+		private  readonly DialogViewController piblicController;
 		private  UIViewController publicController;
 		private readonly IMemoryStorage store;
 
@@ -21,6 +22,7 @@ namespace MemorizeIt.IOs.Screens
 			this.store = store;
 			this.Title="Resources";
 			privateController = new PrivateGoogleUpdateController (store);
+			publicController = new PublicUpdateController (store);
 
 			Root = new RootElement ("Sources") {
 				/*new Section (""){
@@ -28,7 +30,9 @@ namespace MemorizeIt.IOs.Screens
 						NavigationController.PushViewController (publicController, true);
 					})
 				},*/
-				new Section ("Private"){ new RootElement("Private",(r)=>privateController)}
+				new Section ("Sources"){ 
+					new RootElement("Public",(r)=>publicController),
+					new RootElement("Private",(r)=>privateController)}
 
 			};
 		}
