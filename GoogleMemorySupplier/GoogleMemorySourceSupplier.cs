@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Google.GData.Client;
@@ -10,53 +11,41 @@ using Google.GData.Spreadsheets;*/
 
 namespace GoogleMemorySupplier
 {
-    public class GoogleMemorySourceSupplier:IMemorySourceSupplier
+    public class GoogleMemorySourceSupplier : IMemorySourceSupplier
     {
         private readonly string applicationName = "MemorizeIt";
         private readonly string spreadsheetName = "MemorizeIt";
-        private readonly string sheetName;
         private readonly string userName;
         private readonly string password;
 
-        public GoogleMemorySourceSupplier(string sheetName, string userName, string password, string spreadsheetName=null)
+        public GoogleMemorySourceSupplier(string userName, string password, string spreadsheetName = null)
         {
             if (!string.IsNullOrEmpty(spreadsheetName))
                 this.spreadsheetName = spreadsheetName;
-            this.sheetName = sheetName;
             this.userName = userName;
             this.password = password;
         }
 
-        public MemoryTable Download()
+        public IEnumerable<string> GetSourcesList()
         {
-            SpreadsheetsService service = new SpreadsheetsService(applicationName);
-            service.setUserCredentials(userName, password);
+            var retval = new List<string>();
 
-            // Instantiate a SpreadsheetQuery object to retrieve spreadsheets.
-            SpreadsheetQuery query = new SpreadsheetQuery();
-            query.Title = spreadsheetName;
-            // Make a request to the API and get all spreadsheets.
-            SpreadsheetFeed feed = service.Query(query);
 
-            if (feed.Entries.Count == 0)
+            // Iterate through each worksheet in the spreadsheet.
+            foreach (WorksheetEntry entry in GetWorksheetEntres())
             {
-                return null;
+                retval.Add(entry.Title.Text);
             }
 
-            // TODO: Choose a spreadsheet more intelligently based on your
-            // app's needs.
-            SpreadsheetEntry spreadsheet = (SpreadsheetEntry) feed.Entries[0];
+            return retval;
+        }
 
-
-            // Get the first worksheet of the first spreadsheet.
-            // TODO: Choose a worksheet more intelligently based on your
-            // app's needs.
-            WorksheetFeed wsFeed = spreadsheet.Worksheets;
-            WorksheetEntry worksheet = wsFeed.Entries.FirstOrDefault(e => e.Title.Text == sheetName) as WorksheetEntry;
+        public MemoryTable Download(string sheetName)
+        {
+            var service = new SpreadsheetsService(applicationName);
+            WorksheetEntry worksheet = GetWorksheetEntres(service).FirstOrDefault(e => e.Title.Text == sheetName) as WorksheetEntry;
             if (worksheet == null)
                 return null;
-
-
             List<MemoryItem> retval = new List<MemoryItem>();
 
             // Fetch the cell feed of the worksheet.
@@ -71,7 +60,30 @@ namespace GoogleMemorySupplier
                     new MemoryItem(new string[]
                         {((CellEntry) cellFeed.Entries[i]).Value, ((CellEntry) cellFeed.Entries[i + 1]).Value}));
             }
-			return new MemoryTable(sheetName, retval.ToArray());
+            return new MemoryTable(sheetName, retval.ToArray());
+        }
+
+
+        private IEnumerable<WorksheetEntry> GetWorksheetEntres(SpreadsheetsService service = null)
+        {
+            if (service == null)
+                service = new SpreadsheetsService(applicationName);
+            service.setUserCredentials(userName, password);
+
+            // Instantiate a SpreadsheetQuery object to retrieve spreadsheets.
+            SpreadsheetQuery query = new SpreadsheetQuery();
+            query.Title = spreadsheetName;
+            // Make a request to the API and get all spreadsheets.
+            SpreadsheetFeed feed = service.Query(query);
+
+            if (feed.Entries.Count == 0)
+            {
+                return null;
+            }
+
+            return
+                feed.Entries.OfType<SpreadsheetEntry>()
+                    .SelectMany(entry => entry.Worksheets.Entries.OfType<WorksheetEntry>());
         }
     }
 }

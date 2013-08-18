@@ -51,8 +51,6 @@
     <Compile Include="Model\MemoryTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MemorySourceSupplier\SimpleMemorySourceSupplier.cs" />
-    <Compile Include="MemorySourceSupplier\IListOfSourcesSupplier.cs" />
-    <Compile Include="MemorySourceSupplier\SimpleListOfSourcesSupplier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

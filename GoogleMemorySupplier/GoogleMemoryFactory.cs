@@ -9,33 +9,20 @@ using MemorizeIt.Model;
 
 namespace GoogleMemorySupplier
 {
-    public class GoogleMemoryFactory : IMemoryFactory
+    public class GoogleMemoryFactory : AbstractMemoryFactory
     {
-        private readonly ICredentialsStorage _credentials=new GoogleCredentials();
+        private readonly ICredentialsStorage credentials=new GoogleCredentials();
 
         public ICredentialsStorage CredentialsStorage {
-            get { return _credentials; }
+            get { return credentials; }
         }
 
-        public MemoryTable DownloadMemories(string source)
+        protected override IMemorySourceSupplier CreateMemorySourceSupplier()
         {
-            if(!_credentials.IsLoggedIn)
+            if (!credentials.IsLoggedIn)
                 throw new InvalidOperationException("user need to be logged in");
-            var user = _credentials.GetCurrentUser();
-            return new GoogleMemorySourceSupplier(source, user.Login, user.Password).Download();
-        }
-
-        public IEnumerable<string> ListOfSources
-        {
-            get
-            {
-
-				if (!_credentials.IsLoggedIn)
-					return Enumerable.Empty<string> ();
-         
-                var user = _credentials.GetCurrentUser();
-                return new GoogleListOfSourcesSupplier(user.Login, user.Password).GetSourcesList();
-            }
+            var user = credentials.GetCurrentUser();
+            return new GoogleMemorySourceSupplier(user.Login, user.Password);
         }
     }
 }

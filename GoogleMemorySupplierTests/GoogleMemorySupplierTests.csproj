@@ -46,9 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GoogleCredentialsTests.cs" />
-    <Compile Include="GoogleListOfSourcesSupplierTests.cs" />
     <Compile Include="GoogleMemorySourceSupplierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicGoogleMemorySourceSupplierTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

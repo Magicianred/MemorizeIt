@@ -1,4 +1,5 @@
-﻿using GoogleMemorySupplier;
+﻿using System.Linq;
+using GoogleMemorySupplier;
 using NUnit.Framework;
 
 namespace GoogleMemorySupplierTests
@@ -10,10 +11,10 @@ namespace GoogleMemorySupplierTests
         public void Download_When_sheet_is_absent_Then_result_is_null()
         {
             // arrange
-            GoogleMemorySourceSupplier target = CreateGoogleMemorySourceSupplier("dddd");
+            GoogleMemorySourceSupplier target = CreateGoogleMemorySourceSupplier();
 
             // act
-            var result = target.Download();
+            var result = target.Download("dddd");
 
             // assert
             Assert.That(result, Is.EqualTo(null));
@@ -29,15 +30,33 @@ namespace GoogleMemorySupplierTests
 
             //act
 
-            var result = target.Download();
+            var result = target.Download("S1");
 
             //assert
             Assert.IsNotNull(result);
         }
 
-        private GoogleMemorySourceSupplier CreateGoogleMemorySourceSupplier(string sheetName="S1")
+        [Test]
+        public void GetSourcesList_WorksheetIsPresented_List_of_spreadsheets_is_returned()
         {
-            return new GoogleMemorySourceSupplier(sheetName, "memorize.it.test@gmail.com", "MemorizeIt");
+
+            //arrange
+
+            GoogleMemorySourceSupplier target = CreateGoogleMemorySourceSupplier();
+
+            //act
+
+            var retval = target.GetSourcesList();
+
+            //assert
+            Assert.True(retval.Contains("S1"));
+            Assert.True(retval.Contains("S2"));
+
+        }
+
+        private GoogleMemorySourceSupplier CreateGoogleMemorySourceSupplier()
+        {
+            return new GoogleMemorySourceSupplier("memorize.it.test@gmail.com", "MemorizeIt");
         }
     }
 }

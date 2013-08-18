@@ -8,6 +8,7 @@ namespace MemorizeIt.MemorySourceSupplier
 {
     public interface IMemorySourceSupplier
     {
-        MemoryTable Download();
+        MemoryTable Download(string sheetName);
+        IEnumerable<string> GetSourcesList();
     }
 }
