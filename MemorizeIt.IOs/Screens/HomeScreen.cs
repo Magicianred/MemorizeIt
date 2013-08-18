@@ -42,7 +42,12 @@ namespace MemorizeIt.IOs.Screens {
         protected void Initialize()
 		{	
 		}
-
+		public override void ViewDidAppear (bool animated)
+		{
+			base.ViewDidAppear (animated);
+			
+			StretchTable ();
+		}
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -61,10 +66,10 @@ namespace MemorizeIt.IOs.Screens {
 
 			View.AddSubview (btnTrain);
 
-			StretchTable ();
 			PutButtonAtTheScreenCenter ();
 
 			PopulateTable ();
+
 		}
 
 		public override void WillAnimateRotation (UIInterfaceOrientation toInterfaceOrientation, double duration)
