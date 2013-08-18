@@ -7,7 +7,7 @@ using MemorizeIt.Model;
 
 namespace MemorizeIt.MemorySourceSupplier
 {
-    public abstract class AbstractMemoryFactory
+	public abstract class AbstractMemoryFactory:IMemoryFactory
     {
         private IMemorySourceSupplier memourySource;
         protected abstract IMemorySourceSupplier CreateMemorySourceSupplier();
@@ -21,9 +21,10 @@ namespace MemorizeIt.MemorySourceSupplier
             return MemorySources.Download(source);
         }
 
-        public IEnumerable<string> ListOfSources
+        public virtual IEnumerable<string> ListOfSources
         {
             get { return MemorySources.GetSourcesList(); }
         }
-    }
+		public virtual ICredentialsStorage CredentialsStorage { get{return null;} }
+	}
 }

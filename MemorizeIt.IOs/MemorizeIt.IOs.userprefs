@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AppDelegate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../GoogleMemorySupplier/GoogleMemoryFactory.cs">
     <Files>
       <File FileName="Screens/GoogleUpdateController.cs" Line="1" Column="1" />
       <File FileName="AppDelegate.cs" Line="24" Column="1" />
@@ -8,6 +8,7 @@
       <File FileName="LoadingOverlay.cs" Line="1" Column="1" />
       <File FileName="../GoogleMemorySupplier/GoogleMemorySourceSupplier.cs" Line="1" Column="1" />
       <File FileName="Screens/MenuController.cs" Line="1" Column="1" />
+      <File FileName="../GoogleMemorySupplier/GoogleMemoryFactory.cs" Line="12" Column="40" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,8 +17,10 @@
             <Node name="References" expanded="True" />
           </Node>
           <Node name="GoogleMemorySupplier" expanded="True" />
-          <Node name="MemorizeIt" expanded="True" />
-          <Node name="MemorizeIt.IOs" expanded="True" selected="True" />
+          <Node name="MemorizeIt" expanded="True" selected="True">
+            <Node name="MemorySourceSupplier" expanded="True" />
+          </Node>
+          <Node name="MemorizeIt.IOs" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

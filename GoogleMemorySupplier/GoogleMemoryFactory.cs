@@ -13,10 +13,16 @@ namespace GoogleMemorySupplier
     {
         private readonly ICredentialsStorage credentials=new GoogleCredentials();
 
-        public ICredentialsStorage CredentialsStorage {
+        public override ICredentialsStorage CredentialsStorage {
             get { return credentials; }
         }
-
+		public override IEnumerable<string> ListOfSources {
+			get {
+				if (credentials.IsLoggedIn)
+					return base.ListOfSources;
+				return Enumerable.Empty<string> ();
+			}
+		}
         protected override IMemorySourceSupplier CreateMemorySourceSupplier()
         {
             if (!credentials.IsLoggedIn)
