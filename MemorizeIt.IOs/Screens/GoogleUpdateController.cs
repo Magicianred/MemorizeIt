@@ -21,11 +21,10 @@ namespace MemorizeIt.IOs.Screens
 		private LoadingOverlay loadingOverlay;
 
 		public GoogleUpdateController(IMemoryStorage store):
-			base(UITableViewStyle.Grouped, null)
+			base(UITableViewStyle.Grouped, null,true)
 		{
 			
 			this.store = store;
-			this.Pushing = true;
 			this.supplier = CreateSupplier ();
 			Initialize ();
 		}
@@ -46,21 +45,18 @@ namespace MemorizeIt.IOs.Screens
 			loadingOverlay = new LoadingOverlay (UIScreen.MainScreen.Bounds);
 			View.Add (loadingOverlay);
 			Task.Factory.StartNew (() =>
-				                      {
-					try
-					{
-					    var data = supplier.DownloadMemories(sourceName);
-						this.store.Store(data);
-					}
-					catch (Exception downloadException)
-					{
-						this.InvokeOnMainThread(() =>
-						                        new UIAlertView("Error", downloadException.Message, null, "OK",
-						                null).Show());
-					}
-					this.InvokeOnMainThread(() =>
-					                        loadingOverlay.Hide());
-				});
+			{
+				try {
+					var data = supplier.DownloadMemories (sourceName);
+					this.store.Store (data);
+				} catch (Exception downloadException) {
+					this.InvokeOnMainThread (() =>
+						                        new UIAlertView ("Error", downloadException.Message, null, "OK",
+					                                         null).Show ());
+				}
+				this.InvokeOnMainThread (() =>
+					                        loadingOverlay.Hide ());
+			});
 
 		}
 

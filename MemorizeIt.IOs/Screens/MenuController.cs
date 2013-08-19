@@ -31,6 +31,10 @@ namespace MemorizeIt.IOs
 				
 		}
 
+		public void ShowHomeController(){
+			menu.TopView = homeControlled;
+		}
+
 		protected Element CreateMemoriesScreen(){
 			var element = new StyledStringElement ("Memories", HandleMemoriesClick);
 			return element;
@@ -55,9 +59,9 @@ namespace MemorizeIt.IOs
 		{
 			base.ViewDidLoad ();
 			var section = new Section ();
-			section.Add (CreateMemoriesScreen());
-			section.Add (CreateUpdateScreen());
-		Root.Add (section);
+			section.Add (CreateMemoriesScreen ());
+			section.Add (CreateUpdateScreen ());
+			Root.Add (section);
 
 		}
 	}

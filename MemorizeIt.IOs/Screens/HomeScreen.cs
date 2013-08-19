@@ -24,53 +24,57 @@ namespace MemorizeIt.IOs.Screens {
     {
      
 		private UIButton btnTrain;
+		private UIBarButtonItem btnBarUpdate;
 		private UITableView table;
         private readonly IMemoryStorage store;
         private readonly SimpleMemoryTrainer trainer;
+		private SourceTypeController updateController;
 
 		public HomeScreen(IMemoryStorage store)
-            : base()
+			: base()
         {
 			this.store = store;
 			this.store.SotrageChanged += (e,s) => {
 				this.InvokeOnMainThread (PopulateTable);};
 			this.trainer = new SimpleMemoryTrainer(this.store);
+
 			Initialize();
         }
 
 
         protected void Initialize()
 		{	
-		}
-		public override void ViewDidAppear (bool animated)
-		{
-			base.ViewDidAppear (animated);
-			
-			StretchTable ();
-			
-
-			PutButtonAtTheBottom ();
-		}
-		public override void ViewDidLoad ()
-		{
-			base.ViewDidLoad ();
-
 			table = new UITableView ();
 
-			View.AddSubview (table);
-			
 			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
-
 			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Normal);
 			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Highlighted);
 			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Disabled);
 
 			btnTrain.TouchUpInside += (sender,e) => Train ();
 
+			btnBarUpdate =
+				new UIBarButtonItem ("Update", UIBarButtonItemStyle.Plain, (s,e) => Update ());
+
+		}
+
+		public override void ViewDidAppear (bool animated)
+		{
+			base.ViewDidAppear (animated);
+			
+			StretchTable ();		
+
+			PutButtonAtTheBottom ();
+
+		}
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();	
+			View.AddSubview (table);
 			View.AddSubview (btnTrain);
 
 			PopulateTable ();
-
+			this.NavigationItem.SetRightBarButtonItem(btnBarUpdate,false);
 		}
 
 		public override void WillAnimateRotation (UIInterfaceOrientation toInterfaceOrientation, double duration)
@@ -78,6 +82,13 @@ namespace MemorizeIt.IOs.Screens {
 			base.WillAnimateRotation (toInterfaceOrientation, duration);
 			StretchTable ();
 			PutButtonAtTheBottom ();
+		}
+
+		protected void Update(){
+			if (updateController == null)
+				updateController = new SourceTypeController (this.store);
+		//	this.ActivateController (updateController);
+			this.NavigationController.PushViewController (updateController, true);		
 		}
 
         protected void Train()
@@ -130,6 +141,7 @@ namespace MemorizeIt.IOs.Screens {
 			btnTrain.Frame = new RectangleF ((View.Frame.Width - btnTrain.Frame.Width) / 2, 
 			                                 GetScreenSize() - btnTrain.Frame.Height - 10 , 
 			                                 btnTrain.Frame.Width, btnTrain.Frame.Height);
+
 		}
 
 		void StretchTable ()

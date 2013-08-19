@@ -15,7 +15,7 @@ namespace MemorizeIt.IOs {
 		// class-level declarations
 		UIWindow window;
 
-		public SlideoutNavigationController Menu { get; private set; }
+	//	public SlideoutNavigationController Menu { get; private set; }
 		public IMemoryStorage storage{ get;private set;}
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
@@ -24,11 +24,15 @@ namespace MemorizeIt.IOs {
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
 			storage = new FileSystemMemoryStorage ();
-			Menu = new CustomSlideoutNavigationController ();
+		/*	Menu = new CustomSlideoutNavigationController ();
 
-		    Menu.MenuView = new MenuController(Menu, storage);
-		
-			window.RootViewController = Menu;
+		    Menu.MenuView = new MenuController(Menu, storage);*/
+			
+			var navigation = new UINavigationController ();
+			var homeScreen = new HomeScreen (storage);
+			navigation.PushViewController (homeScreen, true);		
+			window.RootViewController = navigation;
+	//		window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
 
 			return true;
