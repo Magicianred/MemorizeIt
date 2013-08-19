@@ -54,8 +54,11 @@ namespace MemorizeIt.IOs.Screens
 						                        new UIAlertView ("Error", downloadException.Message, null, "OK",
 					                                         null).Show ());
 				}
-				this.InvokeOnMainThread (() =>
-					                        loadingOverlay.Hide ());
+				this.InvokeOnMainThread (() =>{
+					    this.loadingOverlay.Hide ();
+						this.NavigationController.PopToRootViewController(false);
+					}
+				);
 			});
 
 		}

@@ -60,6 +60,8 @@ namespace MemorizeIt.IOs.Screens {
 
 		public override void ViewDidAppear (bool animated)
 		{
+			
+			PopulateTable ();
 			base.ViewDidAppear (animated);
 			
 			StretchTable ();		
@@ -73,7 +75,6 @@ namespace MemorizeIt.IOs.Screens {
 			View.AddSubview (table);
 			View.AddSubview (btnTrain);
 
-			PopulateTable ();
 			this.NavigationItem.SetRightBarButtonItem(btnBarUpdate,false);
 		}
 
@@ -162,7 +163,10 @@ namespace MemorizeIt.IOs.Screens {
 			if (!this.IsViewLoaded)
 				return;
 			if (store.Empty ()) {
-				throw new InvalidOperationException ("can't show empty table");
+				new UIAlertView ("Memories are empty", "Please upload memories", null, "OK", null).Show ();
+
+				Update ();
+				return;
 			}
 
 			var tableSource = new TableSource (store.Items);
