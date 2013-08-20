@@ -99,41 +99,56 @@ namespace MemorizeIt.IOs.Screens {
         }
 
         protected void ShowQuestion(string s)
-        {
+		{
 
-            var dialod = new UIAlertView("I have a question for you", s, null, "Skip", null);
-            dialod.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
-            dialod.AddButton("Answer");
+			var dialod = new UIAlertView ("I have a question for you", s, null, "Stop", null);
+			dialod.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
+			dialod.AddButton ("Answer");
 
-            dialod.Show();
+			dialod.Show ();
 
-            dialod.Clicked += (sender, e) =>
-                {
-                    if (e.ButtonIndex == 0)
-                    {
-                        trainer.Clear();
-                        return;
-                    }
-                    var answer = dialod.GetTextField(0).Text;
-                    var result = trainer.Validate(answer);
-                    if (result)
-                    {
-                        new UIAlertView("Well Done!", string.Format("'{0}' is correct answer", answer), null, "OK", null)
-                            .Show();
+			dialod.Clicked += (sender, e) =>
+			{
+				if (e.ButtonIndex == 0) {
+					trainer.Clear ();
+					return;
+				}
+				var answer = dialod.GetTextField (0).Text;
+				var result = trainer.Validate (answer);
+				if (result) {                      
+					ShowSuccessDialog (answer);
+				} else {
+					ShowFaliureDialog(answer,s);
+				}                   
+			};
 
-                    }
-                    else
-                    {
-                        new UIAlertView("Sorry",
-                                        string.Format(
-                                            "'{0}' is incorrect answer on question '{2}'. Your answer was '{1}'", answer,
-                                            trainer.CurrentQuestion.Answer, s), null, "OK", null).Show();
-                    }
-                    trainer.Clear();
-                   
-                };
+		}
 
-        }
+		protected void ShowSuccessDialog(string answer){
+			var dialog = new UIAlertView ("Well Done!", string.Format ("'{0}' is correct answer", answer), null, "Stop", null);
+			AddNextButtonToDialogAndAssignTrainActionAction (dialog);
+			dialog.Show ();
+		}
+
+		protected void ShowFaliureDialog(string answer, string question){
+			var dialog = new UIAlertView ("Sorry",
+			                              string.Format (
+				"'{0}' is incorrect answer on question '{2}'. Your answer was '{1}'", answer,
+				trainer.CurrentQuestion.Answer, question), null, "Stop", null);
+			AddNextButtonToDialogAndAssignTrainActionAction (dialog);
+			dialog.Show ();		
+		}
+
+		protected void AddNextButtonToDialogAndAssignTrainActionAction(UIAlertView dialog){
+			dialog.AddButton ("Next");
+			dialog.Clicked += (s,e) => {				
+				trainer.Clear ();
+				if (e.ButtonIndex == 0) {
+					return;
+				}
+				Train ();
+			};
+		}
 
 		void PutButtonAtTheBottom ()
 		{
