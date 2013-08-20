@@ -98,10 +98,10 @@ namespace MemorizeIt.IOs.Screens {
             ShowQuestion(trainer.CurrentQuestion.Question);
         }
 
-        protected void ShowQuestion(string s)
+        protected void ShowQuestion(string question)
 		{
 
-			var dialod = new UIAlertView ("I have a question for you", s, null, "Stop", null);
+			var dialod = new UIAlertView ("I have a question for you", question, null, "Stop", null);
 			dialod.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
 			dialod.AddButton ("Answer");
 
@@ -118,23 +118,26 @@ namespace MemorizeIt.IOs.Screens {
 				if (result) {                      
 					ShowSuccessDialog (answer);
 				} else {
-					ShowFaliureDialog(answer,s);
+					ShowFaliureDialog(answer);
 				}                   
 			};
 
 		}
 
 		protected void ShowSuccessDialog(string answer){
-			var dialog = new UIAlertView ("Well Done!", string.Format ("'{0}' is correct answer", answer), null, "Stop", null);
+			var dialog = new UIAlertView ("Well Done!", 
+			                              string.Format ("'{0}' is correct answer for '{1}'", 
+			               					answer, trainer.CurrentQuestion.Question), 
+			                              null, "Stop", null);
 			AddNextButtonToDialogAndAssignTrainActionAction (dialog);
 			dialog.Show ();
 		}
 
-		protected void ShowFaliureDialog(string answer, string question){
-			var dialog = new UIAlertView ("Sorry",
+		protected void ShowFaliureDialog(string answer){
+			var dialog = new UIAlertView ("Wrong",
 			                              string.Format (
-				"'{0}' is incorrect answer on question '{2}'. Your answer was '{1}'", answer,
-				trainer.CurrentQuestion.Answer, question), null, "Stop", null);
+				"Correct answer for '{2}' is '{1}'. Your answer was '{0}'", answer,
+				trainer.CurrentQuestion.Answer, trainer.CurrentQuestion.Question), null, "Stop", null);
 			AddNextButtonToDialogAndAssignTrainActionAction (dialog);
 			dialog.Show ();		
 		}

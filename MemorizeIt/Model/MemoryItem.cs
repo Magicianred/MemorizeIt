@@ -19,7 +19,7 @@ namespace MemorizeIt.Model
         public MemoryItem(Guid id, string[] values, int successCount)
         {
             Id = id;
-            Values = values;
+			Values = values.Select (v => v.Trim ()).ToArray();
             SuccessCount = successCount;
         }
 
