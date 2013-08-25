@@ -49,14 +49,16 @@ namespace GoogleMemorySupplierTests
             var retval = target.GetSourcesList();
 
             //assert
-            Assert.True(retval.Contains("S1"));
-            Assert.True(retval.Contains("S2"));
+            Assert.That(retval.Count(), Is.EqualTo(2));
+            Assert.AreEqual(retval.First(),"S1");
+            Assert.AreEqual(retval.Last(), "S2");
+            
 
         }
 
         private GoogleMemorySourceSupplier CreateGoogleMemorySourceSupplier()
         {
-            return new GoogleMemorySourceSupplier("memorize.it.test@gmail.com", "MemorizeIt");
+            return new GoogleMemorySourceSupplier("memorize.it.test@gmail.com", "MemorizeIt", "MemorizeItTests");
         }
     }
 }

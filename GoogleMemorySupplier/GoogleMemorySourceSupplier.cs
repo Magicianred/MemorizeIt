@@ -80,9 +80,12 @@ namespace GoogleMemorySupplier
             {
                 return null;
             }
-
-            return
+            var woorkSheets =
                 feed.Entries.OfType<SpreadsheetEntry>()
+                    .Where(spreadsheet => spreadsheet.Authors.Any(author => author.Email == userName))
+                    .ToList();
+            return
+                woorkSheets
                     .SelectMany(entry => entry.Worksheets.Entries.OfType<WorksheetEntry>());
         }
     }
