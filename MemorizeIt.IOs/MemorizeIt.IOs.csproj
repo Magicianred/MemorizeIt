@@ -99,6 +99,7 @@
     <Compile Include="Screens\SourceTypeController.cs" />
     <Compile Include="Screens\PrivateGoogleUpdateController.cs" />
     <Compile Include="Screens\PublicUpdateController.cs" />
+    <Compile Include="Countrols\SimpleAsyncWrapper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>

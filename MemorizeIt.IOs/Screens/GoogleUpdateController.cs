@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using MemorizeIt.Model;
 using GoogleMemorySupplier;
+using System.Collections.Generic;
 
 namespace MemorizeIt.IOs.Screens
 {
@@ -18,7 +19,7 @@ namespace MemorizeIt.IOs.Screens
 	{
 		protected readonly IMemoryStorage store;
 	    protected readonly IMemoryFactory supplier;
-		private LoadingOverlay loadingOverlay;
+
 
 		public GoogleUpdateController(IMemoryStorage store):
 			base(UITableViewStyle.Grouped, null,true)
@@ -42,39 +43,32 @@ namespace MemorizeIt.IOs.Screens
 
 		protected void Upload(string sourceName)
 		{
-			loadingOverlay = new LoadingOverlay (UIScreen.MainScreen.Bounds);
-			View.Add (loadingOverlay);
-			Task.Factory.StartNew (() =>
-			{
-				try {
-					var data = supplier.DownloadMemories (sourceName);
-					this.store.Store (data);
-				} catch (Exception downloadException) {
-					this.InvokeOnMainThread (() =>
-						                        new UIAlertView ("Error", downloadException.Message, null, "OK",
-					                                         null).Show ());
-				}
-				this.InvokeOnMainThread (() =>{
-					    this.loadingOverlay.Hide ();
-						this.NavigationController.PopToRootViewController(false);
-					}
-				);
-			});
-
+			this.ExecuteAsync (() => {
+				var data = supplier.DownloadMemories (sourceName);
+				this.store.Store (data);
+			}, () => this.NavigationController.PopToRootViewController (false));
+		
 		}
 
 		protected virtual void PopulateSources ()
 		{
-			Root = CreateSection ();
+			var listOfSources = new List<string> ();
+			this.ExecuteAsync (() => {
+				listOfSources = supplier.ListOfSources.ToList ();},
+			  
+			                   () => {
+				Root = CreateSection (listOfSources);}
+			);
+			
 		}
 
 		protected abstract string GetSectionTitle ();
 		protected abstract string GetEmptyListReasonTitle ();
 
-		protected RootElement CreateSection ()
+		protected RootElement CreateSection (List<string> listOfSources)
 		{
 			var items = new Section (GetSectionTitle ());
-		    var listOfSources = supplier.ListOfSources.ToList();
+			//var listOfSources = supplier.ListOfSources.ToList();
 			if (!listOfSources.Any ()) {
 				items.Add (new MultilineElement (GetEmptyListReasonTitle()));
 				return new RootElement ("") { items };
@@ -88,7 +82,6 @@ namespace MemorizeIt.IOs.Screens
 			return new RootElement ("", rGroup) { items };
 
 		}
-
 	}
 }
 
