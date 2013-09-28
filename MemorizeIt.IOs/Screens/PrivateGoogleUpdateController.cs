@@ -34,9 +34,8 @@ namespace MemorizeIt.IOs.Screens
 
 		protected void Login(){
 
-			if (supplier.CredentialsStorage.IsLoggedIn)
-			{
-				supplier.CredentialsStorage.LogOut();
+			if (supplier.CredentialsStorage.IsLoggedIn) {
+				supplier.CredentialsStorage.LogOut ();
 				PopulateSources ();
 				return;
 			}
@@ -55,14 +54,13 @@ namespace MemorizeIt.IOs.Screens
 			{
 				if (e.ButtonIndex == 0)
 					return;
-				try {
-					supplier.CredentialsStorage.LogIn(dialod.GetTextField(0).Text, dialod.GetTextField(1).Text);
-					PopulateSources ();
-				} catch (CredentialsException ex) {
-					this.InvokeOnMainThread(() =>
-					                        new UIAlertView("Error", ex.Message, null, "OK",
-					                null).Show());
-				}
+				var userName=dialod.GetTextField (0).Text;
+				var password=dialod.GetTextField (1).Text;
+				this.ExecuteAsync (() => {
+
+					supplier.CredentialsStorage.LogIn (userName,password);
+					
+				}, PopulateSources);
 			};
 
 		}
