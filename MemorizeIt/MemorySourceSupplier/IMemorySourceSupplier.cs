@@ -10,5 +10,6 @@ namespace MemorizeIt.MemorySourceSupplier
     {
         MemoryTable Download(string sheetName);
         IEnumerable<string> GetSourcesList();
+        void CreateTemplate();
     }
 }

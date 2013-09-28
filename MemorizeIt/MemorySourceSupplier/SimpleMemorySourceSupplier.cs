@@ -25,6 +25,11 @@ namespace MemorizeIt.MemorySourceSupplier
         {
             return sourceList;
         }
+
+        public void CreateTemplate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
