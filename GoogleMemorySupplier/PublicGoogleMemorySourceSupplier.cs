@@ -27,7 +27,7 @@ namespace GoogleMemorySupplier
         {
             SpreadsheetsService service = new SpreadsheetsService(applicationName);
             service.setUserCredentials(userName, password);
-            WorksheetEntry worksheet = GetWorksheetEntres(service).FirstOrDefault(e => e.Title.Text == sheetName);
+            WorksheetEntry worksheet = this.GetWorksheetEntrees(service).FirstOrDefault(e => e.Title.Text == sheetName);
             if (worksheet == null)
                 return null;
 
@@ -50,7 +50,7 @@ namespace GoogleMemorySupplier
             var retval = new List<string>();
 
             // Iterate through each worksheet in the spreadsheet.
-            foreach (WorksheetEntry entry in GetWorksheetEntres())
+            foreach (WorksheetEntry entry in this.GetWorksheetEntrees())
             {
                 retval.Add(entry.Title.Text);
             }
@@ -58,7 +58,12 @@ namespace GoogleMemorySupplier
             return retval;
         }
 
-        private IEnumerable<WorksheetEntry> GetWorksheetEntres(SpreadsheetsService service = null)
+        public void CreateTemplate()
+        {
+            throw new InvalidOperationException("template creation is not avalible for public sources");
+        }
+
+        private IEnumerable<WorksheetEntry> GetWorksheetEntrees(SpreadsheetsService service = null)
         {
             if (service == null)
                 service = new SpreadsheetsService(applicationName);

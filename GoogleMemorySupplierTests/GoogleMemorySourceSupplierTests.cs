@@ -52,7 +52,24 @@ namespace GoogleMemorySupplierTests
             Assert.That(retval.Count(), Is.EqualTo(2));
             Assert.AreEqual(retval.First(),"S1");
             Assert.AreEqual(retval.Last(), "S2");
-            
+        }
+
+        [Test]
+        public void CreateTemplate_When_MemorizeItDocument_is_absent_Then_document_is_created()
+        {
+
+            //arrange
+
+            string spreadsheetName = "MemorizeItTestsTesting";
+            GoogleMemorySourceSupplier target = new GoogleMemorySourceSupplier("memorize.it.test@gmail.com", "MemorizeIt", spreadsheetName);
+
+            //act
+
+            target.CreateTemplate();
+
+            //assert
+            var spreadsheet = target.GetSourcesList();
+            Assert.That(spreadsheet.Count(), Is.EqualTo(1));
 
         }
 
