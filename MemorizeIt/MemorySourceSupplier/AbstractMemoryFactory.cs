@@ -26,5 +26,9 @@ namespace MemorizeIt.MemorySourceSupplier
             get { return MemorySources.GetSourcesList(); }
         }
 		public virtual ICredentialsStorage CredentialsStorage { get{return null;} }
+
+		public void CreateTemplate (){
+			memourySource.CreateTemplate ();
+		}
 	}
 }

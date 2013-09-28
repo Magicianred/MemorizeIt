@@ -4,6 +4,7 @@ using MonoTouch.UIKit;
 using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
 using GoogleMemorySupplier;
 using MemorizeIt.MemorySourceSupplier;
+using MonoTouch.Dialog;
 
 namespace MemorizeIt.IOs.Screens
 {
@@ -71,6 +72,20 @@ namespace MemorizeIt.IOs.Screens
 				return string.Format ("Memory Sources for {0}", supplier.CredentialsStorage.GetCurrentUser ().Login);
 			return "Memory Sources";
 		}
+
+		protected override void AddElementsInCaseOfEmptyList (MonoTouch.Dialog.Section items)
+		{
+			base.AddElementsInCaseOfEmptyList (items);
+			if (!supplier.CredentialsStorage.IsLoggedIn)
+				return;
+
+			var createTemplateSuggestion = new MultilineElement ("But I'll create template for you if you click me");
+			createTemplateSuggestion.Tapped += () => {
+				this.ExecuteAsync (() => supplier.CreateTemplate (), PopulateSources);
+			};
+			items.Add (createTemplateSuggestion);
+		}
+
 		protected override string GetEmptyListReasonTitle ()
 		{
 			if (supplier.CredentialsStorage.IsLoggedIn)

@@ -65,13 +65,19 @@ namespace MemorizeIt.IOs.Screens
 		protected abstract string GetSectionTitle ();
 		protected abstract string GetEmptyListReasonTitle ();
 
+		protected virtual void AddElementsInCaseOfEmptyList (Section items)
+		{
+			items.Add (new MultilineElement (GetEmptyListReasonTitle ()));
+		}
+
 		protected RootElement CreateSection (List<string> listOfSources)
 		{
 			var items = new Section (GetSectionTitle ());
-			//var listOfSources = supplier.ListOfSources.ToList();
 			if (!listOfSources.Any ()) {
-				items.Add (new MultilineElement (GetEmptyListReasonTitle()));
-				return new RootElement ("") { items };
+				AddElementsInCaseOfEmptyList (items);
+				return new RootElement ("") {
+					items
+				};
 			}
 			var rGroup = new RadioGroup (-1);
 			foreach (var item in listOfSources) {

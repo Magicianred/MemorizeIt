@@ -12,5 +12,6 @@ namespace MemorizeIt.MemorySourceSupplier
         ICredentialsStorage CredentialsStorage { get; }
         MemoryTable DownloadMemories(string source );
         IEnumerable<string> ListOfSources { get; }
+		void CreateTemplate ();
     }
 }
