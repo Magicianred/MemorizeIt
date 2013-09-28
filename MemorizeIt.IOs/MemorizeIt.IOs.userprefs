@@ -1,28 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Screens/GoogleUpdateController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../MemorizeIt/MemorySourceSupplier/AbstractMemoryFactory.cs">
     <Files>
-      <File FileName="Screens/GoogleUpdateController.cs" Line="79" Column="5" />
-      <File FileName="Screens/PrivateGoogleUpdateController.cs" Line="1" Column="1" />
-      <File FileName="Countrols/SimpleAsyncWrapper.cs" Line="21" Column="42" />
-      <File FileName="AppDelegate.cs" Line="4" Column="7" />
+      <File FileName="Screens/GoogleUpdateController.cs" Line="70" Column="35" />
+      <File FileName="Screens/PrivateGoogleUpdateController.cs" Line="32" Column="17" />
+      <File FileName="Countrols/SimpleAsyncWrapper.cs" Line="1" Column="1" />
+      <File FileName="../MemorizeIt/MemorySourceSupplier/AbstractMemoryFactory.cs" Line="15" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="FileMemoryStorage" expanded="True">
-            <Node name="References" expanded="True" />
-          </Node>
-          <Node name="GoogleMemorySupplier" expanded="True" />
           <Node name="MemorizeIt" expanded="True">
             <Node name="MemorySourceSupplier" expanded="True" />
           </Node>
-          <Node name="MemorizeIt.IOs" expanded="True">
-            <Node name="References" expanded="True" />
+          <Node name="MemorizeIt.IOs" expanded="True" selected="True">
             <Node name="Countrols" expanded="True" />
-            <Node name="Screens" expanded="True">
-              <Node name="GoogleUpdateController.cs" selected="True" />
-            </Node>
+            <Node name="Screens" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -37,7 +30,9 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/Nastya/MemorizeIt/MemorizeIt.IOs/Screens/PrivateGoogleUpdateController.cs" line="32" column="17" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

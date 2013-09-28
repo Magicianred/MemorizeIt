@@ -81,7 +81,12 @@ namespace MemorizeIt.IOs.Screens
 
 			var createTemplateSuggestion = new MultilineElement ("But I'll create template for you if you click me");
 			createTemplateSuggestion.Tapped += () => {
-				this.ExecuteAsync (() => supplier.CreateTemplate (), PopulateSources);
+				this.ExecuteAsync (() => supplier.CreateTemplate (),
+				                   ()=>{ 
+					PopulateSources();
+					var dialod = new UIAlertView ("Done", "Spreadsheet with name MemorizeIt was created at your google drive", null, "I got it!", null);
+					dialod.Show();
+				});
 			};
 			items.Add (createTemplateSuggestion);
 		}

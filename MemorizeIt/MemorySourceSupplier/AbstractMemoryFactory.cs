@@ -21,10 +21,17 @@ namespace MemorizeIt.MemorySourceSupplier
             return MemorySources.Download(source);
         }
 
-        public virtual IEnumerable<string> ListOfSources
-        {
-            get { return MemorySources.GetSourcesList(); }
-        }
+        public virtual IEnumerable<string> ListOfSources {
+			get { 
+				try {
+					return MemorySources.GetSourcesList ();
+				} catch {
+					return new string[0];
+				}
+			 
+			}
+		
+		}
 		public virtual ICredentialsStorage CredentialsStorage { get{return null;} }
 
 		public void CreateTemplate (){

@@ -38,8 +38,6 @@ namespace GoogleMemorySupplier
             {
 
                 SpreadsheetFeed feed = service.Query(query);
-                if(feed.Entries.Count==0)
-                    throw new CredentialsException("spreadsheet is absent");
                 internalCredentials.LogIn(login, password);
             }
             catch (Exception e)

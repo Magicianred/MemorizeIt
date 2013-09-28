@@ -132,7 +132,7 @@ namespace GoogleMemorySupplier
             }
             var woorkSheets =
                 feed.Entries.OfType<SpreadsheetEntry>()
-                    .Where(spreadsheet => spreadsheet.Authors.Any(author => author.Email == userName))
+                    .Where(spreadsheet => spreadsheet.Authors.Any(author => author.Email ==userName || author.Name== userName))
                     .ToList();
             return
                 woorkSheets
