@@ -30,14 +30,15 @@ namespace MemorizeIt.IOs.Screens
 			Initialize ();
 		}
 		protected abstract IMemoryFactory CreateSupplier ();
+
 		protected virtual void Initialize()
 		{
 
 		}
 
-		public override void ViewDidLoad ()
+		public override void ViewWillAppear (bool animated)
 		{
-			base.ViewDidLoad ();
+			base.ViewWillAppear (animated);
 			PopulateSources ();
 		}
 
