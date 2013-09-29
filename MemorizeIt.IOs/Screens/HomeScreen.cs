@@ -46,7 +46,11 @@ namespace MemorizeIt.IOs.Screens {
 		{	
 			table = new UITableView ();
 
-			btnTrain = UIButton.FromType (UIButtonType.RoundedRect);
+			btnTrain = UIButton.FromType (UIButtonType.Custom);
+			btnTrain.Layer.BorderColor = UIColor.Gray.CGColor;
+			btnTrain.Layer.BorderWidth = 0.5f;
+			btnTrain.Layer.CornerRadius = 10.0f;
+
 			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Normal);
 			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Highlighted);
 			btnTrain.SetImage (UIImage.FromFile ("brain-50.png"), UIControlState.Disabled);
