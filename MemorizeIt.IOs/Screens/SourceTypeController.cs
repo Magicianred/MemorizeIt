@@ -11,8 +11,8 @@ namespace MemorizeIt.IOs.Screens
 {
 	public class SourceTypeController : DialogViewController
 	{
-		private  readonly DialogViewController privateController;
-		private  readonly DialogViewController publicController;
+		private readonly DialogViewController privateController;
+		private readonly DialogViewController publicController;
 
 
 
@@ -26,8 +26,12 @@ namespace MemorizeIt.IOs.Screens
 			base.ViewDidLoad ();
 			Root = new RootElement ("Update") {
 				new Section ("Sources"){ 
-					new RootElement("Public",(r)=>publicController),
-					new RootElement("Private",(r)=>privateController)}
+					new RootElement("Public",(r)=>{
+						publicController.ViewWillAppear(true);
+						return publicController;}),
+					new RootElement("Private",(r)=>{
+						privateController.ViewWillAppear(true);
+						return privateController;})}
 
 			};
 		}	

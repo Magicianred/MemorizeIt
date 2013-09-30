@@ -3,6 +3,7 @@ using MemorizeIt.IOs.Screens;
 using MemorizeIt.MemoryStorage;
 using GoogleMemorySupplier;
 using MemorizeIt.MemorySourceSupplier;
+using MonoTouch.Dialog;
 
 namespace MemorizeIt.IOs.Screens
 {

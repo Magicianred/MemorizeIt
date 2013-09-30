@@ -15,6 +15,7 @@ namespace MemorizeIt.IOs.Screens
 		public PrivateGoogleUpdateController (IMemoryStorage store):base(store)
 		{
 		}
+
 		protected override IMemoryFactory CreateSupplier (){
 			return new GoogleMemoryFactory ();
 		}

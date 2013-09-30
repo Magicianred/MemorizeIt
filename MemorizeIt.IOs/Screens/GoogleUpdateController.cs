@@ -24,7 +24,6 @@ namespace MemorizeIt.IOs.Screens
 		public GoogleUpdateController(IMemoryStorage store):
 			base(UITableViewStyle.Grouped, null,true)
 		{
-			
 			this.store = store;
 			this.supplier = CreateSupplier ();
 			Initialize ();
@@ -33,8 +32,13 @@ namespace MemorizeIt.IOs.Screens
 
 		protected virtual void Initialize()
 		{
-
 		}
+
+		/*public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			PopulateSources ();
+		}*/
 
 		public override void ViewWillAppear (bool animated)
 		{
@@ -60,7 +64,6 @@ namespace MemorizeIt.IOs.Screens
 			                   () => {
 				Root = CreateSection (listOfSources);}
 			);
-			
 		}
 
 		protected abstract string GetSectionTitle ();
