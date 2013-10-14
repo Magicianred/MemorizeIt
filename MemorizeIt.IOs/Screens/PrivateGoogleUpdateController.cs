@@ -25,13 +25,26 @@ namespace MemorizeIt.IOs.Screens
 			btnLogin =
 				new UIBarButtonItem ("",UIBarButtonItemStyle.Plain, (s,e) => Login ());
 			this.NavigationItem.SetRightBarButtonItem(btnLogin,false);
-			this.NavigationItem.Title="My Google Drive Memories";
+			this.NavigationItem.Title="My Google Drive";
 		}
 
 		protected override void PopulateSources ()
 		{
+			btnLogin.Enabled = false;
 			base.PopulateSources ();
 			btnLogin.Title = supplier.CredentialsStorage.IsLoggedIn?"Log out":"Log in";
+
+		}
+
+		protected override void OnSourcesRecivedSuccefully (System.Collections.Generic.List<string> listOfSources)
+		{
+			base.OnSourcesRecivedSuccefully (listOfSources);
+			btnLogin.Enabled = true;
+		}
+		protected override void OnSourcesRecivedUnsuccefully (Exception e)
+		{
+			base.OnSourcesRecivedUnsuccefully (e);
+			btnLogin.Enabled = true;
 		}
 
 		protected void Login(){
@@ -43,7 +56,7 @@ namespace MemorizeIt.IOs.Screens
 			}
 
 
-			var dialod = new UIAlertView ("Enter credentials", "", null, "Cancel", null);
+			var dialod = new UIAlertView ("Enter Google Drive credentials", "", null, "Cancel", null);
 
 			dialod.AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput;
 			dialod.GetTextField (0).KeyboardType = UIKeyboardType.EmailAddress;
@@ -56,11 +69,12 @@ namespace MemorizeIt.IOs.Screens
 			{
 				if (e.ButtonIndex == 0)
 					return;
-				var userName=dialod.GetTextField (0).Text;
-				var password=dialod.GetTextField (1).Text;
+				var userName = dialod.GetTextField (0).Text;
+				var password = dialod.GetTextField (1).Text;
 				this.ExecuteAsync (() => {
-
-					supplier.CredentialsStorage.LogIn (userName,password);
+					
+					btnLogin.Enabled = false;
+					supplier.CredentialsStorage.LogIn (userName, password);
 					
 				}, PopulateSources);
 			};
@@ -76,17 +90,19 @@ namespace MemorizeIt.IOs.Screens
 
 		protected override void AddElementsInCaseOfEmptyList (MonoTouch.Dialog.Section items)
 		{
-			base.AddElementsInCaseOfEmptyList (items);
-			if (!supplier.CredentialsStorage.IsLoggedIn)
+			if (!supplier.CredentialsStorage.IsLoggedIn) {
+				
+				base.AddElementsInCaseOfEmptyList (items);
 				return;
+			}
 
-			var createTemplateSuggestion = new MultilineElement ("But I'll create template for you if you click me");
+			var createTemplateSuggestion = new MultilineElement ("Memory sources are absent. But I'll create template for you if you tap me");
 			createTemplateSuggestion.Tapped += () => {
 				this.ExecuteAsync (() => supplier.CreateTemplate (),
-				                   ()=>{ 
-					PopulateSources();
-					var dialod = new UIAlertView ("Done", "Spreadsheet with name MemorizeIt was created at your google drive", null, "I got it!", null);
-					dialod.Show();
+				                   () => { 
+					PopulateSources ();
+					var dialod = new UIAlertView ("Done", "Spreadsheet with name MemorizeIt was created at your Google Drive", null, "I got it!", null);
+					dialod.Show ();
 				});
 			};
 			items.Add (createTemplateSuggestion);
@@ -94,9 +110,7 @@ namespace MemorizeIt.IOs.Screens
 
 		protected override string GetEmptyListReasonTitle ()
 		{
-			if (supplier.CredentialsStorage.IsLoggedIn)
-				return "Memory sources are absent";
-			return "Sources are  not avalible, please log in";
+			return "Sources are not available, please log in";
 		}
 	}
 }

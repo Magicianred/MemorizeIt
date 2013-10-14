@@ -62,12 +62,18 @@ namespace MemorizeIt.IOs.Screens
 				listOfSources = supplier.ListOfSources.ToList ();},
 			  
 			                   () => {
-				Root = CreateSection (listOfSources);}
+				OnSourcesRecivedSuccefully (listOfSources);}, OnSourcesRecivedUnsuccefully
 			);
 		}
 
 		protected abstract string GetSectionTitle ();
 		protected abstract string GetEmptyListReasonTitle ();
+
+		protected virtual void OnSourcesRecivedSuccefully(List<string> listOfSources){			
+			Root = CreateSection (listOfSources);
+		}
+		protected virtual void OnSourcesRecivedUnsuccefully(Exception e){
+		}
 
 		protected virtual void AddElementsInCaseOfEmptyList (Section items)
 		{

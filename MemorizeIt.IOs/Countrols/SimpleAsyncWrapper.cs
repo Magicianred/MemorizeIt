@@ -8,8 +8,8 @@ namespace MemorizeIt.IOs
 	{
 		public static void ExecuteAsync(this UIViewController contrller, 
 		                                Action action,
-		                                Action successHandler){
-			var loadingOverlay = new LoadingOverlay (UIScreen.MainScreen.Bounds);
+		                                Action successHandler, Action<Exception> errorHandler){
+			var loadingOverlay = new LoadingOverlay (contrller.View.Frame);
 			contrller.View.Add (loadingOverlay);
 			Task.Factory.StartNew (() =>
 			{
@@ -18,6 +18,7 @@ namespace MemorizeIt.IOs
 				} catch (Exception exception) {
 					contrller.InvokeOnMainThread (() => {
 						RemoveLoadingOverlay (loadingOverlay);
+						errorHandler(exception);
 						new UIAlertView ("Error", exception.Message, null, "OK",
 						                 null).Show ();
 					});
@@ -28,6 +29,12 @@ namespace MemorizeIt.IOs
 				}
 				);
 			});
+		}
+
+		public static void ExecuteAsync(this UIViewController contrller, 
+		                                Action action,
+		                                Action successHandler){
+			ExecuteAsync (contrller, action,successHandler, (e) => {});
 		}
 
 		static void RemoveLoadingOverlay (LoadingOverlay loadingOverlay)

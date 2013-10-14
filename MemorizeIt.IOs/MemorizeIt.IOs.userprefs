@@ -1,17 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.7.0" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Screens/PublicUpdateController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Screens/PrivateGoogleUpdateController.cs">
     <Files>
-      <File FileName="Screens/GoogleUpdateController.cs" Line="35" Column="4" />
-      <File FileName="Screens/PrivateGoogleUpdateController.cs" Line="11" Column="61" />
-      <File FileName="Countrols/SimpleAsyncWrapper.cs" Line="1" Column="1" />
-      <File FileName="../MemorizeIt/MemorySourceSupplier/AbstractMemoryFactory.cs" Line="13" Column="54" />
-      <File FileName="../GoogleMemorySupplier/GoogleMemorySourceSupplier.cs" Line="125" Column="43" />
-      <File FileName="Screens/HomeScreen.cs" Line="52" Column="40" />
-      <File FileName="Screens/MenuController.cs" Line="1" Column="1" />
-      <File FileName="Screens/SourceTypeController.cs" Line="21" Column="34" />
-      <File FileName="AppDelegate.cs" Line="1" Column="1" />
-      <File FileName="Screens/PublicUpdateController.cs" Line="1" Column="1" />
+      <File FileName="Screens/GoogleUpdateController.cs" Line="73" Column="4" />
+      <File FileName="Screens/PrivateGoogleUpdateController.cs" Line="17" Column="4" />
+      <File FileName="Screens/SourceTypeController.cs" Line="22" Column="51" />
+      <File FileName="Screens/PublicUpdateController.cs" Line="12" Column="34" />
+      <File FileName="Screens/HomeScreen.cs" Line="61" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -20,12 +15,10 @@
           <Node name="MemorizeIt" expanded="True">
             <Node name="MemorySourceSupplier" expanded="True" />
           </Node>
-          <Node name="MemorizeIt.IOs" expanded="True">
+          <Node name="MemorizeIt.IOs" expanded="True" selected="True">
             <Node name="References" expanded="True" />
             <Node name="Countrols" expanded="True" />
-            <Node name="Screens" expanded="True">
-              <Node name="PublicUpdateController.cs" selected="True" />
-            </Node>
+            <Node name="Screens" expanded="True" />
           </Node>
         </State>
       </Pad>

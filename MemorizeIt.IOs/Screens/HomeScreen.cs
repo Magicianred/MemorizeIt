@@ -58,7 +58,7 @@ namespace MemorizeIt.IOs.Screens {
 			btnTrain.TouchUpInside += (sender,e) => Train ();
 
 			btnBarUpdate =
-				new UIBarButtonItem ("Update", UIBarButtonItemStyle.Plain, (s,e) => Update ());
+				new UIBarButtonItem ("Load", UIBarButtonItemStyle.Plain, (s,e) => Update ());
 
 		}
 
