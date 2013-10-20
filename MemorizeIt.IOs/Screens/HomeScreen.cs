@@ -77,6 +77,9 @@ namespace MemorizeIt.IOs.Screens {
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();	
+			
+			View.BackgroundColor = UIColor.White;
+
 			View.AddSubview (table);
 			View.AddSubview (btnTrain);
 

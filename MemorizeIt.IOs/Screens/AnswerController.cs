@@ -28,6 +28,7 @@ namespace MemorizeIt.IOs
 			lblQuestion.TextAlignment = UITextAlignment.Center;
 			lblQuestion.Lines = 0;
 			lblQuestion.LineBreakMode = UILineBreakMode.WordWrap;
+			lblQuestion.Font = UIFont.BoldSystemFontOfSize (UIFont.LabelFontSize);
 		}
 
 		public override void ViewDidLoad ()
@@ -101,7 +102,7 @@ namespace MemorizeIt.IOs
 
 		protected void ShowQuestion(string question)
 		{
-			lblQuestion.Text = "I have a question for you - " + question;
+			lblQuestion.Text = question;
 		}
 
 		protected void ShowSuccessDialog(string answer){
