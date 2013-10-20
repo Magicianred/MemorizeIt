@@ -26,7 +26,7 @@ namespace MemorizeIt.IOs
 
 			lblQuestion = new UILabel ();
 			lblQuestion.TextAlignment = UITextAlignment.Center;
-			lblQuestion.Lines = 0;
+			//lblQuestion.Lines = 0;
 			lblQuestion.LineBreakMode = UILineBreakMode.WordWrap;
 			lblQuestion.Font = UIFont.BoldSystemFontOfSize (UIFont.LabelFontSize);
 		}
@@ -65,16 +65,18 @@ namespace MemorizeIt.IOs
 
 		private void AjustLayoutToScreen(){
 
-			lblQuestion.Frame = new RectangleF (defaultPadding, 
-			                                    this.NavigationController.NavigationBar.Frame.Height + defaultPadding + 10, 
-			                                    View.Frame.Width - defaultPadding * 2, 
-			                                    View.Frame.Height);
-			lblQuestion.SizeToFit ();
+			var containerWidth = View.Frame.Width - defaultPadding * 2;
 
+			var stringSize =
+				new NSString (lblQuestion.Text).StringSize (lblQuestion.Font, new SizeF (containerWidth, 
+			                                                                          View.Frame.Height));
+			lblQuestion.Frame = new RectangleF (defaultPadding, 
+			                                    this.NavigationController.NavigationBar.Frame.Height + defaultPadding + 10,
+			                                    containerWidth, stringSize.Height);
 			tfAnswer.SizeToFit ();
 			tfAnswer.Frame = new RectangleF (defaultPadding, 
 			                                 lblQuestion.Frame.Y+lblQuestion.Frame.Height + defaultPadding, 
-			                                 View.Frame.Width - defaultPadding * 2, tfAnswer.Frame.Height);
+			                                 containerWidth, tfAnswer.Frame.Height);
 		}
 
 		private void tfAnswer_didEndOnExit(object sender, EventArgs e){
