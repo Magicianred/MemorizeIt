@@ -29,6 +29,7 @@ namespace MemorizeIt.IOs.Screens {
         private readonly IMemoryStorage store;
         private readonly SimpleMemoryTrainer trainer;
 		private SourceTypeController updateController;
+		private AnswerController answerControlle;
 
 		public HomeScreen(IMemoryStorage store)
 			: base()
@@ -98,64 +99,11 @@ namespace MemorizeIt.IOs.Screens {
 
         protected void Train()
         {
-            trainer.PickQuestion();
-            ShowQuestion(trainer.CurrentQuestion.Question);
+			
+			if (answerControlle == null)
+				answerControlle = new AnswerController (this.store);
+			this.NavigationController.PushViewController (answerControlle, true);	
         }
-
-        protected void ShowQuestion(string question)
-		{
-
-			var dialod = new UIAlertView ("I have a question for you", question, null, "Stop", null);
-			dialod.AlertViewStyle = UIAlertViewStyle.PlainTextInput;
-			dialod.AddButton ("Answer");
-
-			dialod.Show ();
-
-			dialod.Clicked += (sender, e) =>
-			{
-				if (e.ButtonIndex == 0) {
-					trainer.Clear ();
-					return;
-				}
-				var answer = dialod.GetTextField (0).Text;
-				var result = trainer.Validate (answer);
-				if (result) {                      
-					ShowSuccessDialog (answer);
-				} else {
-					ShowFaliureDialog(answer);
-				}                   
-			};
-
-		}
-
-		protected void ShowSuccessDialog(string answer){
-			var dialog = new UIAlertView ("Well Done!", 
-			                              string.Format ("'{0}' is correct answer for '{1}'", 
-			               					answer, trainer.CurrentQuestion.Question), 
-			                              null, "Stop", null);
-			AddNextButtonToDialogAndAssignTrainActionAction (dialog);
-			dialog.Show ();
-		}
-
-		protected void ShowFaliureDialog(string answer){
-			var dialog = new UIAlertView ("Wrong",
-			                              string.Format (
-				"Correct answer for '{2}' is '{1}'. Your answer was '{0}'", answer,
-				trainer.CurrentQuestion.Answer, trainer.CurrentQuestion.Question), null, "Stop", null);
-			AddNextButtonToDialogAndAssignTrainActionAction (dialog);
-			dialog.Show ();		
-		}
-
-		protected void AddNextButtonToDialogAndAssignTrainActionAction(UIAlertView dialog){
-			dialog.AddButton ("Next");
-			dialog.Clicked += (s,e) => {				
-				trainer.Clear ();
-				if (e.ButtonIndex == 0) {
-					return;
-				}
-				Train ();
-			};
-		}
 
 		void PutButtonAtTheBottom ()
 		{
