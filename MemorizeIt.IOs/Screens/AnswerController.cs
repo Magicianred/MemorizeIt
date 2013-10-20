@@ -109,7 +109,7 @@ namespace MemorizeIt.IOs
 
 		protected void ShowSuccessDialog(string answer){
 			var dialog = new UIAlertView ("Well Done!", 
-			                              string.Format ("'{0}' is correct answer for '{1}'", 
+			                              string.Format ("'{0}' is correct answer for question \"{1}\"", 
 			               answer, trainer.CurrentQuestion.Question), 
 			                              null, "Stop", null);
 			AddNextButtonToDialogAndAssignTrainActionAction (dialog);
@@ -117,10 +117,10 @@ namespace MemorizeIt.IOs
 		}
 
 		protected void ShowFaliureDialog(string answer){
-			var dialog = new UIAlertView ("Wrong",
+			var dialog = new UIAlertView ("Incorrect",
 			                              string.Format (
-				"Correct answer for '{2}' is '{1}'. Your answer was '{0}'", answer,
-				trainer.CurrentQuestion.Answer, trainer.CurrentQuestion.Question), null, "Stop", null);
+				"'{1}' is correct answer for question \"{2}\", your answer was '{0}'", answer,
+				trainer.CurrentQuestion.Answer.ToUpper(), trainer.CurrentQuestion.Question), null, "Stop", null);
 			AddNextButtonToDialogAndAssignTrainActionAction (dialog);
 			dialog.Show ();		
 		}

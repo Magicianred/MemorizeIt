@@ -24,8 +24,8 @@ namespace MemorizeIt.IOs.Screens
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			Root = new RootElement ("Update") {
-				new Section ("Sources"){ 
+			Root = new RootElement ("Sources") {
+				new Section (""){ 
 					new RootElement("Public",(r)=>{
 						publicController.ViewWillAppear(true);
 						return publicController;}),

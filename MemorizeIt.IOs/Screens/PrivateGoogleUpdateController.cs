@@ -32,7 +32,7 @@ namespace MemorizeIt.IOs.Screens
 		{
 			btnLogin.Enabled = false;
 			base.PopulateSources ();
-			btnLogin.Title = supplier.CredentialsStorage.IsLoggedIn?"Log out":"Log in";
+			btnLogin.Title = supplier.CredentialsStorage.IsLoggedIn?"Logout":"Login";
 
 		}
 
@@ -61,7 +61,7 @@ namespace MemorizeIt.IOs.Screens
 			dialod.AlertViewStyle = UIAlertViewStyle.LoginAndPasswordInput;
 			dialod.GetTextField (0).KeyboardType = UIKeyboardType.EmailAddress;
 
-			dialod.AddButton ("Log in");
+			dialod.AddButton ("Login");
 
 			dialod.Show ();
 
@@ -85,32 +85,33 @@ namespace MemorizeIt.IOs.Screens
 		{
 			if (supplier.CredentialsStorage.IsLoggedIn)
 				return string.Format ("Memory Sources for {0}", supplier.CredentialsStorage.GetCurrentUser ().Login);
-			return "Memory Sources";
+			return "My Memory Sources";
 		}
 
 		protected override void AddElementsInCaseOfEmptyList (MonoTouch.Dialog.Section items)
 		{
-			if (!supplier.CredentialsStorage.IsLoggedIn) {
-				
+			if (!supplier.CredentialsStorage.IsLoggedIn) {				
 				base.AddElementsInCaseOfEmptyList (items);
 				return;
 			}
 
-			var createTemplateSuggestion = new MultilineElement ("Memory sources are absent. But I'll create template for you if you tap me");
+			var createTemplateSuggestion = new MultilineElement ("Sources was't found. Tap to create source spreadsheet at your Google Drive ");
+
 			createTemplateSuggestion.Tapped += () => {
-				this.ExecuteAsync (() => supplier.CreateTemplate (),
-				                   () => { 
+				this.ExecuteAsync (supplier.CreateTemplate,
+				() => { 
 					PopulateSources ();
 					var dialod = new UIAlertView ("Done", "Spreadsheet with name MemorizeIt was created at your Google Drive", null, "I got it!", null);
 					dialod.Show ();
 				});
 			};
+
 			items.Add (createTemplateSuggestion);
 		}
 
 		protected override string GetEmptyListReasonTitle ()
 		{
-			return "Sources are not available, please log in";
+			return "Please login to see your sources";
 		}
 	}
 }

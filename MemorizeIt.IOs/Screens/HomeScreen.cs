@@ -59,7 +59,7 @@ namespace MemorizeIt.IOs.Screens {
 			btnTrain.TouchUpInside += (sender,e) => Train ();
 
 			btnBarUpdate =
-				new UIBarButtonItem ("Load", UIBarButtonItemStyle.Plain, (s,e) => Update ());
+				new UIBarButtonItem ("Sources", UIBarButtonItemStyle.Plain, (s,e) => Update ());
 
 		}
 
@@ -136,7 +136,7 @@ namespace MemorizeIt.IOs.Screens {
 			if (!this.IsViewLoaded)
 				return;
 			if (store.Empty ()) {
-				new UIAlertView ("Memories are empty", "Please upload memories", null, "OK", null).Show ();
+				new UIAlertView ("Nothing to Memorize", "Please load from sources", null, "OK", null).Show ();
 
 				Update ();
 				return;

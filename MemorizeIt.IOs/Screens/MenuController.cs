@@ -42,7 +42,7 @@ namespace MemorizeIt.IOs
 
 		protected void HandleMemoriesClick(){
 			if (storage.Empty()) {
-				new UIAlertView ("Memories are empty", "Please upload memories", null, "OK", null).Show ();
+				new UIAlertView ("Nothing to Memorize", "Please load from sources", null, "OK", null).Show ();
 
 				return;
 			}

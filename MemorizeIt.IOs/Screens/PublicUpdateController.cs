@@ -23,7 +23,7 @@ namespace MemorizeIt.IOs.Screens
 
 		protected override string GetEmptyListReasonTitle ()
 		{
-			return "Public memory sources are absent";
+			return "No sources at this time";
 		}
 	}
 }
