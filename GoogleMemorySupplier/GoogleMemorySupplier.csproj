@@ -30,15 +30,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore Distribution|iPhone' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\AppStore Distribution</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Google.GData.AccessControl, Version=2.2.0.0, Culture=neutral, PublicKeyToken=b4b8eb9a7afc8328, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\external\Google.GData.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.GData.Documents, Version=2.2.0.0, Culture=neutral, PublicKeyToken=e4daaad656f19bb9, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\external\Google.GData.Documents.dll</HintPath>
-    </Reference>
     <Reference Include="Google.GData.Spreadsheets">
       <HintPath>..\external\Google.GData.Spreadsheets.dll</HintPath>
     </Reference>
@@ -51,6 +48,12 @@
     <Reference Include="System.Xml" />
     <Reference Include="Google.GData.Client">
       <HintPath>..\external\Google.GData.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.AccessControl">
+      <HintPath>..\external\Google.GData.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.GData.Documents">
+      <HintPath>..\external\Google.GData.Documents.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

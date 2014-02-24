@@ -84,8 +84,8 @@ namespace MemorizeIt.IOs.Screens
 		protected override string GetSectionTitle ()
 		{
 			if (supplier.CredentialsStorage.IsLoggedIn)
-				return string.Format ("Memory Sources for {0}", supplier.CredentialsStorage.GetCurrentUser ().Login);
-			return "My Memory Sources";
+				return string.Format ("Dictionaries for {0}", supplier.CredentialsStorage.GetCurrentUser ().Login);
+			return "My dictionaries";
 		}
 
 		protected override void AddElementsInCaseOfEmptyList (MonoTouch.Dialog.Section items)

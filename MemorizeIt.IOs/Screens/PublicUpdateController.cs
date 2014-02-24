@@ -18,12 +18,12 @@ namespace MemorizeIt.IOs.Screens
 		}
 		protected override string GetSectionTitle ()
 		{
-			return "Public Memory Sources";
+			return "Public dictionaries";
 		}
 
 		protected override string GetEmptyListReasonTitle ()
 		{
-			return "No sources at this time";
+			return "No dictionaries at this time";
 		}
 	}
 }

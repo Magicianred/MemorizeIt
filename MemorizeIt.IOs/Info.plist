@@ -12,9 +12,14 @@
 		<string>brain-144</string>
 		<string>brain-100</string>
 		<string>Resources/brain-114.png</string>
+		<string>Icon-60@2x</string>
+		<string>Icon-76</string>
+		<string>Icon-76@2x</string>
+		<string>Icon-Small-40</string>
+		<string>Icon-Small-40@2x</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.xamarin.samples.memorizeitios</string>
+	<string>com.conf.memorizeit</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>UIDeviceFamily</key>
@@ -25,6 +30,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
@@ -32,16 +38,20 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>CFBundleDisplayName</key>
-	<string>MemorizeIt</string>
+	<string>Memorize It Easy</string>
 	<key>MinimumOSVersion</key>
-	<string>3.0</string>
+	<string>6.0</string>
 	<key>NSMainNibFile</key>
 	<string></string>
 	<key>NSMainNibFile~ipad</key>
 	<string></string>
 	<key>MKDirectionsApplicationSupportedModes</key>
 	<array/>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 </dict>
 </plist>
