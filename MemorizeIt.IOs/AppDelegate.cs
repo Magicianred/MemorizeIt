@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GoogleMemorySupplier;
+using GoogleDictionarySupplier;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MemorizeIt.IOs.Screens;
-using FileMemoryStorage;
+using FileDictionaryStorage;
 using MonoTouch.SlideoutNavigation;
-using MemorizeIt.MemoryStorage;
+using MemorizeIt.DictionaryStorage;
 
 namespace MemorizeIt.IOs {
 	[Register ("AppDelegate")]
@@ -16,14 +16,14 @@ namespace MemorizeIt.IOs {
 		UIWindow window;
 
 	//	public SlideoutNavigationController Menu { get; private set; }
-		public IMemoryStorage storage{ get;private set;}
+		public IDictionaryStorage storage{ get;private set;}
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			// create a new window instance based on the screen size
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
-			storage = new FileSystemMemoryStorage ();
+			storage = new FileSystemDictionaryStorage ();
 		/*	Menu = new CustomSlideoutNavigationController ();
 
 		    Menu.MenuView = new MenuController(Menu, storage);*/

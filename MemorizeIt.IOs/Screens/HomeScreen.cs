@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
-using MemorizeIt.MemoryStorage;
-using MemorizeIt.MemorySourceSupplier;
+using MemorizeIt.DictionaryStorage;
+using MemorizeIt.DictionarySourceSupplier;
 
 using MemorizeIt.MemoryTrainers;
 using MemorizeIt.IOs.ApplicationLayer;
@@ -26,12 +26,12 @@ namespace MemorizeIt.IOs.Screens {
 		private UIButton btnTrain;
 		private UIBarButtonItem btnBarUpdate;
 		private UITableView table;
-        private readonly IMemoryStorage store;
+        private readonly IDictionaryStorage store;
         private readonly SimpleMemoryTrainer trainer;
 		private SourceTypeController updateController;
 		private AnswerController answerControlle;
 
-		public HomeScreen(IMemoryStorage store)
+		public HomeScreen(IDictionaryStorage store)
 			: base()
         {
 			this.store = store;

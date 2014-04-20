@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MemorizeIt;
-using MemorizeIt.MemorySourceSupplier;
-using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
+using MemorizeIt.DictionarySourceSupplier.CredentialsStorage;
 using MemorizeIt.Model;
+using MemorizeIt.DictionarySourceSupplier;
 
-namespace GoogleMemorySupplier
+namespace GoogleDictionarySupplier
 {
-    public class GoogleMemoryFactory : AbstractMemoryFactory
+    public class GoogleDictionaryFactory : AbstractDictionaryFactory
     {
         private readonly ICredentialsStorage credentials=new GoogleCredentials();
 
@@ -23,12 +23,12 @@ namespace GoogleMemorySupplier
 				return Enumerable.Empty<string> ();
 			}
 		}
-        protected override IMemorySourceSupplier CreateMemorySourceSupplier()
+        protected override IDictionarySourceSupplier CreateMemorySourceSupplier()
         {
             if (!credentials.IsLoggedIn)
                 throw new InvalidOperationException("user need to be logged in");
             var user = credentials.GetCurrentUser();
-            return new GoogleMemorySourceSupplier(user.Login, user.Password);
+            return new GoogleDictionarySourceSupplier(user.Login, user.Password);
         }
     }
 }

@@ -25,7 +25,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +33,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore Distribution|iPhone' ">
     <Optimize>false</Optimize>
@@ -42,23 +40,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MemorySourceSupplier\CredentialsStorage\Credentials.cs" />
-    <Compile Include="MemorySourceSupplier\CredentialsStorage\CredentialsException.cs" />
-    <Compile Include="MemorySourceSupplier\CredentialsStorage\ICredentialsStorage.cs" />
-    <Compile Include="MemorySourceSupplier\CredentialsStorage\InMemoryCredentialStorage.cs" />
-    <Compile Include="MemorySourceSupplier\IMemorySourceSupplier.cs" />
-    <Compile Include="MemorySourceSupplier\IMemoryFactory.cs" />
-    <Compile Include="MemoryStorage\DictionaryMemoryStorage.cs" />
-    <Compile Include="MemoryStorage\IMemoryStorage.cs" />
     <Compile Include="MemoryTrainers\IRandomizer.cs" />
     <Compile Include="MemoryTrainers\QuestionAndAnswer.cs" />
     <Compile Include="MemoryTrainers\SimpleMemoryTrainer.cs" />
     <Compile Include="MemoryTrainers\SimpleRandomizer.cs" />
-    <Compile Include="Model\MemoryItem.cs" />
-    <Compile Include="Model\MemoryTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MemorySourceSupplier\SimpleMemorySourceSupplier.cs" />
-    <Compile Include="MemorySourceSupplier\AbstractMemoryFactory.cs" />
+    <Compile Include="Model\DictionaryTable.cs" />
+    <Compile Include="Model\DictionaryItem.cs" />
+    <Compile Include="DictionaryStorage\DictionaryStorage.cs" />
+    <Compile Include="DictionaryStorage\IDictionaryStorage.cs" />
+    <Compile Include="DictionarySourceSupplier\CredentialsStorage\Credentials.cs" />
+    <Compile Include="DictionarySourceSupplier\CredentialsStorage\CredentialsException.cs" />
+    <Compile Include="DictionarySourceSupplier\CredentialsStorage\ICredentialsStorage.cs" />
+    <Compile Include="DictionarySourceSupplier\CredentialsStorage\InMemoryCredentialStorage.cs" />
+    <Compile Include="DictionarySourceSupplier\AbstractDictionaryFactory.cs" />
+    <Compile Include="DictionarySourceSupplier\IDictionaryFactory.cs" />
+    <Compile Include="DictionarySourceSupplier\IDictionarySourceSupplier.cs" />
+    <Compile Include="DictionarySourceSupplier\SimpleDictionarySourceSupplier.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

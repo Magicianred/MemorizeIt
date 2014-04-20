@@ -4,7 +4,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
-using MemorizeIt.MemoryStorage;
+using MemorizeIt.DictionaryStorage;
 
 
 namespace MemorizeIt.IOs.Screens
@@ -16,7 +16,7 @@ namespace MemorizeIt.IOs.Screens
 
 
 
-		public SourceTypeController (IMemoryStorage store) : base (UITableViewStyle.Grouped, null,true)
+		public SourceTypeController (IDictionaryStorage store) : base (UITableViewStyle.Grouped, null,true)
 		{
 			privateController = new PrivateGoogleUpdateController (store);
 			publicController = new PublicUpdateController (store);

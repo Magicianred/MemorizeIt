@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemorizeIt.IOs", "MemorizeI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemorizeIt", "..\MemorizeIt\MemorizeIt.csproj", "{7F3D6881-B625-4FB9-BD12-F122100EF6FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMemorySupplier", "..\GoogleMemorySupplier\GoogleMemorySupplier.csproj", "{4D1C2E27-24E4-4077-863B-072CF012492A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleDictionarySupplier", "..\GoogleMemorySupplier\GoogleDictionarySupplier.csproj", "{4D1C2E27-24E4-4077-863B-072CF012492A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileMemoryStorage", "..\FileMemoryStorage\FileMemoryStorage.csproj", "{AC3CE6DA-0BFE-41AB-9510-0B11B359AEBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDictionaryStorage", "..\FileMemoryStorage\FileDictionaryStorage.csproj", "{AC3CE6DA-0BFE-41AB-9510-0B11B359AEBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

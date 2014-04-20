@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
+using MemorizeIt.DictionarySourceSupplier.CredentialsStorage;
 using MemorizeIt.Model;
 
-namespace MemorizeIt.MemorySourceSupplier
+namespace MemorizeIt.DictionarySourceSupplier
 {
-	public abstract class AbstractMemoryFactory:IMemoryFactory
+	public abstract class AbstractDictionaryFactory:IDictionaryFactory
     {
-        private IMemorySourceSupplier memourySource;
-        protected abstract IMemorySourceSupplier CreateMemorySourceSupplier();
-        protected IMemorySourceSupplier MemorySources
+        private IDictionarySourceSupplier memourySource;
+        protected abstract IDictionarySourceSupplier CreateMemorySourceSupplier();
+        protected IDictionarySourceSupplier MemorySources
         {
             get { return memourySource ?? (memourySource = CreateMemorySourceSupplier()); }
         }
 
-        public MemoryTable DownloadMemories(string source)
+        public DictionaryTable DownloadMemories(string source)
         {
             return MemorySources.Download(source);
         }

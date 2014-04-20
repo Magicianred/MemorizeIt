@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using MemorizeIt.Model;
 
-namespace MemorizeIt.MemoryStorage
+namespace MemorizeIt.DictionaryStorage
 {
-    public interface IMemoryStorage
+    public interface IDictionaryStorage
     {
-        void Store(MemoryTable data);
+        void Store(DictionaryTable data);
         void Clear();
 		bool Empty();
         
-        MemoryItem GetItemById(Guid id);
-        IEnumerable<MemoryItem> Items { get; }
+        DictionaryItem GetItemById(Guid id);
+        IEnumerable<DictionaryItem> Items { get; }
 		string GetTableName ();
 
         void ItemSuccess(Guid id);

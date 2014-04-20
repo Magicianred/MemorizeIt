@@ -1,9 +1,9 @@
 using System;
-using MemorizeIt.MemoryStorage;
+using MemorizeIt.DictionaryStorage;
 using MonoTouch.UIKit;
-using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
-using GoogleMemorySupplier;
-using MemorizeIt.MemorySourceSupplier;
+using MemorizeIt.DictionarySourceSupplier.CredentialsStorage;
+using GoogleDictionarySupplier;
+using MemorizeIt.DictionarySourceSupplier;
 using MonoTouch.Dialog;
 
 namespace MemorizeIt.IOs.Screens
@@ -12,12 +12,12 @@ namespace MemorizeIt.IOs.Screens
 	{
 		private UIBarButtonItem btnLogin;
 
-		public PrivateGoogleUpdateController (IMemoryStorage store):base(store)
+		public PrivateGoogleUpdateController (IDictionaryStorage store):base(store)
 		{
 		}
 
-		protected override IMemoryFactory CreateSupplier (){
-			return new GoogleMemoryFactory ();
+		protected override IDictionaryFactory CreateSupplier (){
+			return new GoogleDictionaryFactory ();
 		}
 		protected override void Initialize ()
 		{

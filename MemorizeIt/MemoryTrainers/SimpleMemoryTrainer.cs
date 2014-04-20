@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MemorizeIt.MemoryStorage;
+using MemorizeIt.DictionaryStorage;
 using MemorizeIt.Model;
 
 namespace MemorizeIt.MemoryTrainers
 {
     public class SimpleMemoryTrainer
     {
-        private readonly IMemoryStorage storage;
+        private readonly IDictionaryStorage storage;
         private readonly IRandomizer randomizer;
-		public SimpleMemoryTrainer(IMemoryStorage storage){
+		public SimpleMemoryTrainer(IDictionaryStorage storage){
 			this.storage = storage;
 			this.randomizer = new SimpleRandomizer (this.storage);
 		}
-        public SimpleMemoryTrainer(IMemoryStorage storage, IRandomizer randomizer)
+        public SimpleMemoryTrainer(IDictionaryStorage storage, IRandomizer randomizer)
         {
             this.storage = storage;
             this.randomizer = randomizer;

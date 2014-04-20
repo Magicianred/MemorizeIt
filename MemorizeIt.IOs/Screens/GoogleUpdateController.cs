@@ -1,34 +1,32 @@
 using System;
-using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
+using MemorizeIt.DictionarySourceSupplier.CredentialsStorage;
 using MonoTouch.Dialog;
 using MonoTouch.UIKit;
-using MemorizeIt.MemoryStorage;
-using FileMemoryStorage;
+using MemorizeIt.DictionaryStorage;
 using System.Threading.Tasks;
-using MemorizeIt.MemorySourceSupplier;
+using MemorizeIt.DictionarySourceSupplier;
 //using GoogleMemorySupplier;
 using System.Drawing;
 using System.Linq;
 using MemorizeIt.Model;
-using GoogleMemorySupplier;
 using System.Collections.Generic;
 
 namespace MemorizeIt.IOs.Screens
 {
 	public abstract class GoogleUpdateController:DialogViewController
 	{
-		protected readonly IMemoryStorage store;
-	    protected readonly IMemoryFactory supplier;
+		protected readonly IDictionaryStorage store;
+	    protected readonly IDictionaryFactory supplier;
 
 
-		public GoogleUpdateController(IMemoryStorage store):
+		public GoogleUpdateController(IDictionaryStorage store):
 			base(UITableViewStyle.Grouped, null,true)
 		{
 			this.store = store;
 			this.supplier = CreateSupplier ();
 			Initialize ();
 		}
-		protected abstract IMemoryFactory CreateSupplier ();
+		protected abstract IDictionaryFactory CreateSupplier ();
 
 		protected virtual void Initialize()
 		{

@@ -8,7 +8,7 @@ using Google.GData.Client;
 using Google.GData.Client.ResumableUpload;
 using Google.GData.Documents;
 using Google.GData.Spreadsheets;
-using MemorizeIt.MemorySourceSupplier;
+using MemorizeIt.DictionarySourceSupplier;
 using MemorizeIt.Model;
 using SpreadsheetQuery = Google.GData.Spreadsheets.SpreadsheetQuery;
 
@@ -16,16 +16,16 @@ using SpreadsheetQuery = Google.GData.Spreadsheets.SpreadsheetQuery;
 using Google.GData.Client;
 using Google.GData.Spreadsheets;*/
 
-namespace GoogleMemorySupplier
+namespace GoogleDictionarySupplier
 {
-    public class GoogleMemorySourceSupplier : IMemorySourceSupplier
+    public class GoogleDictionarySourceSupplier : IDictionarySourceSupplier
     {
         private readonly string applicationName = "MemorizeIt";
         private readonly string spreadsheetName = "MemorizeIt";
         private readonly string userName;
         private readonly string password;
 
-        public GoogleMemorySourceSupplier(string userName, string password, string spreadsheetName = null)
+        public GoogleDictionarySourceSupplier(string userName, string password, string spreadsheetName = null)
         {
             if (!string.IsNullOrEmpty(spreadsheetName))
                 this.spreadsheetName = spreadsheetName;
@@ -47,13 +47,13 @@ namespace GoogleMemorySupplier
             return retval;
         }
 
-        public MemoryTable Download(string sheetName)
+        public DictionaryTable Download(string sheetName)
         {
             var service = new SpreadsheetsService(applicationName);
             WorksheetEntry worksheet = GetWorksheetEntres(service).FirstOrDefault(e => e.Title.Text == sheetName) as WorksheetEntry;
             if (worksheet == null)
                 return null;
-            List<MemoryItem> retval = new List<MemoryItem>();
+            List<DictionaryItem> retval = new List<DictionaryItem>();
 
             // Fetch the cell feed of the worksheet.
             CellQuery cellQuery = new CellQuery(worksheet.CellFeedLink);
@@ -64,10 +64,10 @@ namespace GoogleMemorySupplier
             for (int i = 0; i < cellFeed.Entries.Count; i = i + 2)
             {
                 retval.Add(
-                    new MemoryItem(new string[]
+                    new DictionaryItem(new string[]
                         {((CellEntry) cellFeed.Entries[i]).Value, ((CellEntry) cellFeed.Entries[i + 1]).Value}));
             }
-            return new MemoryTable(sheetName, retval.ToArray());
+            return new DictionaryTable(sheetName, retval.ToArray());
         }
 
         public void CreateTemplate()

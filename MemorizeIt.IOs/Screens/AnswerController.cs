@@ -1,7 +1,7 @@
 using System;
 using MonoTouch.UIKit;
 using MemorizeIt.MemoryTrainers;
-using MemorizeIt.MemoryStorage;
+using MemorizeIt.DictionaryStorage;
 using MonoTouch.Foundation;
 using System.Drawing;
 
@@ -14,7 +14,7 @@ namespace MemorizeIt.IOs
 		private readonly UILabel lblQuestion;
 		private readonly int defaultPadding = 20;
 
-		public AnswerController (IMemoryStorage store) : base ()
+		public AnswerController (IDictionaryStorage store) : base ()
 		{
 			this.trainer = new SimpleMemoryTrainer(store);
 			tfAnswer = new UITextField ();

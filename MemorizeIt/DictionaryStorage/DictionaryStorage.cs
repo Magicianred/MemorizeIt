@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using MemorizeIt.Model;
 
-namespace MemorizeIt.MemoryStorage
+namespace MemorizeIt.DictionaryStorage
 {
-    public class DictionaryMemoryStorage : IMemoryStorage
+    public class InMemoryDictionaryStorage : IDictionaryStorage
     {
-        private readonly Dictionary<Guid, MemoryItem> itemHolder;
+        private readonly Dictionary<Guid, DictionaryItem> itemHolder;
 		private string tableName;
 		private bool empty=true;
 
-		public DictionaryMemoryStorage(Dictionary<Guid, MemoryItem> itemHolder)
+		public InMemoryDictionaryStorage(Dictionary<Guid, DictionaryItem> itemHolder)
         {
             this.itemHolder = itemHolder;
         }
 
-        public DictionaryMemoryStorage():this(new Dictionary<Guid, MemoryItem>())
+        public InMemoryDictionaryStorage():this(new Dictionary<Guid, DictionaryItem>())
         {
         }
 
-        public void Store(MemoryTable data)
+        public void Store(DictionaryTable data)
         {
 			itemHolder.Clear();
             foreach (var memoryItem in data.Items)
@@ -47,7 +47,7 @@ namespace MemorizeIt.MemoryStorage
 		}
 
 
-        public MemoryItem GetItemById(Guid id)
+        public DictionaryItem GetItemById(Guid id)
         {
             return itemHolder[id];
         }
@@ -57,7 +57,7 @@ namespace MemorizeIt.MemoryStorage
 			return tableName;
 		}      
 
-        public IEnumerable<MemoryItem> Items {
+        public IEnumerable<DictionaryItem> Items {
 			get { return itemHolder.Select (i => i.Value); }
         }
 

@@ -7,9 +7,9 @@ using System.Linq;
 namespace MemorizeIt.IOs.Controls
 {
 	public class TableSource : UITableViewSource {
-		protected IList<MemoryItem> tableItems;
+		protected IList<DictionaryItem> tableItems;
 		protected string cellIdentifier = "TableCell";
-		public TableSource (IEnumerable<MemoryItem> items)
+		public TableSource (IEnumerable<DictionaryItem> items)
 		{
 			tableItems = items.ToList();
 		}

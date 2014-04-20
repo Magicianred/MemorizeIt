@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using MemorizeIt.Model;
 
-namespace MemorizeIt.MemorySourceSupplier
+namespace MemorizeIt.DictionarySourceSupplier
 {
-    public interface IMemorySourceSupplier
+    public interface IDictionarySourceSupplier
     {
-        MemoryTable Download(string sheetName);
+        DictionaryTable Download(string sheetName);
         IEnumerable<string> GetSourcesList();
         void CreateTemplate();
     }

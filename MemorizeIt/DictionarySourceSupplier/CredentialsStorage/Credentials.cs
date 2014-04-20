@@ -1,4 +1,4 @@
-namespace MemorizeIt.MemorySourceSupplier.CredentialsStorage
+namespace MemorizeIt.DictionarySourceSupplier.CredentialsStorage
 {
 	public class Credentials
 	{

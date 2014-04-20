@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
+using MemorizeIt.DictionarySourceSupplier.CredentialsStorage;
 using MemorizeIt.Model;
 
-namespace MemorizeIt.MemorySourceSupplier
+namespace MemorizeIt.DictionarySourceSupplier
 {
-    public interface IMemoryFactory
+    public interface IDictionaryFactory
     {
         ICredentialsStorage CredentialsStorage { get; }
-        MemoryTable DownloadMemories(string source );
+        DictionaryTable DownloadMemories(string source );
         IEnumerable<string> ListOfSources { get; }
 		void CreateTemplate ();
     }

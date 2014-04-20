@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
-using MemorizeIt.MemoryStorage;
-using MemorizeIt.MemorySourceSupplier;
+using MemorizeIt.DictionaryStorage;
+using MemorizeIt.DictionarySourceSupplier;
 
 using System.Drawing;
 

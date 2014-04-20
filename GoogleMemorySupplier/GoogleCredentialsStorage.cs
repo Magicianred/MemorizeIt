@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Google.GData.Spreadsheets;
 using MemorizeIt;
-using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
+using MemorizeIt.DictionarySourceSupplier.CredentialsStorage;
 
-namespace GoogleMemorySupplier
+namespace GoogleDictionarySupplier
 {
     public class GoogleCredentials : ICredentialsStorage
     {

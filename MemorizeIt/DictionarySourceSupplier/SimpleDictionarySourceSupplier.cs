@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace MemorizeIt.MemorySourceSupplier
+namespace MemorizeIt.DictionarySourceSupplier
 {
-    public class SimpleMemorySourceSupplier : IMemorySourceSupplier
+    public class SimpleDictionarySourceSupplier : IDictionarySourceSupplier
     {
-        private readonly MemoryTable source;
+        private readonly DictionaryTable source;
         private readonly IEnumerable<string> sourceList;
-        public SimpleMemorySourceSupplier(string name, IEnumerable<MemoryItem> items, IEnumerable<string> sourceList)
+        public SimpleDictionarySourceSupplier(string name, IEnumerable<DictionaryItem> items, IEnumerable<string> sourceList)
         {
-            this.source = new MemoryTable(name, items.ToArray());
+            this.source = new DictionaryTable(name, items.ToArray());
             this.sourceList = sourceList;
         }
 
-        public MemoryTable Download(string sheetName)
+        public DictionaryTable Download(string sheetName)
         {
             return source;
         }

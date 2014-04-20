@@ -4,26 +4,26 @@ using System.Linq;
 using System.Text;
 using Google.GData.Client;
 using Google.GData.Spreadsheets;
-using MemorizeIt.MemorySourceSupplier;
+using MemorizeIt.DictionarySourceSupplier;
 using MemorizeIt.Model;
 
-namespace GoogleMemorySupplier
+namespace GoogleDictionarySupplier
 {
-    public class PublicGoogleMemorySourceSupplier : IMemorySourceSupplier
+    public class PublicGoogleDictionarySourceSupplier : IDictionarySourceSupplier
     {
         private readonly string applicationName = "MemorizeIt";
         private readonly string spreadsheetKey;
         private readonly string userName;
         private readonly string password;
 
-        public PublicGoogleMemorySourceSupplier(string spreadsheetKey, string userName, string password)
+        public PublicGoogleDictionarySourceSupplier(string spreadsheetKey, string userName, string password)
         {
             this.spreadsheetKey = spreadsheetKey;
             this.userName = userName;
             this.password = password;
         }
 
-        public MemoryTable Download(string sheetName)
+        public DictionaryTable Download(string sheetName)
         {
             SpreadsheetsService service = new SpreadsheetsService(applicationName);
             service.setUserCredentials(userName, password);
@@ -35,13 +35,13 @@ namespace GoogleMemorySupplier
             cellQuery.MaximumColumn = 2;
 
             CellFeed cellFeed = service.Query(cellQuery);
-            List<MemoryItem> retval = new List<MemoryItem>();
+            List<DictionaryItem> retval = new List<DictionaryItem>();
             for (int i = 0; i < cellFeed.Entries.Count; i = i + 2)
             {
                 retval.Add(
-                    new MemoryItem(new string[] { ((CellEntry)cellFeed.Entries[i]).Value, ((CellEntry)cellFeed.Entries[i + 1]).Value }));
+                    new DictionaryItem(new string[] { ((CellEntry)cellFeed.Entries[i]).Value, ((CellEntry)cellFeed.Entries[i + 1]).Value }));
             }
-            return new MemoryTable(sheetName, retval.ToArray());
+            return new DictionaryTable(sheetName, retval.ToArray());
         
         }
 

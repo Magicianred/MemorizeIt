@@ -6,9 +6,9 @@ using Newtonsoft.Json;
 
 namespace MemorizeIt.Model
 {
-    public class MemoryItem
+    public class DictionaryItem
     {
-        public MemoryItem(params string[] values)
+        public DictionaryItem(params string[] values)
         {
             Id = Guid.NewGuid();
             Values = values;
@@ -16,7 +16,7 @@ namespace MemorizeIt.Model
         }
 
         [JsonConstructor]
-        public MemoryItem(Guid id, string[] values, int successCount)
+        public DictionaryItem(Guid id, string[] values, int successCount)
         {
             Id = id;
 			Values = values.Select (v => v.Trim ()).ToArray();

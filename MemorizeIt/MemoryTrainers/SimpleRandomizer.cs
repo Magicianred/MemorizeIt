@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MemorizeIt.MemoryStorage;
+using MemorizeIt.DictionaryStorage;
 using MemorizeIt.Model;
 
 namespace MemorizeIt.MemoryTrainers
@@ -10,8 +10,8 @@ namespace MemorizeIt.MemoryTrainers
     public class SimpleRandomizer : IRandomizer
     {
         private readonly Random random;
-        private readonly IMemoryStorage store;
-        public SimpleRandomizer(IMemoryStorage store)
+        private readonly IDictionaryStorage store;
+        public SimpleRandomizer(IDictionaryStorage store)
         {
             this.random=new Random();
             this.store = store;

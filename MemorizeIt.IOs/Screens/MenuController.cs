@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MemorizeIt.MemorySourceSupplier.CredentialsStorage;
+using MemorizeIt.DictionarySourceSupplier.CredentialsStorage;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
-using MemorizeIt.MemoryStorage;
+using MemorizeIt.DictionaryStorage;
 
 using MemorizeIt.IOs.Screens;
 using MonoTouch.SlideoutNavigation;
@@ -14,13 +14,13 @@ namespace MemorizeIt.IOs
 {
 	public partial class MenuController : DialogViewController
 	{
-		private readonly IMemoryStorage storage;
+		private readonly IDictionaryStorage storage;
 		private readonly SlideoutNavigationController menu;
 
 		private readonly UIViewController homeControlled;
 		private readonly UIViewController updateController;
 
-		public MenuController(SlideoutNavigationController menu,IMemoryStorage storage) 
+		public MenuController(SlideoutNavigationController menu,IDictionaryStorage storage) 
 			: base(UITableViewStyle.Plain,new RootElement(""))
 		{
 			this.menu = menu;
