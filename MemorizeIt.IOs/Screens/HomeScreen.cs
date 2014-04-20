@@ -136,7 +136,7 @@ namespace MemorizeIt.IOs.Screens {
 			if (!this.IsViewLoaded)
 				return;
 			if (store.Empty ()) {
-				new UIAlertView ("Nothing to Memorize", "Please load from sources", null, "OK", null).Show ();
+				new UIAlertView ("Nothing to learn", "Please load from sources", null, "OK", null).Show ();
 
 				Update ();
 				return;

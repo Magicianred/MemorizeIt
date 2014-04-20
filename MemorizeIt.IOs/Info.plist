@@ -19,7 +19,7 @@
 		<string>Icon-Small-40@2x</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.conf.memorizeit</string>
+	<string>com.conf.learnbyrote</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>UIDeviceFamily</key>
@@ -41,8 +41,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CFBundleDisplayName</key>
-	<string>Memorize It Easy</string>
 	<key>MinimumOSVersion</key>
 	<string>6.0</string>
 	<key>NSMainNibFile</key>
@@ -53,5 +51,7 @@
 	<array/>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleDisplayName</key>
+	<string>Learn by rote</string>
 </dict>
 </plist>
