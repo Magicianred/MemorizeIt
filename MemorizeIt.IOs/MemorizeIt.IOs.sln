@@ -61,5 +61,6 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = MemorizeIt.IOs.csproj
+		version = 0.2
 	EndGlobalSection
 EndGlobal

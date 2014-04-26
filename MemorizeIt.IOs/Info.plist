@@ -20,8 +20,6 @@
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.conf.learnbyrote</string>
-	<key>CFBundleVersion</key>
-	<string>1</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -50,8 +48,10 @@
 	<key>MKDirectionsApplicationSupportedModes</key>
 	<array/>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>Learn by rote</string>
+	<key>CFBundleVersion</key>
+	<string>2</string>
 </dict>
 </plist>

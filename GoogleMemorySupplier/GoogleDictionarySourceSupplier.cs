@@ -132,8 +132,7 @@ namespace GoogleDictionarySupplier
             }
             var woorkSheets =
                 feed.Entries.OfType<SpreadsheetEntry>()
-                    .Where(spreadsheet => spreadsheet.Authors.Any(author => author.Email ==userName || author.Name== userName))
-                    .ToList();
+                   .ToList();
             return
                 woorkSheets
                     .SelectMany(entry => entry.Worksheets.Entries.OfType<WorksheetEntry>());
