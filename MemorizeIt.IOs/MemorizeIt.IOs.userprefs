@@ -1,10 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="AppStore Distribution|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.A’s iPhone" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../GoogleMemorySupplier/GoogleDictionarySourceSupplier.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="AppStore Distribution|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../GoogleMemorySupplier/PublicGoogleDictionarySourceSupplier.cs">
     <Files>
-      <File FileName="../GoogleMemorySupplier/GoogleDictionarySourceSupplier.cs" Line="135" Column="20" />
-      <File FileName="Screens/PrivateGoogleUpdateController.cs" Line="1" Column="1" />
-      <File FileName="Countrols/SimpleAsyncWrapper.cs" Line="1" Column="1" />
+      <File FileName="../GoogleMemorySupplier/PublicGoogleDictionarySourceSupplier.cs" Line="28" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

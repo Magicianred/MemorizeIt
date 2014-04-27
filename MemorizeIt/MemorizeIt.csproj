@@ -58,6 +58,8 @@
     <Compile Include="DictionarySourceSupplier\IDictionaryFactory.cs" />
     <Compile Include="DictionarySourceSupplier\IDictionarySourceSupplier.cs" />
     <Compile Include="DictionarySourceSupplier\SimpleDictionarySourceSupplier.cs" />
+    <Compile Include="DictionarySourceSupplier\TempDictionarySupplier.cs" />
+    <Compile Include="DictionarySourceSupplier\TempDictionaryFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

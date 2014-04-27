@@ -14,7 +14,7 @@ namespace MemorizeIt.IOs.Screens
 		}
 		
 		protected override IDictionaryFactory CreateSupplier (){
-			return new PublicDictionaryFactory ("0Av18WO5DffIrdF9zVzVHZHM2UzdqeDY0X1doSmxOZ3c", "memorize.it.test@gmail.com", "MemorizeIt");
+			return new TempDictionaryFactory ();
 		}
 		protected override string GetSectionTitle ()
 		{
